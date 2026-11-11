@@ -32,6 +32,34 @@ Figma — traduzir aqui criaria uma segunda fonte da verdade dessincronizada do 
 Nomes de **componente** e de **prop**, que você pediu para virar inglês, são uma camada
 diferente (a API do código) e não têm esse vínculo direto com o Figma.
 
+## Tokens complementares do Button
+
+Adicionados em `tokens.css` para a necessidade real de alinhamento com AuroraDS;
+pendentes de reconciliação com as coleções do Figma em `tokens.json`. Não representam
+uma nova exportação do Figma nem uma alteração dos tokens compartilhados existentes.
+O consumo e a atualização de `tokensAllowed`/`decisions` do contrato vêm na etapa
+do contrato e da implementação. Nenhum desses tokens altera o Button nesta etapa.
+
+| Caminho no contrato | CSS | Claro / Escuro | Finalidade |
+|---|---|---|---|
+| `structural.botao-altura` | `--botao-altura` | 44px / 44px | Altura atual do botão preenchido |
+| `structural.borda-espessura` | `--borda-espessura` | 1px / 1px | Espessura atual da borda |
+| `structural.foco-deslocamento` | `--foco-deslocamento` | 2px / 2px | Distância atual entre botão e foco |
+| `structural.alvo-minimo` | `--alvo-minimo` | 24px / 24px | Alvo mínimo atual do botão link, perfil padrão |
+| `structural.botao-link-raio` | `--botao-link-raio` | 2px / 2px | Raio atual do link; avaliar `raio-pp` quando o fundo for implementado |
+| `structural.botao-demo-largura-maxima` | `--botao-demo-largura-maxima` | 520px / 520px | Largura máxima atual da demo Button |
+| `semantic.acao-link-fundo-sobreposto` | `--acao-link-fundo-sobreposto` | alias de `fundo-sucesso` nos dois temas | Fundo do hover verde, aproximado a partir da referência clara |
+| `semantic.acao-link-fundo-pressionado` | `--acao-link-fundo-pressionado` | alias de `acao-primaria-sobreposta` nos dois temas | Fundo sólido do pressed verde, com texto/ícone claros |
+| `semantic.acao-link-texto-pressionado` | `--acao-link-texto-pressionado` | alias de `acao-primaria-texto` nos dois temas | Cor de texto e ícone sobre o fundo pressed |
+
+Contador: reutilizar `semantic.fundo-info-forte` e `semantic.texto-invertido`,
+como Badge `info`, sem criar uma segunda paleta azul. Tipografia e espaçamento
+também seguem Badge. O azul é próximo, mas não idêntico ao PNG de referência.
+Disabled preserva o contador azul legível, como na referência; loading substitui
+o conteúdo visual pelo Spinner e preserva rótulo e contador no nome acessível.
+Para o Spinner durante loading, propor `semantic.texto-secundario` sobre
+`semantic.acao-carregando`: o par atual tem contraste inferior a 3:1.
+
 ## Convenção de CSS custom property (fixada após teste de determinismo)
 
 Ao gerar CSS/Tailwind a partir de um token, a variável CSS usa o nome do token **sem**

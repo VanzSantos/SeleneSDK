@@ -43,6 +43,12 @@
   --acao-link: #00000000;
   --acao-link-texto: #006631;
   --acao-link-texto-sobreposto: #00401e;
+  /* Button/link: fundos visíveis propostos a partir da referência AuroraDS.
+     Aliases preservam as famílias existentes e seus overrides de tema.
+     O componente ainda não consome estes tokens. */
+  --acao-link-fundo-sobreposto: var(--fundo-sucesso);
+  --acao-link-fundo-pressionado: var(--acao-primaria-sobreposta);
+  --acao-link-texto-pressionado: var(--acao-primaria-texto);
 
   /* Ações / Universais */
   --acao-inativa: #e5e7eb;
@@ -172,6 +178,14 @@
   --sombra-m: 0 4px 6px -1px rgba(17, 24, 39, 0.1), 0 2px 4px -2px rgba(17, 24, 39, 0.1);
 
   /* Estrutural */
+  /* Formalização das medidas atuais do Button e de sua demo, sem mudar layout.
+     Valores compartilhados entre Claro e Escuro. Consumo será feito depois. */
+  --botao-altura: 44px;
+  --borda-espessura: 1px;
+  --foco-deslocamento: 2px;
+  --alvo-minimo: 24px;
+  --botao-link-raio: 2px;
+  --botao-demo-largura-maxima: 520px;
   --raio-xp: 4px;
   --raio-pp: 8px;
   --raio-p: 12px;
