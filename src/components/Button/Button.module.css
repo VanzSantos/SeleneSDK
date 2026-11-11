@@ -1,12 +1,13 @@
 .button {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: var(--espaco-xp);
-  height: 44px;
+  height: var(--botao-altura);
   padding: 0 var(--espaco-m);
   border-radius: var(--raio-pp);
-  border: 1px solid transparent;
+  border: var(--borda-espessura) solid transparent;
   background: var(--btn-bg);
   --btn-content-color: var(--btn-text);
   color: var(--btn-content-color);
@@ -31,13 +32,37 @@
 
 .button:focus-visible {
   outline: var(--foco-espessura) solid var(--borda-foco);
-  outline-offset: 2px;
+  outline-offset: var(--foco-deslocamento);
 }
 
 .button:disabled {
   background: var(--acao-inativa);
   --btn-content-color: var(--acao-inativa-texto);
   cursor: not-allowed;
+}
+
+/* O contorno leve identifica o estado inativo sem alterar a paleta de ações. */
+.button:not(.link):disabled {
+  border-color: var(--borda-base);
+}
+
+.content {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--espaco-xp);
+}
+
+.loading .content {
+  visibility: hidden;
+}
+
+.loadingIndicator {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .fullWidth {
@@ -93,8 +118,8 @@
   --btn-text-hover: var(--acao-link-texto-sobreposto);
   height: auto;
   /* alvo mínimo de 24x24 (WCAG 2.5.8) — o botão-link sem padding ficava com 22x22 (só ícone) */
-  min-width: 24px;
-  min-height: 24px;
+  min-width: var(--alvo-minimo);
+  min-height: var(--alvo-minimo);
   padding: 0;
   border-radius: var(--raio-pp);
 }
@@ -129,7 +154,7 @@
 }
 
 :root[data-theme="dark"] .outlined.primary {
-  /* acao-primaria-sobreposta (#12693b) sobre o fundo escuro dava 2,68:1 de texto */
+  /* Tom primário anterior não atingia contraste de texto sobre o fundo escuro. */
   --btn-text: var(--acao-link-texto);
   border-color: var(--acao-link-texto);
 }
@@ -165,7 +190,6 @@
 }
 
 .outlined.link {
-  border-radius: var(--botao-link-raio);
   --btn-bg: transparent;
   --btn-bg-hover: transparent;
   --btn-bg-active: transparent;
@@ -184,9 +208,9 @@
    quando o rótulo visível dá lugar ao Spinner. */
 .srOnly {
   position: absolute;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
+  width: var(--borda-espessura);
+  height: var(--borda-espessura);
+  margin: calc(-1 * var(--borda-espessura));
   padding: 0;
   overflow: hidden;
   clip: rect(0 0 0 0);

@@ -37,8 +37,9 @@ diferente (a API do código) e não têm esse vínculo direto com o Figma.
 Adicionados em `tokens.css` para a necessidade real de alinhamento com AuroraDS;
 pendentes de reconciliação com as coleções do Figma em `tokens.json`. Não representam
 uma nova exportação do Figma nem uma alteração dos tokens compartilhados existentes.
-O consumo e a atualização de `tokensAllowed`/`decisions` do contrato vêm na etapa
-do contrato e da implementação. Nenhum desses tokens altera o Button nesta etapa.
+O consumo e a whitelist foram incorporados às etapas do contrato e da implementação.
+O antigo `botao-link-raio` (2px) foi removido na Etapa 3: todos os botões link,
+inclusive os exemplos deprecated de outlined, usam `raio-pp` com o fundo visível.
 
 | Caminho no contrato | CSS | Claro / Escuro | Finalidade |
 |---|---|---|---|
@@ -46,7 +47,6 @@ do contrato e da implementação. Nenhum desses tokens altera o Button nesta eta
 | `structural.borda-espessura` | `--borda-espessura` | 1px / 1px | Espessura atual da borda |
 | `structural.foco-deslocamento` | `--foco-deslocamento` | 2px / 2px | Distância atual entre botão e foco |
 | `structural.alvo-minimo` | `--alvo-minimo` | 24px / 24px | Alvo mínimo atual do botão link, perfil padrão |
-| `structural.botao-link-raio` | `--botao-link-raio` | 2px / 2px | Raio atual do link; avaliar `raio-pp` quando o fundo for implementado |
 | `structural.botao-demo-largura-maxima` | `--botao-demo-largura-maxima` | 520px / 520px | Largura máxima atual da demo Button |
 | `semantic.acao-link-fundo-sobreposto` | `--acao-link-fundo-sobreposto` | alias de `fundo-sucesso` nos dois temas | Fundo do hover verde, aproximado a partir da referência clara |
 | `semantic.acao-link-fundo-pressionado` | `--acao-link-fundo-pressionado` | alias de `acao-primaria-sobreposta` nos dois temas | Fundo sólido do pressed verde, com texto/ícone claros |

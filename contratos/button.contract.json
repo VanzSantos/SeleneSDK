@@ -187,8 +187,7 @@
     ],
     "radius": [
       "structural.raio-pp",
-      "structural.raio-circular",
-      "structural.botao-link-raio"
+      "structural.raio-circular"
     ],
     "focusRing": [
       "structural.foco-espessura",
@@ -198,7 +197,8 @@
     "spacing": [
       "structural.espaco-xp",
       "structural.espaco-pp",
-      "structural.espaco-m"
+      "structural.espaco-m",
+      "structural.espaco-g"
     ],
     "iconSize": [
       "structural.icone-medio",
@@ -206,7 +206,9 @@
     ],
     "typography": [
       "type-style.texto-rotulo-botao",
-      "type-style.texto-micro-forte"
+      "type-style.texto-micro-forte",
+      "type-style.texto-p",
+      "type-style.texto-m-forte"
     ],
     "border": [
       "semantic.acao-primaria-sobreposta",
@@ -215,7 +217,8 @@
       "semantic.acao-destrutiva-sobreposta",
       "semantic.acao-link-texto",
       "semantic.texto-erro",
-      "structural.borda-espessura"
+      "structural.borda-espessura",
+      "semantic.borda-base"
     ],
     "dimensions": [
       "structural.botao-altura",
@@ -302,7 +305,11 @@
     "CORRIGIDO — hover/pressed forçados agora têm data-state e seletores próprios; loading é protegido de hover/active. Texto e ícone compartilham a cor resolvida do estado, corrigindo link. Spinner usa texto-secundario para contraste, preservando o token compartilhado acao-carregando-texto.",
     "AJUSTADO a pedido do usuário — link usa aliases de fundo hover/pressed, texto/ícone claros no pressed, disabled transparente e raio-pp. outlined permanece deprecated e compatível até a Etapa 5; não houve migração de consumidores nesta etapa.",
     "EXTENSÃO — formalizadas medidas do Button/demo e aliases de link em tokens.css na Etapa 1, documentados em token-notation.md para reconciliação com Figma. Incluídos tokens de contador, borda-foco, texto-apoio-3 e texto-erro na whitelist; consumo completo de dimensões será tratado na Etapa 3.",
-    "AJUSTADO a pedido do usuário — preservadas cores compartilhadas das cinco variantes preenchidas. Referência clara AuroraDS difere em hover/pressed primário, cinzas neutral/subtle e vermelho destructive; secondary ausente da imagem. Não copiar vermelho claro que falha 4,5:1."
+    "AJUSTADO a pedido do usuário — preservadas cores compartilhadas das cinco variantes preenchidas. Referência clara AuroraDS difere em hover/pressed primário, cinzas neutral/subtle e vermelho destructive; secondary ausente da imagem. Não copiar vermelho claro que falha 4,5:1.",
+    "AJUSTADO a pedido do usuário — Etapa 3: altura, borda, offset de foco e alvo mínimo consomem botao-altura, borda-espessura, foco-deslocamento e alvo-minimo. O utilitário srOnly usa a espessura de borda como dimensão mínima, sem px fixo. Todas as variantes preservam raio-pp; botao-link-raio removido por ficar sem uso, inclusive no outlined deprecated.",
+    "AJUSTADO a pedido do usuário — disabled dos preenchidos reutiliza borda-base para contorno leve sobre acao-inativa, sem criar paleta nova. Link disabled fica transparente; fundos hover/pressed e cores seguem os aliases aprovados. Cores das cinco variantes preenchidas permanecem atuais nos dois temas.",
+    "CORRIGIDO — loading mantém o conteúdo original no layout, invisível e aria-hidden, e sobrepõe Spinner decorativo com texto-secundario. Mantém largura/altura, foco, aria-busy e nome textual com contador sem duplicação. Hover/pressed não alteram seu fundo; onPress e type não foram modificados.",
+    "EXTENSÃO — demo local com matriz 6 formatos × 6 variantes × 5 estados (180 combinações por tema), usando o tema global do Playground para claro/escuro. Estilos locais usam apenas tokens e preservam espaço para o anel de foco; exemplos outlined mantidos até a Etapa 5."
   ],
   "references": {
     "tokensFile": "tokens/tokens.json — Cores Semânticas (grupo Ações, todas as famílias), Estrutural (raio-pp, foco-espessura, espaco-*, icone-medio), Tipografia Estilo (texto-rotulo-botao)"

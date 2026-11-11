@@ -101,22 +101,20 @@ export function Button({
       aria-label={iconOnly ? accessibleLabel : undefined}
       onClick={() => !disabled && !loading && onPress?.()}
     >
-      {loading ? (
-        // decorative=true: o <button> já expõe aria-busy, então o Spinner não
-        // precisa de role="status" próprio (evitaria anunciar duas vezes).
+      {/* Conteúdo mantém suas dimensões em loading, mas sai da árvore acessível. */}
+      <span className={styles.content} aria-hidden={loading || undefined}>
+        {leftIcon && <Icon name={leftIcon} size="medium" color={textColorVar} />}
+        {visibleLabel && <span className={styles.label}>{label}</span>}
+        {!iconOnly && !visibleLabel && accessibleLabel && <span className={styles.srOnly}>{accessibleLabel}</span>}
+        {countText !== undefined && <>{" "}<span className={styles.count}>{countText}</span></>}
+        {rightIcon && (!iconOnly || !leftIcon) && <Icon name={rightIcon} size="medium" color={textColorVar} />}
+      </span>
+      {loading && (
         <>
-          <Spinner size="medium" color="var(--texto-secundario)" />
-          {/* Sem isto o botão perde o nome acessível enquanto carrega (só aria-busy).
-              iconOnly já tem aria-label, então só o caso com rótulo precisa. */}
+          <span className={styles.loadingIndicator}>
+            <Spinner size="medium" color="var(--texto-secundario)" />
+          </span>
           {!iconOnly && <span className={styles.srOnly}>{visibleLabel ? label : accessibleLabel}{countText !== undefined && <> {countText}</>}</span>}
-        </>
-      ) : (
-        <>
-          {leftIcon && <Icon name={leftIcon} size="medium" color={textColorVar} />}
-          {visibleLabel && <span className={styles.label}>{label}</span>}
-          {!iconOnly && !visibleLabel && accessibleLabel && <span className={styles.srOnly}>{accessibleLabel}</span>}
-          {countText !== undefined && <>{" "}<span className={styles.count}>{countText}</span></>}
-          {rightIcon && (!iconOnly || !leftIcon) && <Icon name={rightIcon} size="medium" color={textColorVar} />}
         </>
       )}
     </button>
