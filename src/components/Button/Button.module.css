@@ -8,7 +8,8 @@
   border-radius: var(--raio-pp);
   border: 1px solid transparent;
   background: var(--btn-bg);
-  color: var(--btn-text);
+  --btn-content-color: var(--btn-text);
+  color: var(--btn-content-color);
   font-family: var(--texto-rotulo-botao-family);
   font-size: var(--texto-rotulo-botao-size);
   font-weight: var(--texto-rotulo-botao-weight);
@@ -16,13 +17,16 @@
   cursor: pointer;
 }
 
-.button:hover:not(:disabled) {
+.button:hover:not(:disabled):not(:active):not([data-state="loading"]):not([data-state="pressed"]),
+.button[data-state="hover"] {
   background: var(--btn-bg-hover);
-  color: var(--btn-text-hover, var(--btn-text));
+  --btn-content-color: var(--btn-text-hover, var(--btn-text));
 }
 
-.button:active:not(:disabled) {
+.button:active:not(:disabled):not([data-state="loading"]),
+.button[data-state="pressed"] {
   background: var(--btn-bg-active);
+  --btn-content-color: var(--btn-text-active, var(--btn-text));
 }
 
 .button:focus-visible {
@@ -32,7 +36,7 @@
 
 .button:disabled {
   background: var(--acao-inativa);
-  color: var(--acao-inativa-texto);
+  --btn-content-color: var(--acao-inativa-texto);
   cursor: not-allowed;
 }
 
@@ -82,8 +86,9 @@
 
 .link {
   --btn-bg: var(--acao-link);
-  --btn-bg-hover: var(--acao-link);
-  --btn-bg-active: var(--acao-link);
+  --btn-bg-hover: var(--acao-link-fundo-sobreposto);
+  --btn-bg-active: var(--acao-link-fundo-pressionado);
+  --btn-text-active: var(--acao-link-texto-pressionado);
   --btn-text: var(--acao-link-texto);
   --btn-text-hover: var(--acao-link-texto-sobreposto);
   height: auto;
@@ -91,10 +96,11 @@
   min-width: 24px;
   min-height: 24px;
   padding: 0;
-  border-radius: 2px;
+  border-radius: var(--raio-pp);
 }
 
-.link:hover:not(:disabled) {
+.link:hover:not(:disabled):not([data-state="loading"]),
+.link[data-state="hover"] {
   text-decoration: underline;
 }
 
@@ -154,9 +160,16 @@
   border-color: var(--acao-destrutiva-sobreposta);
 }
 
+.link:not(.outlined):disabled {
+  background: var(--acao-link);
+}
+
 .outlined.link {
+  border-radius: var(--botao-link-raio);
   --btn-bg: transparent;
   --btn-bg-hover: transparent;
+  --btn-bg-active: transparent;
+  --btn-text-active: var(--acao-link-texto);
   --btn-text: var(--acao-link-texto);
   border-color: var(--acao-link-texto);
 }
@@ -179,4 +192,21 @@
   clip: rect(0 0 0 0);
   white-space: nowrap;
   border: 0;
+}
+
+/* Badge info: conteúdo textual não interativo, compartilhando seus tokens. */
+.count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: calc(var(--icone-pequeno) + var(--espaco-xp));
+  box-sizing: border-box;
+  padding: var(--espaco-xp) var(--espaco-pp);
+  border-radius: var(--raio-circular);
+  background: var(--fundo-info-forte);
+  color: var(--texto-invertido);
+  font-family: var(--texto-micro-forte-family);
+  font-size: var(--texto-micro-forte-size);
+  font-weight: var(--texto-micro-forte-weight);
+  line-height: var(--texto-micro-forte-line-height);
 }

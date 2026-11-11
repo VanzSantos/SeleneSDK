@@ -10,6 +10,7 @@
     "Container (fundo, borda, raio)",
     "Ícone esquerdo (opcional)",
     "Rótulo / label (texto)",
+    "Contador textual opcional, com tokens do Badge info, entre rótulo e ícone direito",
     "Ícone direito (opcional)",
     "Spinner de carregamento — substitui o conteúdo quando state=loading"
   ],
@@ -37,7 +38,7 @@
       "type": "boolean",
       "default": false,
       "required": false,
-      "description": "false = preenchido. true = contornado (borda + fundo transparente em repouso). Inválido com variant='subtle' — erro em tempo de execução (ver forbidden e decisions)."
+      "description": "@deprecated — manter por compatibilidade até a Etapa 5. false = preenchido. true = contornado (borda + fundo transparente em repouso). Inválido com variant='subtle' — erro em tempo de execução (ver forbidden e decisions)."
     },
     {
       "name": "state",
@@ -51,26 +52,32 @@
       ],
       "default": "default",
       "required": false,
-      "description": "hover/pressed normalmente vêm de eventos reais (mouse/teclado); a prop só força um valor pontual para Storybook/testes. disabled/loading sempre vêm da prop."
+      "description": "hover/pressed forçam o visual para demonstração; default permite pseudoclasses reais. disabled/loading vêm da prop; hover/active não sobrescrevem loading."
     },
     {
       "name": "showLabel",
       "type": "boolean",
       "default": true,
       "required": false,
-      "description": "false só é válido em modo iconOnly."
+      "description": "false só é válido em iconOnly; proibido no tipo e avisado em desenvolvimento fora desse modo."
     },
     {
       "name": "label",
       "type": "string",
       "required": false,
-      "description": "Texto do rótulo."
+      "description": "Rótulo visível; obrigatório no tipo quando accessibleLabel não for fornecido. Proibido em iconOnly. String vazia/sem nome é avisada em desenvolvimento."
     },
     {
       "name": "leftIcon",
       "type": "string",
       "required": false,
       "description": "Nome do ícone (não boolean — decisão corrigida: precisa saber QUAL ícone, não só se existe)."
+    },
+    {
+      "name": "count",
+      "type": "number",
+      "required": false,
+      "description": "Contador após o texto e antes do ícone direito: undefined omite, 0 aparece, acima de 99 mostra 99+. Negativo, decimal, NaN ou infinito são omitidos com console.warn apenas em dev. Proibido em iconOnly. Integra o nome acessível, inclusive em loading; disabled mantém o chip azul."
     },
     {
       "name": "rightIcon",
@@ -81,7 +88,8 @@
       "name": "iconOnly",
       "type": "boolean",
       "default": false,
-      "required": false
+      "required": false,
+      "description": "União discriminada: exige accessibleLabel e exatamente um de leftIcon/rightIcon; proíbe label e count. Combinações inválidas recebidas em runtime avisam em dev e omitem conteúdo incompatível."
     },
     {
       "name": "fullWidth",
@@ -94,7 +102,7 @@
       "type": "string",
       "required": false,
       "requiredWhen": "iconOnly = true",
-      "description": "Ausência tratada como erro em tempo de execução."
+      "description": "Obrigatório no tipo para iconOnly ou ausência de label. Em botão textual sem label, renderizado como texto oculto acessível; nunca substitui o contador por aria-label."
     },
     {
       "name": "onPress",
@@ -154,7 +162,10 @@
       "semantic.acao-link",
       "semantic.acao-inativa",
       "semantic.acao-carregando",
-      "transparent (palavra-chave CSS — 'Base/transparente' é primitiva, não exposta pelo pipeline de tokens)"
+      "transparent (palavra-chave CSS — 'Base/transparente' é primitiva, não exposta pelo pipeline de tokens)",
+      "semantic.acao-link-fundo-sobreposto",
+      "semantic.acao-link-fundo-pressionado",
+      "semantic.fundo-info-forte"
     ],
     "text": [
       "semantic.acao-primaria-texto",
@@ -165,13 +176,24 @@
       "semantic.acao-link-texto",
       "semantic.acao-link-texto-sobreposto",
       "semantic.acao-inativa-texto",
-      "semantic.acao-carregando-texto"
+      "semantic.acao-link-texto-pressionado",
+      "semantic.texto-secundario",
+      "semantic.texto-invertido",
+      "semantic.texto-apoio-3",
+      "semantic.texto-erro",
+      "semantic.acao-primaria-sobreposta",
+      "semantic.acao-neutra",
+      "semantic.acao-destrutiva-sobreposta"
     ],
     "radius": [
-      "structural.raio-pp"
+      "structural.raio-pp",
+      "structural.raio-circular",
+      "structural.botao-link-raio"
     ],
     "focusRing": [
-      "structural.foco-espessura"
+      "structural.foco-espessura",
+      "semantic.borda-foco",
+      "structural.foco-deslocamento"
     ],
     "spacing": [
       "structural.espaco-xp",
@@ -179,10 +201,28 @@
       "structural.espaco-m"
     ],
     "iconSize": [
-      "structural.icone-medio"
+      "structural.icone-medio",
+      "structural.icone-pequeno"
     ],
     "typography": [
-      "type-style.texto-rotulo-botao"
+      "type-style.texto-rotulo-botao",
+      "type-style.texto-micro-forte"
+    ],
+    "border": [
+      "semantic.acao-primaria-sobreposta",
+      "semantic.texto-apoio-3",
+      "semantic.acao-neutra",
+      "semantic.acao-destrutiva-sobreposta",
+      "semantic.acao-link-texto",
+      "semantic.texto-erro",
+      "structural.borda-espessura"
+    ],
+    "dimensions": [
+      "structural.botao-altura",
+      "structural.alvo-minimo"
+    ],
+    "demo": [
+      "structural.botao-demo-largura-maxima"
     ]
   },
   "variantTokenMap": {
@@ -205,8 +245,8 @@
       "disabled sai da ordem de tabulação",
       "loading permanece focável — diferente de disabled, o contrato não pede sair do foco durante carregamento"
     ],
-    "contrastMin": "AAA (7:1) como meta pro público 60+, não só o mínimo AA (4.5:1) — ver decisions pro resultado por variante, medido contra branco.",
-    "notes": "Não-negociável — reforçado pelo público-alvo 60+. Indicador de foco sempre visível, nunca removido sem substituto. Alvo de toque com área mínima adequada, atenção redobrada no modo iconOnly."
+    "contrastMin": "Perfil PADRÃO: texto normal ≥4,5:1; texto grande ≥3:1; ícones informativos e indicador de foco ≥3:1. Controles inativos têm exceção de contraste.",
+    "notes": "Perfil PADRÃO (operadores). Foco visível e alvo mínimo de 24×24 CSS px no desktop. iconOnly exige nome acessível e um ícone. Texto e contador formam o nome, inclusive durante loading. Não usar aria-label para ocultar contador de botão textual."
   },
   "events": {
     "status": "não definido no contrato original"
@@ -232,7 +272,12 @@
     "loading usando o atributo disabled nativo — loading só bloqueia o clique via handler + aria-busy, mantém focável; disabled usa disabled nativo de verdade e sai da tabulação",
     "iconOnly sem accessibleLabel",
     "outlined=true com variant='subtle' — nenhum tom da família 'sutil' é ao mesmo tempo legível (AA/AAA contra branco) e distinto o bastante do neutral outlined (mínimo de 3:1 entre os dois); usar variant='neutral' outlined nesse caso. Erro em tempo de execução, ver decisions.",
-    "novo estado/variante fora das listas acima sem atualizar este contrato primeiro"
+    "novo estado/variante fora das listas acima sem atualizar este contrato primeiro",
+    "iconOnly com label/count, sem nome acessível ou sem exatamente um ícone",
+    "showLabel=false fora de iconOnly",
+    "botão sem label visível nem accessibleLabel",
+    "aria-label que substitua o conteúdo textual com count",
+    "hover/active sobrescrevendo loading"
   ],
   "decisions": [
     "outlined: o preenchimento 10% (*-transparente) aparece só no hover, nunca em repouso.",
@@ -250,7 +295,14 @@
     "CORRIGIDO — auditoria de acessibilidade (2026-11-10, perfil padrão): na variante secondary o texto (acao-secundaria-texto) ficava com 3,68:1 no hover e 2,29:1 no pressed no claro (4,35:1 no pressed escuro); texto escuro sobre um fundo que escurece a cada estado não fecha 4,5:1. Texto do claro mais escuro (#06240f) e hover/pressed menos escuros (claro #86ad1a/#779a16, escuro #98c235/#86ad2d) — todos os estados ≥ 5,07:1.",
     "CORRIGIDO — auditoria de acessibilidade (2026-11-10, perfil padrão): com state='loading' o rótulo dava lugar ao Spinner e o botão ficava sem nome acessível (só aria-busy). O rótulo agora continua no DOM como texto só pra leitor de tela (.srOnly); iconOnly já tinha aria-label.",
     "CORRIGIDO — auditoria de acessibilidade (2026-11-10, perfil padrão, WCAG 2.5.8 — alvo mínimo de 24×24 px): a variante link (height:auto, padding:0) deixava os botões só de ícone com 22×22 (paginação, barra do Datatable, sino de notificações). Agora min-width/min-height de 24px na variante link; o ícone não muda de tamanho.",
-    "CORRIGIDO — auditoria de acessibilidade (2026-11-10, perfil padrão): (1) outlined.primary/destructive no modo escuro usavam acao-primaria-sobreposta/acao-destrutiva-sobreposta como texto e borda (2,68:1 e 3,07:1); no escuro passam a acao-link-texto e texto-erro. (2) outlined.secondary usava acao-secundaria-pressionada como texto — o token mudou de valor (ver decisão da variante secondary) e deixaria de passar; agora usa texto-apoio-3 (#587615 no claro = 5,23:1; #b6da5a no escuro)."
+    "CORRIGIDO — auditoria de acessibilidade (2026-11-10, perfil padrão): (1) outlined.primary/destructive no modo escuro usavam acao-primaria-sobreposta/acao-destrutiva-sobreposta como texto e borda (2,68:1 e 3,07:1); no escuro passam a acao-link-texto e texto-erro. (2) outlined.secondary usava acao-secundaria-pressionada como texto — o token mudou de valor (ver decisão da variante secondary) e deixaria de passar; agora usa texto-apoio-3 (#587615 no claro = 5,23:1; #b6da5a no escuro).",
+    "EXTENSÃO — count opcional atende ao formato solicitado: inteiro finito não negativo, zero visível, limite 99+, omitido com aviso em dev se inválido. Reutiliza tokens e padrão visual do Badge info, sem reimplementar o componente Badge nem introduzir paleta nova; posição antes do ícone direito e conteúdo textual acessível.",
+    "AJUSTADO a pedido do usuário — iconOnly usa união discriminada, exige nome acessível e exatamente um ícone, proíbe label/count. Botões textuais exigem label ou accessibleLabel; showLabel=false fora de iconOnly é proibido. Validação em dev cobre entradas JS e strings vazias.",
+    "REVISADO — meta atual passa ao perfil PADRÃO, AA, por decisão explícita. As decisões históricas sobre público 60+/AAA permanecem registradas, mas não definem a meta deste trabalho.",
+    "CORRIGIDO — hover/pressed forçados agora têm data-state e seletores próprios; loading é protegido de hover/active. Texto e ícone compartilham a cor resolvida do estado, corrigindo link. Spinner usa texto-secundario para contraste, preservando o token compartilhado acao-carregando-texto.",
+    "AJUSTADO a pedido do usuário — link usa aliases de fundo hover/pressed, texto/ícone claros no pressed, disabled transparente e raio-pp. outlined permanece deprecated e compatível até a Etapa 5; não houve migração de consumidores nesta etapa.",
+    "EXTENSÃO — formalizadas medidas do Button/demo e aliases de link em tokens.css na Etapa 1, documentados em token-notation.md para reconciliação com Figma. Incluídos tokens de contador, borda-foco, texto-apoio-3 e texto-erro na whitelist; consumo completo de dimensões será tratado na Etapa 3.",
+    "AJUSTADO a pedido do usuário — preservadas cores compartilhadas das cinco variantes preenchidas. Referência clara AuroraDS difere em hover/pressed primário, cinzas neutral/subtle e vermelho destructive; secondary ausente da imagem. Não copiar vermelho claro que falha 4,5:1."
   ],
   "references": {
     "tokensFile": "tokens/tokens.json — Cores Semânticas (grupo Ações, todas as famílias), Estrutural (raio-pp, foco-espessura, espaco-*, icone-medio), Tipografia Estilo (texto-rotulo-botao)"

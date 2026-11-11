@@ -10,12 +10,13 @@ const story: StoryMeta = {
   category: "action",
   contractFile: "contratos/button.contract.json",
   dependencies: ["Icon", "Spinner"],
-  tokensSummary: ["semantic.acao-* (variantTokenMap)", "structural.raio-pp", "type-style.texto-rotulo-botao"],
-  description: "Dispara uma ação. Hierarquia visual definida pela variante; loading nunca usa disabled nativo.",
+  tokensSummary: ["semantic.acao-* (variantTokenMap)", "structural.raio-pp", "type-style.texto-rotulo-botao", "semantic.fundo-info-forte / texto-invertido (contador)"],
+  description: "Dispara uma ação em seis formatos, incluindo contador. Hierarquia visual definida pela variante; loading nunca usa disabled nativo. outlined deprecated até a migração.",
   code: `<Button variant="primary" label="Salvar" />
 <Button variant="primary" leftIcon="info" label="Detalhes" />
 <Button variant="primary" rightIcon="arrow-right" label="Avançar" />
 <Button variant="primary" leftIcon="info" rightIcon="arrow-right" label="Ambos" />
+<Button variant="primary" label="Notificações" count={3} />
 <Button variant="primary" iconOnly leftIcon="eye" accessibleLabel="Mostrar senha" />`,
   Demo: ButtonDemo,
 };

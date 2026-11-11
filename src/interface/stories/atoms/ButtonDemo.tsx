@@ -5,7 +5,7 @@ const VARIANTS: ButtonVariant[] = ["primary", "secondary", "neutral", "subtle", 
 
 export function ButtonDemo() {
   return (
-    <div className={styles.column} style={{ maxWidth: 520 }}>
+    <div className={styles.column} style={{ maxWidth: "var(--botao-demo-largura-maxima)" }}>
       <div className={styles.section}>
         <span className={styles.sectionLabel}>Variantes (preenchido)</span>
         <div className={styles.row}>
@@ -29,7 +29,7 @@ export function ButtonDemo() {
       </div>
 
       <div className={styles.section}>
-        <span className={styles.sectionLabel}>Todas as composições de ícone possíveis</span>
+        <span className={styles.sectionLabel}>Os seis formatos do Button</span>
         <div className={styles.row}>
           <div className={styles.item}>
             <Button variant="primary" label="Salvar" />
@@ -48,6 +48,10 @@ export function ButtonDemo() {
             <span className={styles.itemLabel}>leftIcon + label + rightIcon</span>
           </div>
           <div className={styles.item}>
+            <Button variant="primary" label="Notificações" count={3} />
+            <span className={styles.itemLabel}>label + count</span>
+          </div>
+          <div className={styles.item}>
             <Button variant="primary" iconOnly leftIcon="eye" accessibleLabel="Mostrar senha" />
             <span className={styles.itemLabel}>iconOnly (accessibleLabel)</span>
           </div>
@@ -55,9 +59,25 @@ export function ButtonDemo() {
       </div>
 
       <div className={styles.section}>
+        <span className={styles.sectionLabel}>Contador e estados do link</span>
+        <div className={styles.row}>
+          <Button label="Notificações" count={0} />
+          <Button label="Notificações" count={100} rightIcon="arrow-right" />
+          <Button label="Notificações" count={3} state="disabled" />
+          <Button label="Notificações" count={3} state="loading" />
+          <Button variant="link" label="Detalhes" leftIcon="info" state="hover" />
+          <Button variant="link" label="Detalhes" leftIcon="info" state="pressed" />
+          <Button variant="link" label="Detalhes" leftIcon="info" state="disabled" />
+          <Button variant="link" label="Detalhes" leftIcon="info" state="loading" />
+        </div>
+      </div>
+
+      <div className={styles.section}>
         <span className={styles.sectionLabel}>Estados</span>
         <div className={styles.row}>
           <Button variant="primary" label="Padrão" />
+          <Button variant="primary" state="hover" label="Hover forçado" />
+          <Button variant="primary" state="pressed" label="Pressed forçado" />
           <Button variant="primary" state="disabled" label="Desabilitado" />
           <Button variant="primary" state="loading" label="Carregando" />
         </div>
