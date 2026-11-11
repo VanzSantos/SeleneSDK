@@ -41,6 +41,7 @@ export function ButtonDemo() {
         <div className={styles.states}>
           <Button label="Notificações" count={0} />
           <Button label="Notificações" count={100} rightIcon="arrow-right" />
+          <Button label="Consultar todas as notificações e solicitações pendentes de análise" count={100} leftIcon="bell" rightIcon="arrow-right" />
         </div>
       </section>
       <section className={styles.variant} aria-label="Outlined deprecated">

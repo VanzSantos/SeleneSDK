@@ -241,15 +241,17 @@
     "role": "button nativo (<button> web / Pressable React Native)",
     "requiredAria": [
       "aria-label quando iconOnly=true",
-      "aria-busy quando state=loading"
+      "aria-busy quando state=loading",
+      "aria-disabled=true durante loading, sem disabled nativo",
+      "aria-description para count acima de 99: Mais de 99 itens."
     ],
     "keyboard": [
       "Enter e Espaço ativam",
       "disabled sai da ordem de tabulação",
       "loading permanece focável — diferente de disabled, o contrato não pede sair do foco durante carregamento"
     ],
-    "contrastMin": "Perfil PADRÃO: texto normal ≥4,5:1; texto grande ≥3:1; ícones informativos e indicador de foco ≥3:1. Controles inativos têm exceção de contraste.",
-    "notes": "Perfil PADRÃO (operadores). Foco visível e alvo mínimo de 24×24 CSS px no desktop. iconOnly exige nome acessível e um ícone. Texto e contador formam o nome, inclusive durante loading. Não usar aria-label para ocultar contador de botão textual."
+    "contrastMin": "Perfil PADRÃO: texto e ícones nos estados ativos ≥4,5:1 (texto grande ≥3:1); indicador de carregamento e foco ≥3:1. Controles disabled têm exceção de contraste; contador permanece legível.",
+    "notes": "Perfil PADRÃO (operadores), sem requisitos S01–S27. Foco visível e alvo mínimo de 24×24 CSS px no desktop. botao-altura define altura mínima, não limite fixo: rótulo pode quebrar e botão cresce com texto ampliado/espaçamento. iconOnly exige nome e um ícone; ícones decorativos são aria-hidden. Texto e contador formam o nome, inclusive em loading; 0 mantém o número e 99+ recebe descrição adicional, sem aria-label substituindo o conteúdo textual. Loading é focável, aria-busy e aria-disabled, bloqueia onPress. O Spinner local para a rotação em prefers-reduced-motion. Resultados programáticos não substituem teste com leitor de tela."
   },
   "events": {
     "status": "não definido no contrato original"
@@ -309,7 +311,12 @@
     "AJUSTADO a pedido do usuário — Etapa 3: altura, borda, offset de foco e alvo mínimo consomem botao-altura, borda-espessura, foco-deslocamento e alvo-minimo. O utilitário srOnly usa a espessura de borda como dimensão mínima, sem px fixo. Todas as variantes preservam raio-pp; botao-link-raio removido por ficar sem uso, inclusive no outlined deprecated.",
     "AJUSTADO a pedido do usuário — disabled dos preenchidos reutiliza borda-base para contorno leve sobre acao-inativa, sem criar paleta nova. Link disabled fica transparente; fundos hover/pressed e cores seguem os aliases aprovados. Cores das cinco variantes preenchidas permanecem atuais nos dois temas.",
     "CORRIGIDO — loading mantém o conteúdo original no layout, invisível e aria-hidden, e sobrepõe Spinner decorativo com texto-secundario. Mantém largura/altura, foco, aria-busy e nome textual com contador sem duplicação. Hover/pressed não alteram seu fundo; onPress e type não foram modificados.",
-    "EXTENSÃO — demo local com matriz 6 formatos × 6 variantes × 5 estados (180 combinações por tema), usando o tema global do Playground para claro/escuro. Estilos locais usam apenas tokens e preservam espaço para o anel de foco; exemplos outlined mantidos até a Etapa 5."
+    "EXTENSÃO — demo local com matriz 6 formatos × 6 variantes × 5 estados (180 combinações por tema), usando o tema global do Playground para claro/escuro. Estilos locais usam apenas tokens e preservam espaço para o anel de foco; exemplos outlined mantidos até a Etapa 5.",
+    "CORRIGIDO — Etapa 4, perfil PADRÃO: texto a 200% produzia linha de 48px em botão de altura fixa 44px. botao-altura passa a min-height, com altura automática, padding vertical espaco-pp e quebra do conteúdo/rótulo. Contador não encolhe e mantém número inteiro na mesma linha; nenhum valor visual fixo foi criado.",
+    "CORRIGIDO — loading agora comunica aria-disabled além de aria-busy, mantendo foco e bloqueio existente de onPress. Sem alterações em onPress/type. count 99+ mantém o texto visível no nome e recebe aria-description Mais de 99 itens.; zero permanece explícito.",
+    "AJUSTADO a pedido do usuário — preferência de movimento reduzido atendida localmente no Button: Spinner continua visível, sem rotação, mantendo estado sem depender só de cor. O componente compartilhado Spinner não foi alterado.",
+    "AUDITORIA — Etapa 4: matriz de 180 combinações por tema, nomes/ícones/estados/alvos verificados programaticamente. Contraste mínimo de texto/ícone ativo: 5,07:1 claro e 4,91:1 escuro; contador 5,24:1/4,63:1; indicador loading 6,10:1/5,55:1. Foco contra superfícies: mínimo 3,77:1 claro/7,16:1 escuro. Disabled registrado como exceção, não como falha. Mantida meta PADRÃO.",
+    "AUDITORIA — teclado: 108 combinações ativas por tema acionadas por Enter e Espaço; 36 loading por tema sem acionamento e 36 disabled fora da tabulação. Foco verificado em 144 combinações focáveis por tema, sem cortes no Playground. Texto 200%, espaçamento e reflow emulado 200% verificados; demo isolada a 320 CSS px sem overflow horizontal. Leitor de tela e zoom nativo continuam como validação manual complementar."
   ],
   "references": {
     "tokensFile": "tokens/tokens.json — Cores Semânticas (grupo Ações, todas as famílias), Estrutural (raio-pp, foco-espessura, espaco-*, icone-medio), Tipografia Estilo (texto-rotulo-botao)"

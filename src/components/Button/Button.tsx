@@ -97,7 +97,9 @@ export function Button({
       } ${loading ? styles.loading : ""}`}
       data-state={state}
       disabled={disabled}
+      aria-disabled={loading || undefined}
       aria-busy={loading || undefined}
+      aria-description={countText === "99+" ? "Mais de 99 itens." : undefined}
       aria-label={iconOnly ? accessibleLabel : undefined}
       onClick={() => !disabled && !loading && onPress?.()}
     >

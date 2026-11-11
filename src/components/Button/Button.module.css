@@ -4,8 +4,11 @@
   align-items: center;
   justify-content: center;
   gap: var(--espaco-xp);
-  height: var(--botao-altura);
-  padding: 0 var(--espaco-m);
+  box-sizing: border-box;
+  min-height: var(--botao-altura);
+  height: auto;
+  max-width: 100%;
+  padding: var(--espaco-pp) var(--espaco-m);
   border-radius: var(--raio-pp);
   border: var(--borda-espessura) solid transparent;
   background: var(--btn-bg);
@@ -48,6 +51,9 @@
 
 .content {
   display: inline-flex;
+  flex-wrap: wrap;
+  min-width: 0;
+  max-width: 100%;
   align-items: center;
   justify-content: center;
   gap: var(--espaco-xp);
@@ -70,7 +76,9 @@
 }
 
 .label {
-  white-space: nowrap;
+  min-width: 0;
+  white-space: normal;
+  overflow-wrap: anywhere;
 }
 
 /* variantes preenchidas (outlined=false) */
@@ -221,6 +229,8 @@
 /* Badge info: conteúdo textual não interativo, compartilhando seus tokens. */
 .count {
   display: inline-flex;
+  flex-shrink: 0;
+  white-space: nowrap;
   align-items: center;
   justify-content: center;
   min-width: calc(var(--icone-pequeno) + var(--espaco-xp));
@@ -233,4 +243,11 @@
   font-size: var(--texto-micro-forte-size);
   font-weight: var(--texto-micro-forte-weight);
   line-height: var(--texto-micro-forte-line-height);
+}
+
+/* Ajuste local: mantém o indicador e aria-busy sem rotação contínua. */
+@media (prefers-reduced-motion: reduce) {
+  .loadingIndicator > span {
+    animation: none;
+  }
 }
