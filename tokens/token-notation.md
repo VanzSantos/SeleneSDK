@@ -48,9 +48,6 @@ usam `raio-pp` com o fundo visível.
 | `structural.foco-deslocamento` | `--foco-deslocamento` | 2px / 2px | Distância atual entre botão e foco |
 | `structural.alvo-minimo` | `--alvo-minimo` | 24px / 24px | Alvo mínimo atual do botão link, perfil padrão |
 | `structural.botao-demo-largura-maxima` | `--botao-demo-largura-maxima` | 520px / 520px | Largura máxima atual da demo Button |
-| `semantic.acao-link-fundo-sobreposto` | `--acao-link-fundo-sobreposto` | alias de `fundo-sucesso` nos dois temas | Fundo do hover verde, aproximado a partir da referência clara |
-| `semantic.acao-link-fundo-pressionado` | `--acao-link-fundo-pressionado` | alias de `acao-primaria-sobreposta` nos dois temas | Fundo sólido do pressed verde, com texto/ícone claros |
-| `semantic.acao-link-texto-pressionado` | `--acao-link-texto-pressionado` | alias de `acao-primaria-texto` nos dois temas | Cor de texto e ícone sobre o fundo pressed |
 
 Contador: reutilizar `semantic.fundo-info-forte` e `semantic.texto-invertido`,
 como Badge `info`, sem criar uma segunda paleta azul. Tipografia e espaçamento
@@ -96,3 +93,17 @@ do CallControlBar. Renomear o cinza para esse token alteraria outro componente.
 Recomendação futura: discutir uma separação dos nomes semânticos com o time/Figma
 antes de qualquer renomeação; nesta mudança os nomes e valores compartilhados
 permanecem estáveis. Nenhum token novo e nenhum token renomeado nesta fase.
+
+## Button link — estados restritos
+
+O Button link aceita somente default, hover e disabled e cinco formatos, sem
+contador. No default e disabled não há sublinhado; no hover textual só aparece
+sublinhado, sem fundo ou mudança de cor. Espessura usa `borda-espessura` e offset
+usa `espaco-xp` (token de espaçamento existente). No iconOnly o hover muda apenas
+a cor do ícone para `acao-link-texto-sobreposto`; não há texto para sublinhar.
+Foram removidos `acao-link-fundo-sobreposto`, `acao-link-fundo-pressionado` e
+`acao-link-texto-pressionado`, sem outros consumidores. `acao-link-texto-sobreposto`
+permanece consumido no hover do iconOnly. Nenhum token novo foi necessário.
+A matriz final tem 120 combinações preenchidas + 15 de link por tema = 135,
+e 270 nos dois temas. Os aliases anteriores da referência text.png não fazem
+mais parte da especificação atual. Foco e alvo mínimo mantêm seus tokens.

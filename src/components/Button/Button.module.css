@@ -21,14 +21,14 @@
   cursor: pointer;
 }
 
-.button:hover:not(:disabled):not(:active):not([data-state="loading"]):not([data-state="pressed"]),
-.button[data-state="hover"] {
+.button:not(.link):hover:not(:disabled):not(:active):not([data-state="loading"]):not([data-state="pressed"]),
+.button:not(.link)[data-state="hover"] {
   background: var(--btn-bg-hover);
   --btn-content-color: var(--btn-text-hover, var(--btn-text));
 }
 
-.button:active:not(:disabled):not([data-state="loading"]),
-.button[data-state="pressed"] {
+.button:not(.link):active:not(:disabled):not([data-state="loading"]),
+.button:not(.link)[data-state="pressed"] {
   background: var(--btn-bg-active);
   --btn-content-color: var(--btn-text-active, var(--btn-text));
 }
@@ -112,11 +112,8 @@
 
 .link {
   --btn-bg: var(--acao-link);
-  --btn-bg-hover: var(--acao-link-fundo-sobreposto);
-  --btn-bg-active: var(--acao-link-fundo-pressionado);
-  --btn-text-active: var(--acao-link-texto-pressionado);
   --btn-text: var(--acao-link-texto);
-  --btn-text-hover: var(--acao-link-texto-sobreposto);
+  text-decoration: none;
   height: auto;
   /* alvo mínimo de 24x24 (WCAG 2.5.8) — o botão-link sem padding ficava com 22x22 (só ícone) */
   min-width: var(--alvo-minimo);
@@ -125,9 +122,17 @@
   border-radius: var(--raio-pp);
 }
 
-.link:hover:not(:disabled):not([data-state="loading"]),
-.link[data-state="hover"] {
+.link:not([data-icon-only]):hover:not(:disabled),
+.link:not([data-icon-only])[data-state="hover"]:not(:disabled) {
   text-decoration: underline;
+  text-decoration-thickness: var(--borda-espessura);
+  text-underline-offset: var(--espaco-xp);
+}
+
+/* iconOnly não tem texto para sublinhar: muda somente a cor do ícone. */
+.link[data-icon-only]:hover:not(:disabled),
+.link[data-icon-only][data-state="hover"]:not(:disabled) {
+  --btn-content-color: var(--acao-link-texto-sobreposto);
 }
 
 .link:disabled {

@@ -37,12 +37,6 @@
   --acao-link: #00000000;
   --acao-link-texto: #006631;
   --acao-link-texto-sobreposto: #00401e;
-  /* Button/link: fundos visíveis propostos a partir da referência AuroraDS.
-     Aliases preservam as famílias existentes e seus overrides de tema.
-     Consumidos pelo Button nos estados hover e pressed. */
-  --acao-link-fundo-sobreposto: var(--fundo-sucesso);
-  --acao-link-fundo-pressionado: var(--acao-primaria-sobreposta);
-  --acao-link-texto-pressionado: var(--acao-primaria-texto);
 
   /* Ações / Universais */
   --acao-inativa: #e5e7eb;

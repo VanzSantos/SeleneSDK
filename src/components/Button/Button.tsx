@@ -9,10 +9,9 @@ export type ButtonVariant =
   | "destructive"
   | "link";
 export type ButtonState = "default" | "hover" | "pressed" | "disabled" | "loading";
+export type ButtonLinkState = "default" | "hover" | "disabled";
 
 interface ButtonBaseProps {
-  variant?: ButtonVariant;
-  state?: ButtonState;
   fullWidth?: boolean;
   onPress?: () => void;
   type?: "button" | "submit";
@@ -33,7 +32,6 @@ type IconOnlyProps = {
 type TextButtonProps = {
   iconOnly?: false;
   showLabel?: true;
-  count?: number;
   leftIcon?: IconName;
   rightIcon?: IconName;
 } & (
@@ -41,7 +39,11 @@ type TextButtonProps = {
   | { label?: never; accessibleLabel: string }
 );
 
-export type ButtonProps = ButtonBaseProps & (IconOnlyProps | TextButtonProps);
+type ButtonAppearanceProps =
+  | { variant: "link"; state?: ButtonLinkState; count?: never }
+  | { variant?: Exclude<ButtonVariant, "link">; state?: ButtonState; count?: number };
+
+export type ButtonProps = ButtonBaseProps & ButtonAppearanceProps & (IconOnlyProps | TextButtonProps);
 
 export function Button({
   variant = "primary",
@@ -60,6 +62,10 @@ export function Button({
   const warn = (message: string) => {
     if (import.meta.env.DEV) console.warn(`Button: ${message}`);
   };
+  const isLink = variant === "link";
+  const invalidLinkState = isLink && (state === "pressed" || state === "loading");
+  if (invalidLinkState) warn("link só aceita state default, hover ou disabled; estado inválido tratado como default.");
+  if (isLink && count !== undefined) warn("link não aceita count; use secondary com contador.");
   const visibleLabel = !iconOnly && showLabel && Boolean(label?.trim());
   if (iconOnly) {
     if (!accessibleLabel?.trim()) warn("accessibleLabel é obrigatório quando iconOnly=true.");
@@ -71,10 +77,10 @@ export function Button({
   }
   const validCount = count !== undefined && Number.isFinite(count) && Number.isInteger(count) && count >= 0;
   if (count !== undefined && !validCount) warn("count deve ser um inteiro finito não negativo; contador omitido.");
-  const countText = !iconOnly && validCount ? (count > 99 ? "99+" : String(count)) : undefined;
+  const countText = !isLink && !iconOnly && validCount ? (count > 99 ? "99+" : String(count)) : undefined;
 
   const disabled = state === "disabled";
-  const loading = state === "loading";
+  const loading = !isLink && state === "loading";
   const textColorVar = "var(--btn-content-color)";
 
   return (
@@ -83,7 +89,8 @@ export function Button({
       className={`${styles.button} ${styles[variant]} ${
         fullWidth ? styles.fullWidth : ""
       } ${loading ? styles.loading : ""}`}
-      data-state={state}
+      data-state={invalidLinkState ? "default" : state}
+      data-icon-only={iconOnly || undefined}
       disabled={disabled}
       aria-disabled={loading || undefined}
       aria-busy={loading || undefined}
