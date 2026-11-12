@@ -49,7 +49,7 @@ export function ActionCard({
   primaryVariant = "primary",
   secondaryLabel,
   onSecondaryAction,
-  secondaryVariant = "subtle",
+  secondaryVariant = "secondary",
   onInfo,
   onSettings,
 }: ActionCardProps) {

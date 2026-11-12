@@ -206,7 +206,7 @@ function CompleteExample() {
       <Datatable
         title="Pedidos"
         toolbarActions={
-          <Button variant="subtle" label="Simular carregamento" onPress={simulateLoading} />
+          <Button variant="secondary" label="Simular carregamento" onPress={simulateLoading} />
         }
         allowDensityToggle
         columnVisibilityEnabled
@@ -289,7 +289,7 @@ function CompleteExample() {
                 : `${selectedRowKeys.length} pedido(s) ficarão desabilitados.`}
           </p>
           <div className={styles.row} style={{ justifyContent: "flex-end" }}>
-            <Button variant="subtle" label="Cancelar" onPress={() => setBulkConfirm(null)} />
+            <Button variant="secondary" label="Cancelar" onPress={() => setBulkConfirm(null)} />
             <Button
               variant="primary"
               label="Confirmar"

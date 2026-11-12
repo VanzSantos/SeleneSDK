@@ -37,7 +37,7 @@ export function StepperDemo() {
         />
         <div className={styles.row} style={{ marginTop: 16 }}>
           <Button
-            variant="subtle"
+            variant="secondary"
             label="Anterior"
             onPress={() => setPasso((p) => Math.max(0, p - 1))}
             state={passo === 0 ? "disabled" : "default"}

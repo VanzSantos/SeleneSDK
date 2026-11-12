@@ -4,8 +4,8 @@ import styles from "./Button.module.css";
 
 export type ButtonVariant =
   | "primary"
+  | "secondary"
   | "neutral"
-  | "subtle"
   | "destructive"
   | "link";
 export type ButtonState = "default" | "hover" | "pressed" | "disabled" | "loading";

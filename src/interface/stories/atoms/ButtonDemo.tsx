@@ -1,7 +1,7 @@
 import { Button, type ButtonProps, type ButtonState, type ButtonVariant } from "../../../components/Button/Button";
 import styles from "./ButtonDemo.module.css";
 
-const VARIANTS: ButtonVariant[] = ["primary", "neutral", "subtle", "destructive", "link"];
+const VARIANTS: ButtonVariant[] = ["primary", "secondary", "neutral", "destructive", "link"];
 const STATES: ButtonState[] = ["default", "hover", "pressed", "disabled", "loading"];
 const FORMATS: { id: string; title: string; props: ButtonProps }[] = [
   { id: "text", title: "Somente texto", props: { label: "Detalhes" } },

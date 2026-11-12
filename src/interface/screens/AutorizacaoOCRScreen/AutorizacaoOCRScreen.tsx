@@ -407,7 +407,7 @@ export function AutorizacaoOCRScreen({ embedded = false }: AutorizacaoOCRScreenP
                 ))}
 
                 <div className={styles.actionsRow}>
-                  <Button variant="subtle" label="Cancelar" onPress={reiniciar} />
+                  <Button variant="secondary" label="Cancelar" onPress={reiniciar} />
                   <Button variant="primary" label="Enviar solicitação" onPress={solicitarEnvio} />
                 </div>
               </div>

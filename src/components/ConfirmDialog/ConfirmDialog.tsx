@@ -35,7 +35,7 @@ export function ConfirmDialog({
       <div className={styles.body}>
         <p className={styles.description}>{description}</p>
         <div className={styles.actions}>
-          <Button variant="subtle" label={cancelLabel} onPress={onCancel} state={loading ? "disabled" : "default"} />
+          <Button variant="secondary" label={cancelLabel} onPress={onCancel} state={loading ? "disabled" : "default"} />
           <Button
             variant={confirmVariant}
             label={confirmLabel}

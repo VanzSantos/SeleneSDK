@@ -31,7 +31,7 @@ de decisão e tudo que é lido por humano permanece em português.
 
 ## Valores de enum traduzidos
 
-- `tipo` do Button: primario→primary, neutro→neutral, sutil→subtle, destrutivo→destructive, link→link
+- `tipo` do Button: primario→primary, secundario→secondary (cinza, antigo sutil), neutro→neutral, destrutivo→destructive, link→link
 - `estado` do Button: padrao→default, sobre→hover, pressionado→pressed, desabilitado→disabled, carregando→loading
 - `estado` do TextField: padrao→default, foco→focus, erro→error, desabilitado→disabled, somente-leitura→readOnly
 - `intencao` do HelperText: padrao→default, erro→error

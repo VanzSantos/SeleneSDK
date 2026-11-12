@@ -96,7 +96,7 @@
   --btn-text: var(--acao-neutra-texto);
 }
 
-.subtle {
+.secondary {
   --btn-bg: var(--acao-sutil);
   --btn-bg-hover: var(--acao-sutil-sobreposta);
   --btn-bg-active: var(--acao-sutil-pressionada);

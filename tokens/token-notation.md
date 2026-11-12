@@ -81,3 +81,18 @@ foram migrados para `subtle`. `acao-secundaria-sobreposta`,
 por ausência de consumo. `acao-secundaria` base permanece verde, consumido
 pelos checks do CallControlBar; não representa uma variante disponível do Button.
 A exportação original `tokens.json` permanece intacta.
+
+## Secondary cinza — Fase 2
+
+Variantes finais do Button: `primary`, `secondary`, `neutral`, `destructive`,
+`link`. O nome antigo `subtle` foi removido da API e migra para `secondary`;
+o antigo secondary verde não é mais uma variante do Button. A matriz contém
+150 combinações por tema (5 variantes × 5 estados × 6 formatos), 300 nos dois temas.
+
+Não renomeamos `acao-sutil`, `acao-sutil-sobreposta`, `acao-sutil-pressionada`
+e `acao-sutil-texto`: o novo `secondary` usa exatamente esses mesmos tokens
+e valores nos dois temas. `acao-secundaria` está ocupado pelo verde dos checks
+do CallControlBar. Renomear o cinza para esse token alteraria outro componente.
+Recomendação futura: discutir uma separação dos nomes semânticos com o time/Figma
+antes de qualquer renomeação; nesta mudança os nomes e valores compartilhados
+permanecem estáveis. Nenhum token novo e nenhum token renomeado nesta fase.

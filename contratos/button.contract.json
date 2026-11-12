@@ -24,8 +24,8 @@
       "type": "enum",
       "enum": [
         "primary",
+        "secondary",
         "neutral",
-        "subtle",
         "destructive",
         "link"
       ],
@@ -116,8 +116,8 @@
   ],
   "variants": [
     "primary",
+    "secondary",
     "neutral",
-    "subtle",
     "destructive",
     "link"
   ],
@@ -201,10 +201,10 @@
     ]
   },
   "variantTokenMap": {
-    "note": "Determinismo extra: tabela de tradução variant→sufixo do token (nomes de token concordam em feminino: 'primaria', 'secundaria', 'neutra', 'destrutiva'; valores de prop concordam em masculino: 'primary'→acao-primaria). Não assumir que o nome da prop bate direto com o token.",
+    "note": "Determinismo extra: tabela de tradução variant→sufixo do token (primary→acao-primaria, secondary→acao-sutil, neutral→acao-neutra e destructive→acao-destrutiva; secondary agora é cinza, enquanto acao-secundaria verde pertence ao CallControlBar). Não assumir que o nome da prop bate direto com o token.",
     "primary": "acao-primaria",
     "neutral": "acao-neutra",
-    "subtle": "acao-sutil",
+    "secondary": "acao-sutil",
     "destructive": "acao-destrutiva",
     "link": "acao-link"
   },
@@ -292,7 +292,8 @@
     "REVISADO — README-traducao.md deixa de apresentar contorno→outlined como API atual. A tradução antiga permanece documentada nesta decisão e nas decisões anteriores, sem instruir novos consumidores a usar prop removida.",
     "AJUSTADO a pedido do usuário — Etapa 6: guia de migração publicado em entries/button.ts. Breaking change: Button.outlined, ActionCard.secondaryOutlined e FileUpload.buttonOutlined removidos. Cancelar/Voltar/Anterior e Sidebar usam subtle; FileUpload field e logins alternativos usam neutral; ActionCard secundário tem default subtle e gatilhos link preservam buttonVariant='link'. Guia também explicita seis formatos, seis variantes, limites de count e exigências de iconOnly. Comentários dos tokens refletem seu consumo atual; histórico anterior preservado.",
     "CORRIGIDO — revisão final: tokensAllowed inclui texto-primario, já consumido pelos títulos da demo Button. Nenhum token ou valor novo criado; whitelist alinhada ao consumo real.",
-    "AJUSTADO a pedido do usuário — Fase 1: removida a variante Button secondary verde antes de reutilizar o nome. Gatilhos auxiliares de DatatableDemo e ConfirmDialogDemo migrados para subtle; sem ação principal ambígua. Removidos acao-secundaria-sobreposta/pressionada/texto sem consumo restante e suas entradas em whitelists. acao-secundaria base preservado por CallControlBar; subtle e seus tokens cinza permanecem nesta fase. Histórico, onPress e type preservados."
+    "AJUSTADO a pedido do usuário — Fase 1: removida a variante Button secondary verde antes de reutilizar o nome. Gatilhos auxiliares de DatatableDemo e ConfirmDialogDemo migrados para subtle; sem ação principal ambígua. Removidos acao-secundaria-sobreposta/pressionada/texto sem consumo restante e suas entradas em whitelists. acao-secundaria base preservado por CallControlBar; subtle e seus tokens cinza permanecem nesta fase. Histórico, onPress e type preservados.",
+    "AJUSTADO a pedido do usuário — Fase 2: subtle renomeado para secondary cinza na API, CSS, consumidores e documentação; secondary verde não existe mais no Button. Mesmo visual, estados, nomes acessíveis e comportamento de clique. Variantes finais: primary, secondary, neutral, destructive, link; matriz 5×5×6 = 150 combinações por tema, 300 nos dois temas. Tokens acao-sutil-* mantidos para evitar colisão com acao-secundaria verde ainda consumido por CallControlBar. ActionCard secundário e cancelar/voltar/Sidebar passam a secondary. Histórico anterior preservado; breaking change documentada."
   ],
   "references": {
     "tokensFile": "tokens/tokens.json — Cores Semânticas (grupo Ações, todas as famílias), Estrutural (raio-pp, foco-espessura, espaco-*, icone-medio), Tipografia Estilo (texto-rotulo-botao)"
