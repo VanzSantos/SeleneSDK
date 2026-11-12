@@ -165,6 +165,7 @@
       "semantic.acao-link-texto-sobreposto",
       "semantic.acao-inativa-texto",
       "semantic.acao-link-texto-pressionado",
+      "semantic.texto-primario",
       "semantic.texto-secundario",
       "semantic.texto-invertido"
     ],
@@ -295,7 +296,9 @@
     "AUDITORIA — teclado: 108 combinações ativas por tema acionadas por Enter e Espaço; 36 loading por tema sem acionamento e 36 disabled fora da tabulação. Foco verificado em 144 combinações focáveis por tema, sem cortes no Playground. Texto 200%, espaçamento e reflow emulado 200% verificados; demo isolada a 320 CSS px sem overflow horizontal. Leitor de tela e zoom nativo continuam como validação manual complementar.",
     "REVISADO — Etapa 5: outlined removido da API, runtime, CSS e demo; decisões antigas preservadas apenas como histórico. Cancelar/Anterior/Voltar e Sidebar migraram de neutral contornado para subtle; FileUpload field e logins alternativos de DividerDemo usam neutral preenchido. ActionCard secundário tem default subtle; gatilho link do FileUpload preservado. onPress/type e callbacks não foram alterados.",
     "REVISADO — whitelist remove tokens usados exclusivamente pelo estilo contornado do Button. Tokens globais acao-primaria-transparente/acao-destrutiva-transparente e texto-apoio-3/texto-erro preservados por outros consumidores. acao-secundaria-transparente/acao-neutra-transparente/acao-sutil-transparente removidos de tokens.css por ausência de consumo executável restante; exportação Figma tokens.json preservada.",
-    "REVISADO — README-traducao.md deixa de apresentar contorno→outlined como API atual. A tradução antiga permanece documentada nesta decisão e nas decisões anteriores, sem instruir novos consumidores a usar prop removida."
+    "REVISADO — README-traducao.md deixa de apresentar contorno→outlined como API atual. A tradução antiga permanece documentada nesta decisão e nas decisões anteriores, sem instruir novos consumidores a usar prop removida.",
+    "AJUSTADO a pedido do usuário — Etapa 6: guia de migração publicado em entries/button.ts. Breaking change: Button.outlined, ActionCard.secondaryOutlined e FileUpload.buttonOutlined removidos. Cancelar/Voltar/Anterior e Sidebar usam subtle; FileUpload field e logins alternativos usam neutral; ActionCard secundário tem default subtle e gatilhos link preservam buttonVariant='link'. Guia também explicita seis formatos, seis variantes, limites de count e exigências de iconOnly. Comentários dos tokens refletem seu consumo atual; histórico anterior preservado.",
+    "CORRIGIDO — revisão final: tokensAllowed inclui texto-primario, já consumido pelos títulos da demo Button. Nenhum token ou valor novo criado; whitelist alinhada ao consumo real."
   ],
   "references": {
     "tokensFile": "tokens/tokens.json — Cores Semânticas (grupo Ações, todas as famílias), Estrutural (raio-pp, foco-espessura, espaco-*, icone-medio), Tipografia Estilo (texto-rotulo-botao)"

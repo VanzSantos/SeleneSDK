@@ -43,7 +43,7 @@ usam `raio-pp` com o fundo visível.
 
 | Caminho no contrato | CSS | Claro / Escuro | Finalidade |
 |---|---|---|---|
-| `structural.botao-altura` | `--botao-altura` | 44px / 44px | Altura atual do botão preenchido |
+| `structural.botao-altura` | `--botao-altura` | 44px / 44px | Altura mínima do botão preenchido; cresce com texto ampliado |
 | `structural.borda-espessura` | `--borda-espessura` | 1px / 1px | Espessura atual da borda |
 | `structural.foco-deslocamento` | `--foco-deslocamento` | 2px / 2px | Distância atual entre botão e foco |
 | `structural.alvo-minimo` | `--alvo-minimo` | 24px / 24px | Alvo mínimo atual do botão link, perfil padrão |
@@ -57,8 +57,9 @@ como Badge `info`, sem criar uma segunda paleta azul. Tipografia e espaçamento
 também seguem Badge. O azul é próximo, mas não idêntico ao PNG de referência.
 Disabled preserva o contador azul legível, como na referência; loading substitui
 o conteúdo visual pelo Spinner e preserva rótulo e contador no nome acessível.
-Para o Spinner durante loading, propor `semantic.texto-secundario` sobre
-`semantic.acao-carregando`: o par atual tem contraste inferior a 3:1.
+O Spinner durante loading usa `semantic.texto-secundario` sobre
+`semantic.acao-carregando`; `semantic.acao-carregando-texto` permanece inalterado
+para outros consumidores. O par escolhido atende ao mínimo de 3:1 nos dois temas.
 
 ## Convenção de CSS custom property (fixada após teste de determinismo)
 

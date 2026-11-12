@@ -42,7 +42,7 @@
   --acao-link-texto-sobreposto: #00401e;
   /* Button/link: fundos visíveis propostos a partir da referência AuroraDS.
      Aliases preservam as famílias existentes e seus overrides de tema.
-     O componente ainda não consome estes tokens. */
+     Consumidos pelo Button nos estados hover e pressed. */
   --acao-link-fundo-sobreposto: var(--fundo-sucesso);
   --acao-link-fundo-pressionado: var(--acao-primaria-sobreposta);
   --acao-link-texto-pressionado: var(--acao-primaria-texto);
@@ -176,7 +176,7 @@
 
   /* Estrutural */
   /* Formalização das medidas atuais do Button e de sua demo, sem mudar layout.
-     Valores compartilhados entre Claro e Escuro. Consumo será feito depois. */
+     Valores compartilhados entre Claro e Escuro, consumidos pelo Button/demo. */
   --botao-altura: 44px;
   --borda-espessura: 1px;
   --foco-deslocamento: 2px;
