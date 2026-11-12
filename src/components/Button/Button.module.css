@@ -3,7 +3,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--espaco-xp);
+  gap: var(--espaco-pp);
   box-sizing: border-box;
   min-height: var(--botao-altura);
   height: auto;
@@ -56,7 +56,7 @@
   max-width: 100%;
   align-items: center;
   justify-content: center;
-  gap: var(--espaco-xp);
+  gap: var(--espaco-pp);
 }
 
 .loading .content {
