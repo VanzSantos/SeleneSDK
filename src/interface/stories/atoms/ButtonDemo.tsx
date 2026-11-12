@@ -24,7 +24,7 @@ const LINK_FORMATS: { id: string; title: string; props: Extract<ButtonProps, { v
 export function ButtonDemo() {
   return (
     <div className={styles.demo}>
-      <p className={styles.note}>Matriz: preenchidos com seis formatos e cinco estados; link com cinco formatos e três estados, sem contador. São 135 combinações por tema. Use o seletor de tema do Playground para conferir a mesma matriz em claro e escuro.</p>
+      <p className={styles.note}>Ícones e Spinner usam icone-grande (24px); iconOnly preenchido tem alvo quadrado botao-altura e link acomoda ícone e borda. Matriz: preenchidos com seis formatos e cinco estados; link com cinco formatos e três estados, sem contador. São 135 combinações por tema. Use o seletor de tema do Playground para conferir a mesma matriz em claro e escuro.</p>
       <div className={styles.matrix} data-button-matrix>
         {VARIANTS.filter((variant) => variant !== "link").map((variant) => (
           <section key={variant} className={styles.variant} aria-labelledby={`button-variant-${variant}`} data-variant={variant}>

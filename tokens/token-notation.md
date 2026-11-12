@@ -107,3 +107,11 @@ permanece consumido no hover do iconOnly. Nenhum token novo foi necessário.
 A matriz final tem 120 combinações preenchidas + 15 de link por tema = 135,
 e 270 nos dois temas. Os aliases anteriores da referência text.png não fazem
 mais parte da especificação atual. Foco e alvo mínimo mantêm seus tokens.
+
+## Button — ícones e Spinner de 24px
+
+Button usa `structural.icone-grande` (`--icone-grande`, 24px nos dois temas),
+via `size="large"` de Icon e Spinner. Não cria token nem altera `icone-medio`.
+O SVG conserva viewBox e proporção; apenas a caixa muda. iconOnly preenchido
+usa `botao-altura` nos dois eixos (44×44) e padding zero. Link iconOnly mantém
+`alvo-minimo` como piso; ícone e borda produzem 26×26, sem corte do foco externo.

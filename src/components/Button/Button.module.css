@@ -49,6 +49,18 @@
   border-color: var(--borda-base);
 }
 
+/* O formato somente ícone usa o mesmo alvo nos dois eixos. */
+.button:not(.link)[data-icon-only] {
+  width: var(--botao-altura);
+  min-width: var(--botao-altura);
+  padding: 0;
+}
+
+/* Preserva a caixa vetorial ao quebrar conteúdo textual. */
+.content > svg {
+  flex-shrink: 0;
+}
+
 .content {
   display: inline-flex;
   flex-wrap: wrap;

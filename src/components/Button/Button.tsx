@@ -100,16 +100,16 @@ export function Button({
     >
       {/* Conteúdo mantém suas dimensões em loading, mas sai da árvore acessível. */}
       <span className={styles.content} aria-hidden={loading || undefined}>
-        {leftIcon && <Icon name={leftIcon} size="medium" color={textColorVar} />}
+        {leftIcon && <Icon name={leftIcon} size="large" color={textColorVar} />}
         {visibleLabel && <span className={styles.label}>{label}</span>}
         {!iconOnly && !visibleLabel && accessibleLabel && <span className={styles.srOnly}>{accessibleLabel}</span>}
         {countText !== undefined && <>{" "}<span className={styles.count}>{countText}</span></>}
-        {rightIcon && (!iconOnly || !leftIcon) && <Icon name={rightIcon} size="medium" color={textColorVar} />}
+        {rightIcon && (!iconOnly || !leftIcon) && <Icon name={rightIcon} size="large" color={textColorVar} />}
       </span>
       {loading && (
         <>
           <span className={styles.loadingIndicator}>
-            <Spinner size="medium" color="var(--texto-secundario)" />
+            <Spinner size="large" color="var(--texto-secundario)" />
           </span>
           {!iconOnly && <span className={styles.srOnly}>{visibleLabel ? label : accessibleLabel}{countText !== undefined && <> {countText}</>}</span>}
         </>
