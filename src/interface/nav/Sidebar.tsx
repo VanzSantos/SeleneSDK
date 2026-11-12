@@ -83,8 +83,7 @@ export function SidebarFooter({
     <div className={styles.footer}>
       <ThemeToggle preference={themePreference} onChange={onThemePreferenceChange} />
       <Button
-        variant="neutral"
-        outlined
+        variant="subtle"
         fullWidth
         label={moduleLabel}
         leftIcon={moduleIcon}

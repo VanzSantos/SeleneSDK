@@ -289,7 +289,7 @@ function CompleteExample() {
                 : `${selectedRowKeys.length} pedido(s) ficarão desabilitados.`}
           </p>
           <div className={styles.row} style={{ justifyContent: "flex-end" }}>
-            <Button variant="neutral" outlined label="Cancelar" onPress={() => setBulkConfirm(null)} />
+            <Button variant="subtle" label="Cancelar" onPress={() => setBulkConfirm(null)} />
             <Button
               variant="primary"
               label="Confirmar"

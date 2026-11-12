@@ -38,8 +38,8 @@ Adicionados em `tokens.css` para a necessidade real de alinhamento com AuroraDS;
 pendentes de reconciliação com as coleções do Figma em `tokens.json`. Não representam
 uma nova exportação do Figma nem uma alteração dos tokens compartilhados existentes.
 O consumo e a whitelist foram incorporados às etapas do contrato e da implementação.
-O antigo `botao-link-raio` (2px) foi removido na Etapa 3: todos os botões link,
-inclusive os exemplos deprecated de outlined, usam `raio-pp` com o fundo visível.
+O antigo `botao-link-raio` (2px) foi removido na Etapa 3: todos os botões link
+usam `raio-pp` com o fundo visível.
 
 | Caminho no contrato | CSS | Claro / Escuro | Finalidade |
 |---|---|---|---|

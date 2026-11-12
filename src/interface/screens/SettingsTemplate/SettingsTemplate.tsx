@@ -45,7 +45,7 @@ function ProfileSection() {
       {/* AJUSTADO a pedido do usuário — o gatilho de upload reaproveita o
           átomo FileUpload já existente (contratos/file-upload.contract.json,
           variant='button'), em vez de um <input type="file"> montado à mão.
-          buttonVariant/buttonOutlined (props novas do FileUpload, ver
+          buttonVariant (prop do FileUpload, ver
           decisions do contrato) deixam o gatilho no estilo "botão link" —
           ícone + texto, sem fundo/borda — pedido explícito do usuário,
           posicionado exatamente embaixo do Avatar. */}

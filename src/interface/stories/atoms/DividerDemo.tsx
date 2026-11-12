@@ -17,9 +17,9 @@ export function DividerDemo() {
       <div className={styles.section}>
         <span className={styles.sectionLabel}>Horizontal, com label</span>
         <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: 8, padding: "8px 0" }}>
-          <Button variant="neutral" outlined fullWidth label="Entrar com Google" />
+          <Button variant="neutral" fullWidth label="Entrar com Google" />
           <Divider label="ou" />
-          <Button variant="neutral" outlined fullWidth label="Entrar com e-mail" />
+          <Button variant="neutral" fullWidth label="Entrar com e-mail" />
         </div>
       </div>
 

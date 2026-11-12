@@ -30,12 +30,10 @@ export interface FileUploadProps {
   dropzoneLabel?: string;
   accessibleLabel?: string;
   /** Só variant='button'. Repassado direto pro variant do Button interno —
-      default 'neutral' preserva o visual original (o único que existia até
-      aqui). Ver decisions no contrato pra quando usar algo diferente. */
+      default 'neutral' usa preenchimento sólido.
+      Ver decisions no contrato pra quando usar algo diferente. */
   buttonVariant?: ButtonVariant;
-  /** Só variant='button'. Repassado direto pro outlined do Button interno —
-      default true preserva o visual original. */
-  buttonOutlined?: boolean;
+
 }
 
 function matchesAccept(file: File, accept?: string): boolean {
@@ -64,7 +62,6 @@ export function FileUpload({
   dropzoneLabel = "Arraste um arquivo aqui ou clique para selecionar",
   accessibleLabel = "Enviar arquivo",
   buttonVariant = "neutral",
-  buttonOutlined = true,
 }: FileUploadProps) {
   const fieldId = useId();
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -154,7 +151,7 @@ export function FileUpload({
               <span className={styles.placeholder}>Nenhum arquivo selecionado</span>
             )}
           </div>
-          <Button variant="neutral" outlined label={buttonLabel} onPress={openPicker} state={disabled ? "disabled" : "default"} />
+          <Button variant="neutral" label={buttonLabel} onPress={openPicker} state={disabled ? "disabled" : "default"} />
         </div>
         {helperText && <HelperText text={helperText} intent={error ? "error" : "default"} fieldId={fieldId} />}
       </div>
@@ -167,7 +164,6 @@ export function FileUpload({
         {hiddenInput}
         <Button
           variant={buttonVariant}
-          outlined={buttonVariant === "link" ? undefined : buttonOutlined}
           leftIcon="upload-simple"
           label={buttonLabel}
           onPress={openPicker}

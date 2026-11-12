@@ -215,7 +215,7 @@ export function CrudTemplate({ embedded = false }: CrudTemplateProps) {
                 : `${selectedRowKeys.length} cliente(s) ficarão desabilitados.`}
           </p>
           <div className={styles.confirmActions}>
-            <Button variant="neutral" outlined label="Cancelar" onPress={() => setBulkConfirm(null)} />
+            <Button variant="subtle" label="Cancelar" onPress={() => setBulkConfirm(null)} />
             <Button
               variant={bulkConfirm === "delete" ? "destructive" : "primary"}
               label="Confirmar"
@@ -241,7 +241,7 @@ export function CrudTemplate({ embedded = false }: CrudTemplateProps) {
           <TextField label="E-mail" type="email" value={novoRegistro.email} onChange={(email) => setNovoRegistro((f) => ({ ...f, email }))} />
           <Select label="Plano" options={PLANO_OPTIONS} value={novoRegistro.plano} onChange={(plano) => setNovoRegistro((f) => ({ ...f, plano: plano as Cliente["plano"] }))} />
           <div className={styles.confirmActions}>
-            <Button variant="neutral" outlined label="Cancelar" onPress={() => setNovoRegistroOpen(false)} />
+            <Button variant="subtle" label="Cancelar" onPress={() => setNovoRegistroOpen(false)} />
             <Button
               variant="primary"
               label="Criar cliente"

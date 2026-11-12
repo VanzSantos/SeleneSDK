@@ -81,7 +81,7 @@
   overflow-wrap: anywhere;
 }
 
-/* variantes preenchidas (outlined=false) */
+/* Variantes preenchidas */
 .primary {
   --btn-bg: var(--acao-primaria);
   --btn-bg-hover: var(--acao-primaria-sobreposta);
@@ -137,73 +137,8 @@
   text-decoration: underline;
 }
 
-/* outlined — preenchimento 10% (*-transparente) só aparece no hover, nunca em repouso */
-.outlined {
-  background: transparent;
-}
-
-.outlined.primary {
-  --btn-bg: transparent;
-  --btn-bg-hover: var(--acao-primaria-transparente);
-  --btn-bg-active: var(--acao-primaria-transparente);
-  --btn-text: var(--acao-primaria-sobreposta);
-  border-color: var(--acao-primaria-sobreposta);
-}
-
-.outlined.secondary {
-  --btn-bg: transparent;
-  --btn-bg-hover: var(--acao-secundaria-transparente);
-  --btn-bg-active: var(--acao-secundaria-transparente);
-  /* -sobreposta dava 3.25:1 (falha AA de texto) — -pressionada é o tom mais escuro
-     que a família secundária tem, sobe pra 5.23:1 (AA; não alcança AAA por ser um
-     verde-amarelado, hue com luminância naturalmente alta mesmo escurecido). */
-  --btn-text: var(--texto-apoio-3);
-  border-color: var(--texto-apoio-3);
-}
-
-:root[data-theme="dark"] .outlined.primary {
-  /* Tom primário anterior não atingia contraste de texto sobre o fundo escuro. */
-  --btn-text: var(--acao-link-texto);
-  border-color: var(--acao-link-texto);
-}
-
-:root[data-theme="dark"] .outlined.destructive {
-  --btn-text: var(--texto-erro);
-  border-color: var(--texto-erro);
-}
-
-.outlined.neutral {
-  --btn-bg: transparent;
-  --btn-bg-hover: var(--acao-neutra-transparente);
-  --btn-bg-active: var(--acao-neutra-transparente);
-  --btn-text: var(--acao-neutra);
-  border-color: var(--acao-neutra);
-}
-
-/* outlined.subtle não existe — combinação bloqueada em tempo de execução no
-   Button.tsx. Ver decisions em contratos/button.contract.json: nenhum tom da
-   família 'sutil' é ao mesmo tempo legível o bastante e distinto do neutral
-   outlined o suficiente pra justificar a variante contornada. */
-
-.outlined.destructive {
-  --btn-bg: transparent;
-  --btn-bg-hover: var(--acao-destrutiva-transparente);
-  --btn-bg-active: var(--acao-destrutiva-transparente);
-  --btn-text: var(--acao-destrutiva-sobreposta);
-  border-color: var(--acao-destrutiva-sobreposta);
-}
-
-.link:not(.outlined):disabled {
+.link:disabled {
   background: var(--acao-link);
-}
-
-.outlined.link {
-  --btn-bg: transparent;
-  --btn-bg-hover: transparent;
-  --btn-bg-active: transparent;
-  --btn-text-active: var(--acao-link-texto);
-  --btn-text: var(--acao-link-texto);
-  border-color: var(--acao-link-texto);
 }
 
 /* state=loading — aria-busy, bloqueia clique via handler; permanece focável (não usa :disabled) */

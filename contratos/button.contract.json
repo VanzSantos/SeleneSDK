@@ -34,13 +34,6 @@
       "required": true
     },
     {
-      "name": "outlined",
-      "type": "boolean",
-      "default": false,
-      "required": false,
-      "description": "@deprecated — manter por compatibilidade até a Etapa 5. false = preenchido. true = contornado (borda + fundo transparente em repouso). Inválido com variant='subtle' — erro em tempo de execução (ver forbidden e decisions)."
-    },
-    {
       "name": "state",
       "type": "enum",
       "enum": [
@@ -142,23 +135,18 @@
       "semantic.acao-primaria",
       "semantic.acao-primaria-sobreposta",
       "semantic.acao-primaria-pressionada",
-      "semantic.acao-primaria-transparente",
       "semantic.acao-secundaria",
       "semantic.acao-secundaria-sobreposta",
       "semantic.acao-secundaria-pressionada",
-      "semantic.acao-secundaria-transparente",
       "semantic.acao-neutra",
       "semantic.acao-neutra-sobreposta",
       "semantic.acao-neutra-pressionada",
-      "semantic.acao-neutra-transparente",
       "semantic.acao-sutil",
       "semantic.acao-sutil-sobreposta",
       "semantic.acao-sutil-pressionada",
-      "semantic.acao-sutil-transparente",
       "semantic.acao-destrutiva",
       "semantic.acao-destrutiva-sobreposta",
       "semantic.acao-destrutiva-pressionada",
-      "semantic.acao-destrutiva-transparente",
       "semantic.acao-link",
       "semantic.acao-inativa",
       "semantic.acao-carregando",
@@ -178,12 +166,7 @@
       "semantic.acao-inativa-texto",
       "semantic.acao-link-texto-pressionado",
       "semantic.texto-secundario",
-      "semantic.texto-invertido",
-      "semantic.texto-apoio-3",
-      "semantic.texto-erro",
-      "semantic.acao-primaria-sobreposta",
-      "semantic.acao-neutra",
-      "semantic.acao-destrutiva-sobreposta"
+      "semantic.texto-invertido"
     ],
     "radius": [
       "structural.raio-pp",
@@ -211,14 +194,8 @@
       "type-style.texto-m-forte"
     ],
     "border": [
-      "semantic.acao-primaria-sobreposta",
-      "semantic.texto-apoio-3",
-      "semantic.acao-neutra",
-      "semantic.acao-destrutiva-sobreposta",
-      "semantic.acao-link-texto",
-      "semantic.texto-erro",
-      "structural.borda-espessura",
-      "semantic.borda-base"
+      "semantic.borda-base",
+      "structural.borda-espessura"
     ],
     "dimensions": [
       "structural.botao-altura",
@@ -276,7 +253,6 @@
     "usar onClick em vez de onPress",
     "loading usando o atributo disabled nativo — loading só bloqueia o clique via handler + aria-busy, mantém focável; disabled usa disabled nativo de verdade e sai da tabulação",
     "iconOnly sem accessibleLabel",
-    "outlined=true com variant='subtle' — nenhum tom da família 'sutil' é ao mesmo tempo legível (AA/AAA contra branco) e distinto o bastante do neutral outlined (mínimo de 3:1 entre os dois); usar variant='neutral' outlined nesse caso. Erro em tempo de execução, ver decisions.",
     "novo estado/variante fora das listas acima sem atualizar este contrato primeiro",
     "iconOnly com label/count, sem nome acessível ou sem exatamente um ícone",
     "showLabel=false fora de iconOnly",
@@ -316,7 +292,10 @@
     "CORRIGIDO — loading agora comunica aria-disabled além de aria-busy, mantendo foco e bloqueio existente de onPress. Sem alterações em onPress/type. count 99+ mantém o texto visível no nome e recebe aria-description Mais de 99 itens.; zero permanece explícito.",
     "AJUSTADO a pedido do usuário — preferência de movimento reduzido atendida localmente no Button: Spinner continua visível, sem rotação, mantendo estado sem depender só de cor. O componente compartilhado Spinner não foi alterado.",
     "AUDITORIA — Etapa 4: matriz de 180 combinações por tema, nomes/ícones/estados/alvos verificados programaticamente. Contraste mínimo de texto/ícone ativo: 5,07:1 claro e 4,91:1 escuro; contador 5,24:1/4,63:1; indicador loading 6,10:1/5,55:1. Foco contra superfícies: mínimo 3,77:1 claro/7,16:1 escuro. Disabled registrado como exceção, não como falha. Mantida meta PADRÃO.",
-    "AUDITORIA — teclado: 108 combinações ativas por tema acionadas por Enter e Espaço; 36 loading por tema sem acionamento e 36 disabled fora da tabulação. Foco verificado em 144 combinações focáveis por tema, sem cortes no Playground. Texto 200%, espaçamento e reflow emulado 200% verificados; demo isolada a 320 CSS px sem overflow horizontal. Leitor de tela e zoom nativo continuam como validação manual complementar."
+    "AUDITORIA — teclado: 108 combinações ativas por tema acionadas por Enter e Espaço; 36 loading por tema sem acionamento e 36 disabled fora da tabulação. Foco verificado em 144 combinações focáveis por tema, sem cortes no Playground. Texto 200%, espaçamento e reflow emulado 200% verificados; demo isolada a 320 CSS px sem overflow horizontal. Leitor de tela e zoom nativo continuam como validação manual complementar.",
+    "REVISADO — Etapa 5: outlined removido da API, runtime, CSS e demo; decisões antigas preservadas apenas como histórico. Cancelar/Anterior/Voltar e Sidebar migraram de neutral contornado para subtle; FileUpload field e logins alternativos de DividerDemo usam neutral preenchido. ActionCard secundário tem default subtle; gatilho link do FileUpload preservado. onPress/type e callbacks não foram alterados.",
+    "REVISADO — whitelist remove tokens usados exclusivamente pelo estilo contornado do Button. Tokens globais acao-primaria-transparente/acao-destrutiva-transparente e texto-apoio-3/texto-erro preservados por outros consumidores. acao-secundaria-transparente/acao-neutra-transparente/acao-sutil-transparente removidos de tokens.css por ausência de consumo executável restante; exportação Figma tokens.json preservada.",
+    "REVISADO — README-traducao.md deixa de apresentar contorno→outlined como API atual. A tradução antiga permanece documentada nesta decisão e nas decisões anteriores, sem instruir novos consumidores a usar prop removida."
   ],
   "references": {
     "tokensFile": "tokens/tokens.json — Cores Semânticas (grupo Ações, todas as famílias), Estrutural (raio-pp, foco-espessura, espaco-*, icone-medio), Tipografia Estilo (texto-rotulo-botao)"

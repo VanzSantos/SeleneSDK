@@ -34,7 +34,6 @@ export interface ActionCardProps {
   secondaryLabel?: string;
   onSecondaryAction?: () => void;
   secondaryVariant?: ButtonVariant;
-  secondaryOutlined?: boolean;
   onInfo?: () => void;
   onSettings?: () => void;
 }
@@ -50,8 +49,7 @@ export function ActionCard({
   primaryVariant = "primary",
   secondaryLabel,
   onSecondaryAction,
-  secondaryVariant = "link",
-  secondaryOutlined = false,
+  secondaryVariant = "subtle",
   onInfo,
   onSettings,
 }: ActionCardProps) {
@@ -95,7 +93,6 @@ export function ActionCard({
           {secondaryLabel && (
             <Button
               variant={secondaryVariant}
-              outlined={secondaryOutlined}
               label={secondaryLabel}
               onPress={onSecondaryAction}
             />

@@ -65,7 +65,7 @@ export function ActionCardDemo() {
       </div>
 
       <div className={styles.section}>
-        <span className={styles.sectionLabel}>Com dois botões no rodapé (secondaryVariant + secondaryOutlined)</span>
+        <span className={styles.sectionLabel}>Com dois botões no rodapé (secundário subtle)</span>
         <div style={{ maxWidth: 340 }}>
           <ActionCard
             icon="trash"
@@ -77,8 +77,7 @@ export function ActionCardDemo() {
             onPrimaryAction={() => {}}
             secondaryLabel="Cancelar"
             onSecondaryAction={() => {}}
-            secondaryVariant="neutral"
-            secondaryOutlined
+            secondaryVariant="subtle"
           />
         </div>
       </div>

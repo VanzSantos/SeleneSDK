@@ -44,15 +44,7 @@ export function ButtonDemo() {
           <Button label="Consultar todas as notificações e solicitações pendentes de análise" count={100} leftIcon="bell" rightIcon="arrow-right" />
         </div>
       </section>
-      <section className={styles.variant} aria-label="Outlined deprecated">
-        <h3 className={styles.heading}>Outlined — deprecated, mantido até a migração</h3>
-        <div className={styles.states}>
-          {VARIANTS.filter((variant) => variant !== "link" && variant !== "subtle").map((variant) => (
-            <Button key={variant} variant={variant} outlined label={variant} />
-          ))}
-        </div>
-        <p className={styles.note}>A combinação subtle com outlined continua proibida pelo contrato.</p>
-      </section>
+
     </div>
   );
 }

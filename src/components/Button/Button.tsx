@@ -13,8 +13,6 @@ export type ButtonState = "default" | "hover" | "pressed" | "disabled" | "loadin
 
 interface ButtonBaseProps {
   variant?: ButtonVariant;
-  /** @deprecated Use uma variante sem contorno; remoção prevista na Etapa 5. */
-  outlined?: boolean;
   state?: ButtonState;
   fullWidth?: boolean;
   onPress?: () => void;
@@ -48,7 +46,6 @@ export type ButtonProps = ButtonBaseProps & (IconOnlyProps | TextButtonProps);
 
 export function Button({
   variant = "primary",
-  outlined = false,
   state = "default",
   showLabel = true,
   label,
@@ -76,14 +73,6 @@ export function Button({
   const validCount = count !== undefined && Number.isFinite(count) && Number.isInteger(count) && count >= 0;
   if (count !== undefined && !validCount) warn("count deve ser um inteiro finito não negativo; contador omitido.");
   const countText = !iconOnly && validCount ? (count > 99 ? "99+" : String(count)) : undefined;
-  if (outlined && variant === "subtle") {
-    throw new Error(
-      "Button: outlined=true com variant=\"subtle\" não é suportado — o único tom da família " +
-        "'sutil' legível o bastante pra contornado (texto-secundario, 7.56:1 contra branco) fica " +
-        "a só 2.35:1 do neutral outlined, abaixo do mínimo de distinção de UI (3:1). Use " +
-        "variant=\"neutral\" outlined."
-    );
-  }
 
   const disabled = state === "disabled";
   const loading = state === "loading";
@@ -92,7 +81,7 @@ export function Button({
   return (
     <button
       type={type}
-      className={`${styles.button} ${styles[variant]} ${outlined ? styles.outlined : ""} ${
+      className={`${styles.button} ${styles[variant]} ${
         fullWidth ? styles.fullWidth : ""
       } ${loading ? styles.loading : ""}`}
       data-state={state}

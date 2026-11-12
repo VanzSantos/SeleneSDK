@@ -751,7 +751,7 @@ export function Datatable<T extends Record<string, unknown>>({
                   : `O registro ${confirmation.rowKey} voltará a ficar ativo.`}
             </p>
             <div className={styles.confirmActions}>
-              <Button variant="neutral" outlined label="Cancelar" onPress={() => setConfirmation(null)} />
+              <Button variant="subtle" label="Cancelar" onPress={() => setConfirmation(null)} />
               <Button variant="primary" label="Confirmar" onPress={confirmAction} />
             </div>
           </div>

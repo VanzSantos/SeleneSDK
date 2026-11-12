@@ -25,7 +25,7 @@ de decisão e tudo que é lido por humano permanece em português.
 
 **Tooltip**: texto→text, direcao→placement, autoAjuste→autoAdjust, idGatilho→triggerId
 
-**Button**: tipo→variant, contorno→outlined, estado→state, rotulo→showLabel, rotuloTexto→label, iconeEsquerda→leftIcon (vira string, não boolean — ver decisão no contrato), iconeDireita→rightIcon, iconeApenas→iconOnly, larguraTotal→fullWidth, rotuloAcessivel→accessibleLabel, onPress→onPress (mantido, já é convenção cross-platform)
+**Button**: tipo→variant, estado→state, rotulo→showLabel, rotuloTexto→label, iconeEsquerda→leftIcon (vira string, não boolean — ver decisão no contrato), iconeDireita→rightIcon, iconeApenas→iconOnly, larguraTotal→fullWidth, rotuloAcessivel→accessibleLabel, onPress→onPress (mantido, já é convenção cross-platform)
 
 **TextField**: rotulo→label, obrigatorio→required, comInfo→withInfo, textoInfo→infoText, placeholder→placeholder, valor→value, estado→state, mensagem→helperText, iconeEsquerda→leftIcon, iconeDireita→rightIcon, onChange→onChange (mantido)
 

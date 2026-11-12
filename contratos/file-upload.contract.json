@@ -8,7 +8,7 @@
   "whenNotToUse": "Já existe uma imagem/arquivo remoto só pra exibir (isso é ImageThumbnail); a lógica de upload de verdade (progresso, multipart, retry) — este componente só coleta os File[] e entrega via onChange, o resto é responsabilidade de quem consome.",
   "anatomy": [
     "<input type='file'> nativo, sempre presente mas visualmente oculto (display:none) — é ele quem de fato abre o seletor do sistema operacional",
-    "Gatilho visível, uma de três variantes: 'field' (FieldLabel + linha com os arquivos selecionados via Chip removível + botão 'Procurar'), 'button' (só um Button que abre o seletor), 'dropzone' (área tracejada clicável, também aceita arrastar-e-soltar)",
+    "Gatilho visível, uma de três variantes: 'field' (FieldLabel + linha com os arquivos selecionados via Chip removível + Button neutral preenchido 'Procurar'), 'button' (só um Button que abre o seletor), 'dropzone' (área tracejada clicável, também aceita arrastar-e-soltar)",
     "Lista de arquivos selecionados — reaproveita o átomo Chip (removable=true) por arquivo, mesmo nas variantes button/dropzone (aparece abaixo do gatilho)"
   ],
   "dependencies": [
@@ -133,14 +133,7 @@
       ],
       "default": "neutral",
       "required": false,
-      "description": "Só variant='button'. Reaproveita o enum já definido em button.contract.json (sem redefinir aqui), repassado direto pro variant do Button interno. Default 'neutral' preserva o visual original — único que existia antes desta prop."
-    },
-    {
-      "name": "buttonOutlined",
-      "type": "boolean",
-      "default": true,
-      "required": false,
-      "description": "Só variant='button'. Repassado pro outlined do Button interno — ignorado quando buttonVariant='link' (link não usa outlined como estilo primário, ver button.contract.json). Default true preserva o visual original."
+      "description": "Só variant='button': repassado ao Button interno. Default neutral preenchido. O gatilho field usa neutral; link preserva seu estilo sem fundo no default."
     }
   ],
   "variants": [
@@ -248,7 +241,8 @@
     "Sem preview de imagem nesta v1 (mesmo pra accept='image/*') — não foi pedido; se surgir caso real, decisão nova (provavelmente reaproveitando ImageThumbnail pro preview em vez de reinventar).",
     "Drag-and-drop reforça mas não substitui o clique — a dropzone inteira é um <button> clicável por baixo (mesmo alvo do teclado/Enter), o listener de drop é um extra por cima, não o único caminho (ver a11y notes).",
     "EXTENSÃO — novas props buttonVariant/buttonOutlined (só variant='button'), sob demanda real: SettingsTemplate precisava do gatilho de upload no estilo 'botão link' (ícone + texto, sem fundo/borda), diretamente abaixo do Avatar — o Button interno da variant='button' vinha com variant/outlined FIXOS em 'neutral'/true, sem forma de configurar. Reaproveita o enum ButtonVariant já existente (nenhum enum novo) — default 'neutral'/true preserva 100% o comportamento de todos os outros consumidores já existentes do componente.",
-    "CORRIGIDO — auditoria de acessibilidade (2026-11-10, perfil padrão, WCAG 1.4.11): a borda do controle usava borda-base, com 1,47:1 no claro e 1,88:1 no escuro contra a superfície (mínimo 3:1 pra identificar um componente de interface). Passou a borda-campo, token novo (#6b7280 no claro = 4,83:1; #85847c no escuro = 4,82:1). borda-base continua valendo pra divisórias e superfícies decorativas, que a WCAG não exige em 3:1."
+    "CORRIGIDO — auditoria de acessibilidade (2026-11-10, perfil padrão, WCAG 1.4.11): a borda do controle usava borda-base, com 1,47:1 no claro e 1,88:1 no escuro contra a superfície (mínimo 3:1 pra identificar um componente de interface). Passou a borda-campo, token novo (#6b7280 no claro = 4,83:1; #85847c no escuro = 4,82:1). borda-base continua valendo pra divisórias e superfícies decorativas, que a WCAG não exige em 3:1.",
+    "REVISADO — Etapa 5: buttonOutlined removido. Gatilho field migra de neutral contornado para neutral preenchido; variant button mantém buttonVariant, sem modificador de contorno. Link da foto em SettingsTemplate/FileUploadDemo preservado. Seleção/validação de arquivos, callbacks e input nativo não mudaram."
   ],
   "references": {
     "tokensFile": "tokens/tokens.json — Cores Semânticas (Fundos, Bordas, Textos, Ícones, Ação Primária), Estrutural (raio-pp, foco-espessura, espaco-xp/pp/p/m), Tipografia Estilo (texto-p, texto-m)"
