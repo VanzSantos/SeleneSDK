@@ -24,7 +24,6 @@
       "type": "enum",
       "enum": [
         "primary",
-        "secondary",
         "neutral",
         "subtle",
         "destructive",
@@ -117,7 +116,6 @@
   ],
   "variants": [
     "primary",
-    "secondary",
     "neutral",
     "subtle",
     "destructive",
@@ -135,9 +133,6 @@
       "semantic.acao-primaria",
       "semantic.acao-primaria-sobreposta",
       "semantic.acao-primaria-pressionada",
-      "semantic.acao-secundaria",
-      "semantic.acao-secundaria-sobreposta",
-      "semantic.acao-secundaria-pressionada",
       "semantic.acao-neutra",
       "semantic.acao-neutra-sobreposta",
       "semantic.acao-neutra-pressionada",
@@ -157,7 +152,6 @@
     ],
     "text": [
       "semantic.acao-primaria-texto",
-      "semantic.acao-secundaria-texto",
       "semantic.acao-neutra-texto",
       "semantic.acao-sutil-texto",
       "semantic.acao-destrutiva-texto",
@@ -209,7 +203,6 @@
   "variantTokenMap": {
     "note": "Determinismo extra: tabela de tradução variant→sufixo do token (nomes de token concordam em feminino: 'primaria', 'secundaria', 'neutra', 'destrutiva'; valores de prop concordam em masculino: 'primary'→acao-primaria). Não assumir que o nome da prop bate direto com o token.",
     "primary": "acao-primaria",
-    "secondary": "acao-secundaria",
     "neutral": "acao-neutra",
     "subtle": "acao-sutil",
     "destructive": "acao-destrutiva",
@@ -298,7 +291,8 @@
     "REVISADO — whitelist remove tokens usados exclusivamente pelo estilo contornado do Button. Tokens globais acao-primaria-transparente/acao-destrutiva-transparente e texto-apoio-3/texto-erro preservados por outros consumidores. acao-secundaria-transparente/acao-neutra-transparente/acao-sutil-transparente removidos de tokens.css por ausência de consumo executável restante; exportação Figma tokens.json preservada.",
     "REVISADO — README-traducao.md deixa de apresentar contorno→outlined como API atual. A tradução antiga permanece documentada nesta decisão e nas decisões anteriores, sem instruir novos consumidores a usar prop removida.",
     "AJUSTADO a pedido do usuário — Etapa 6: guia de migração publicado em entries/button.ts. Breaking change: Button.outlined, ActionCard.secondaryOutlined e FileUpload.buttonOutlined removidos. Cancelar/Voltar/Anterior e Sidebar usam subtle; FileUpload field e logins alternativos usam neutral; ActionCard secundário tem default subtle e gatilhos link preservam buttonVariant='link'. Guia também explicita seis formatos, seis variantes, limites de count e exigências de iconOnly. Comentários dos tokens refletem seu consumo atual; histórico anterior preservado.",
-    "CORRIGIDO — revisão final: tokensAllowed inclui texto-primario, já consumido pelos títulos da demo Button. Nenhum token ou valor novo criado; whitelist alinhada ao consumo real."
+    "CORRIGIDO — revisão final: tokensAllowed inclui texto-primario, já consumido pelos títulos da demo Button. Nenhum token ou valor novo criado; whitelist alinhada ao consumo real.",
+    "AJUSTADO a pedido do usuário — Fase 1: removida a variante Button secondary verde antes de reutilizar o nome. Gatilhos auxiliares de DatatableDemo e ConfirmDialogDemo migrados para subtle; sem ação principal ambígua. Removidos acao-secundaria-sobreposta/pressionada/texto sem consumo restante e suas entradas em whitelists. acao-secundaria base preservado por CallControlBar; subtle e seus tokens cinza permanecem nesta fase. Histórico, onPress e type preservados."
   ],
   "references": {
     "tokensFile": "tokens/tokens.json — Cores Semânticas (grupo Ações, todas as famílias), Estrutural (raio-pp, foco-espessura, espaco-*, icone-medio), Tipografia Estilo (texto-rotulo-botao)"

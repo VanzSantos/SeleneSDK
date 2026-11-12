@@ -21,7 +21,7 @@ export function ConfirmDialogDemo() {
     <div className={styles.row}>
       <Button variant="destructive" label="Excluir conta" onPress={() => setOpenDestrutivo(true)} />
       <Button variant="primary" label="Salvar alterações" onPress={() => setOpenPrimario(true)} />
-      <Button variant="secondary" label="Rótulos longos (bug OCR)" onPress={() => setOpenRotulosLongos(true)} />
+      <Button variant="subtle" label="Rótulos longos (bug OCR)" onPress={() => setOpenRotulosLongos(true)} />
 
       <ConfirmDialog
         open={openDestrutivo}

@@ -13,9 +13,6 @@
 
   /* Ações / Secundárias */
   --acao-secundaria: #95c11f;
-  --acao-secundaria-sobreposta: #86ad1a;
-  --acao-secundaria-pressionada: #779a16;
-  --acao-secundaria-texto: #06240f;
 
   /* Ações / Neutras */
   --acao-neutra: #111827;
@@ -275,9 +272,6 @@
 
   /* Ações / Secundárias */
   --acao-secundaria: #a8d43e;
-  --acao-secundaria-sobreposta: #98c235;
-  --acao-secundaria-pressionada: #86ad2d;
-  --acao-secundaria-texto: #0d2b12;
 
   /* Ações / Neutras — AJUSTADO a pedido do usuário: 'a variante neutral
      preenchido deve ter o fundo bem mais claro e as letras escuras'. Papel

@@ -206,7 +206,7 @@ function CompleteExample() {
       <Datatable
         title="Pedidos"
         toolbarActions={
-          <Button variant="secondary" label="Simular carregamento" onPress={simulateLoading} />
+          <Button variant="subtle" label="Simular carregamento" onPress={simulateLoading} />
         }
         allowDensityToggle
         columnVisibilityEnabled

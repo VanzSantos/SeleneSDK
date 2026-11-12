@@ -72,3 +72,12 @@ precisam casar pelo nome exato da variável.
 Exemplo: `semantic.acao-primaria` → `var(--acao-primaria)`; `structural.raio-pp` →
 `var(--raio-pp)`; `type-style.texto-m` → `var(--texto-m-size)` / `var(--texto-m-weight)` /
 `var(--texto-m-line-height)` (tipografia se decompõe em 3+ variáveis, uma por propriedade CSS).
+
+## Remoção do secondary verde — Fase 1
+
+A variante Button `secondary` verde foi removida; seus dois gatilhos auxiliares
+foram migrados para `subtle`. `acao-secundaria-sobreposta`,
+`acao-secundaria-pressionada` e `acao-secundaria-texto` foram removidos do CSS
+por ausência de consumo. `acao-secundaria` base permanece verde, consumido
+pelos checks do CallControlBar; não representa uma variante disponível do Button.
+A exportação original `tokens.json` permanece intacta.

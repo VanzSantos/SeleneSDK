@@ -1,7 +1,7 @@
 import { Button, type ButtonProps, type ButtonState, type ButtonVariant } from "../../../components/Button/Button";
 import styles from "./ButtonDemo.module.css";
 
-const VARIANTS: ButtonVariant[] = ["primary", "secondary", "neutral", "subtle", "destructive", "link"];
+const VARIANTS: ButtonVariant[] = ["primary", "neutral", "subtle", "destructive", "link"];
 const STATES: ButtonState[] = ["default", "hover", "pressed", "disabled", "loading"];
 const FORMATS: { id: string; title: string; props: ButtonProps }[] = [
   { id: "text", title: "Somente texto", props: { label: "Detalhes" } },
@@ -15,7 +15,7 @@ const FORMATS: { id: string; title: string; props: ButtonProps }[] = [
 export function ButtonDemo() {
   return (
     <div className={styles.demo}>
-      <p className={styles.note}>Matriz completa: seis formatos, seis variantes e cinco estados. Use o seletor de tema do Playground para conferir a mesma matriz em claro e escuro.</p>
+      <p className={styles.note}>Matriz completa: seis formatos, cinco variantes e cinco estados. Use o seletor de tema do Playground para conferir a mesma matriz em claro e escuro.</p>
       <div className={styles.matrix} data-button-matrix>
         {VARIANTS.map((variant) => (
           <section key={variant} className={styles.variant} aria-labelledby={`button-variant-${variant}`} data-variant={variant}>

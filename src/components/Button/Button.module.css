@@ -89,13 +89,6 @@
   --btn-text: var(--acao-primaria-texto);
 }
 
-.secondary {
-  --btn-bg: var(--acao-secundaria);
-  --btn-bg-hover: var(--acao-secundaria-sobreposta);
-  --btn-bg-active: var(--acao-secundaria-pressionada);
-  --btn-text: var(--acao-secundaria-texto);
-}
-
 .neutral {
   --btn-bg: var(--acao-neutra);
   --btn-bg-hover: var(--acao-neutra-sobreposta);
