@@ -38,8 +38,7 @@ Adicionados em `tokens.css` para a necessidade real de alinhamento com AuroraDS;
 pendentes de reconciliação com as coleções do Figma em `tokens.json`. Não representam
 uma nova exportação do Figma nem uma alteração dos tokens compartilhados existentes.
 O consumo e a whitelist foram incorporados às etapas do contrato e da implementação.
-O antigo `botao-link-raio` (2px) foi removido na Etapa 3: todos os botões link
-usam `raio-pp` com o fundo visível.
+Todos os botões link usam `raio-pp` e permanecem sem fundo em todos os estados.
 
 | Caminho no contrato | CSS | Claro / Escuro | Finalidade |
 |---|---|---|---|
@@ -84,7 +83,7 @@ A exportação original `tokens.json` permanece intacta.
 Variantes finais do Button: `primary`, `secondary`, `neutral`, `destructive`,
 `link`. O nome antigo `subtle` foi removido da API e migra para `secondary`;
 o antigo secondary verde não é mais uma variante do Button. A matriz contém
-150 combinações por tema (5 variantes × 5 estados × 6 formatos), 300 nos dois temas.
+135 combinações por tema (120 preenchidas + 15 de link), 270 no total.
 
 Não renomeamos `acao-sutil`, `acao-sutil-sobreposta`, `acao-sutil-pressionada`
 e `acao-sutil-texto`: o novo `secondary` usa exatamente esses mesmos tokens
