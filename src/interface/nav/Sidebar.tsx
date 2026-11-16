@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { SideNav, type SideNavItem } from "../../components/SideNav/SideNav";
 import { Chip } from "../../components/Chip/Chip";
 import { TextField } from "../../components/TextField/TextField";
@@ -78,8 +78,17 @@ export function SidebarFooter({ theme, onThemePreferenceChange }: {
 }
 
 export function Sidebar({ selectedId, theme, onThemePreferenceChange }: SidebarProps) {
-  // Todos os grupos começam expandidos.
-  const [openKeys, setOpenKeys] = useState<string[]>(() => buildItems(selectedId).map((item) => item.key));
+  // Abre somente o grupo que contém a página atual, sem persistência adicional.
+  const [openKeys, setOpenKeys] = useState<string[]>(() =>
+    buildItems(selectedId).filter((group) => group.children?.some((item) => item.active)).map((group) => group.key)
+  );
+
+  useEffect(() => {
+    const activeGroup = buildItems(selectedId).find((group) => group.children?.some((item) => item.active));
+    if (activeGroup) {
+      setOpenKeys((keys) => keys.includes(activeGroup.key) ? keys : [...keys, activeGroup.key]);
+    }
+  }, [selectedId]);
 
   const [query, setQuery] = useState("");
   const normalizedQuery = normalizeForSearch(query.trim());
@@ -89,6 +98,17 @@ export function Sidebar({ selectedId, theme, onThemePreferenceChange }: SidebarP
     ? allItems.map((group) => ({ ...group, children: group.children?.filter((item) => normalizeForSearch(item.label).includes(normalizedQuery)) }))
       .filter((group) => group.children?.length)
     : allItems;
+  const lastVisiblePage = useRef<string | null>(null);
+  useEffect(() => {
+    if (lastVisiblePage.current === selectedId) return;
+    const activeItem = [...document.querySelectorAll<HTMLElement>('nav[aria-label="Navegação de componentes"] a[aria-current="page"]')]
+      .find((item) => item.getClientRects().length > 0);
+    if (activeItem) {
+      activeItem.scrollIntoView({ block: "nearest", inline: "nearest", behavior: "instant" });
+      lastVisiblePage.current = selectedId;
+    }
+  }, [selectedId, openKeys, searching]);
+
   const resultCount = items.reduce((count, group) => count + (group.children?.length ?? 0), 0);
 
   function clearSearch(container: HTMLElement) {

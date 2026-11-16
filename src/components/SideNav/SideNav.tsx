@@ -130,17 +130,15 @@ function SideNavTree({ items, depth, idPrefix, openKeys, onOpenKeysChange }: Tre
                   <Icon name="caret-down" size="small" color="var(--icone-secundario)" decorative />
                 </span>
               </button>
-              {isOpen && (
-                <div id={panelId} role="region" aria-labelledby={headerId}>
-                  <SideNavTree
+              <div id={panelId} role="region" aria-labelledby={headerId} hidden={!isOpen}>
+                {isOpen && <SideNavTree
                     items={item.children}
                     depth={depth + 1}
                     idPrefix={idPrefix}
                     openKeys={openKeys}
                     onOpenKeysChange={onOpenKeysChange}
-                  />
-                </div>
-              )}
+                  />}
+              </div>
             </li>
           );
         }

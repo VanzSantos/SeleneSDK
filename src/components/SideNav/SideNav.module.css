@@ -346,3 +346,15 @@
     display: inline-flex;
   }
 }
+
+.groupHeader:focus-visible {
+  outline: var(--foco-espessura) solid var(--borda-foco);
+  outline-offset: var(--foco-deslocamento);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .caret,
+  .caretOpen {
+    transition: none;
+  }
+}
