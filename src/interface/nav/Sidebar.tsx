@@ -138,14 +138,14 @@ export function Sidebar({ selectedId, themePreference, onThemePreferenceChange, 
               }
             }}>
             <div className={styles.searchRow}>
-              <TextField accessibleLabel="Buscar componente" placeholder="Buscar componente" leftIcon="magnifying-glass"
+              <TextField accessibleLabel="Buscar" placeholder="Buscar" leftIcon="magnifying-glass"
                 value={query} onChange={setQuery} autoComplete="off" />
               {query && <button type="button" className={styles.clearSearch} aria-label="Limpar busca" onClick={(event) => clearSearch(event.currentTarget)}>
                 <Icon name="x" size="small" color="var(--texto-primario)" decorative />
               </button>}
             </div>
             <p role="status" aria-live="polite" aria-atomic="true" className={searching && resultCount === 0 ? styles.emptySearch : styles.searchStatus}>
-              {searching ? (resultCount === 0 ? "Nenhum componente encontrado" : `${resultCount} ${resultCount === 1 ? "resultado encontrado" : "resultados encontrados"}`) : ""}
+              {searching ? (resultCount === 0 ? "Nenhum resultado encontrado" : `${resultCount} ${resultCount === 1 ? "resultado" : "resultados"}`) : ""}
             </p>
           </div>
         </div>
