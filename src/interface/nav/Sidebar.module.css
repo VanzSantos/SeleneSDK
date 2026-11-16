@@ -84,3 +84,10 @@
   line-height: var(--texto-p-line-height);
   overflow-wrap: anywhere;
 }
+
+.appearance {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--espaco-pp);
+}

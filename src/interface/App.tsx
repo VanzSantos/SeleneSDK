@@ -119,6 +119,7 @@ export function App() {
           em vez de um seletor externo por cima das duas. */}
       {mode === "prototable" ? (
         <ProtoTablePage
+          theme={theme}
           themePreference={preference}
           onThemePreferenceChange={setPreference}
           onNavigateToPlayground={() => {
@@ -138,6 +139,7 @@ export function App() {
         <>
           <Sidebar
             selectedId={selectedId}
+            theme={theme}
             themePreference={preference}
             onThemePreferenceChange={setPreference}
             onNavigateToPrototable={() => setMode("prototable")}

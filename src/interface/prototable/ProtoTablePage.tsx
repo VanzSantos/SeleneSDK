@@ -8,7 +8,7 @@ import { Breadcrumb, type BreadcrumbItem } from "../../components/Breadcrumb/Bre
 import { Link } from "../../components/Link/Link";
 import { SideNav } from "../../components/SideNav/SideNav";
 import { Brand, SidebarFooter } from "../nav/Sidebar";
-import type { ThemePreference } from "../theme/useTheme";
+import type { Theme, ThemePreference } from "../theme/useTheme";
 import { useProtoTablePath } from "./useProtoTablePath";
 import staticManifest from "./manifest.json";
 import storyStyles from "../stories/StoryDetail.module.css";
@@ -152,6 +152,7 @@ interface ProtoTablePageProps {
   /** Navega de volta pro módulo DS Playground — módulo irmão deste, mesma
       estrutura visual, dados totalmente separados (ver App.tsx). */
   onNavigateToPlayground: () => void;
+  theme: Theme;
   themePreference: ThemePreference;
   onThemePreferenceChange: (preference: ThemePreference) => void;
 }
@@ -166,7 +167,7 @@ interface ProtoTablePageProps {
     módulos do mesmo sistema, mesmo com dados 100% separados. Metadados de
     autoria/data/histórico vêm 100% do git real de cada Tela, agregados pra
     cima (ver scripts/prototable-manifest.mjs) — nunca digitados à mão. */
-export function ProtoTablePage({ onNavigateToPlayground, themePreference, onThemePreferenceChange }: ProtoTablePageProps) {
+export function ProtoTablePage({ onNavigateToPlayground, theme, themePreference, onThemePreferenceChange }: ProtoTablePageProps) {
   const [openKeys, setOpenKeys] = useState<string[]>(["projetos"]);
   const [manifest, setManifest] = useState<Manifest>(staticManifest as unknown as Manifest);
   const [historyTarget, setHistoryTarget] = useState<HistoryTarget>(null);
@@ -341,6 +342,7 @@ export function ProtoTablePage({ onNavigateToPlayground, themePreference, onThem
           header={<Brand icon="pencil-ruler" name="ProtoTable" />}
           footer={
             <SidebarFooter
+              theme={theme}
               themePreference={themePreference}
               onThemePreferenceChange={onThemePreferenceChange}
               moduleLabel="SeleneSDK"

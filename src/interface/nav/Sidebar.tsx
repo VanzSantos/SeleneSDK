@@ -7,7 +7,7 @@ import { Icon } from "../../components/Icon/Icon";
 import { GROUP_ORDER, STORIES } from "../stories/registry";
 import type { StoryGroup } from "../stories/types";
 import { ThemeToggle } from "../theme/ThemeToggle";
-import type { ThemePreference } from "../theme/useTheme";
+import type { Theme, ThemePreference } from "../theme/useTheme";
 import styles from "./Sidebar.module.css";
 
 export const ICON_LIBRARY_ID = "__icon-library__";
@@ -47,6 +47,7 @@ function buildItems(selectedId: string): SideNavItem[] {
 
 interface SidebarProps {
   selectedId: string;
+  theme: Theme;
   themePreference: ThemePreference;
   onThemePreferenceChange: (preference: ThemePreference) => void;
   /** Navega pro módulo ProtoTable (índice de protótipos) — módulo irmão
@@ -67,6 +68,7 @@ export function Brand({ icon, name }: { icon: "moon" | "pencil-ruler"; name: str
 
 /** Rodapé fixo do menu — modo de cor + atalho pro outro módulo. */
 export function SidebarFooter({
+  theme,
   themePreference,
   onThemePreferenceChange,
   moduleLabel,
@@ -74,6 +76,7 @@ export function SidebarFooter({
   moduleDirection,
   onNavigate,
 }: {
+  theme: Theme;
   themePreference: ThemePreference;
   onThemePreferenceChange: (preference: ThemePreference) => void;
   moduleLabel: string;
@@ -83,8 +86,10 @@ export function SidebarFooter({
 }) {
   return (
     <div className={styles.footer}>
-      <p className={styles.version}>Versão {__SDK_VERSION__}</p>
-      <ThemeToggle preference={themePreference} onChange={onThemePreferenceChange} />
+      <div className={styles.appearance}>
+        <ThemeToggle theme={theme} preference={themePreference} onChange={onThemePreferenceChange} />
+        <p className={styles.version}>Versão {__SDK_VERSION__}</p>
+      </div>
       <Button
         variant="secondary"
         fullWidth
@@ -97,7 +102,7 @@ export function SidebarFooter({
   );
 }
 
-export function Sidebar({ selectedId, themePreference, onThemePreferenceChange, onNavigateToPrototable }: SidebarProps) {
+export function Sidebar({ selectedId, theme, themePreference, onThemePreferenceChange, onNavigateToPrototable }: SidebarProps) {
   // Todos os grupos começam expandidos.
   const [openKeys, setOpenKeys] = useState<string[]>(() => buildItems(selectedId).map((item) => item.key));
 
@@ -153,6 +158,7 @@ export function Sidebar({ selectedId, themePreference, onThemePreferenceChange, 
       }
       footer={
         <SidebarFooter
+          theme={theme}
           themePreference={themePreference}
           onThemePreferenceChange={onThemePreferenceChange}
           moduleLabel="ProtoTable"
