@@ -49,8 +49,8 @@ function readRoute(): { id: string; section?: string } {
 export function App() {
   const [route, setRoute] = useState(readRoute);
   const selectedId = route.id;
-  const [mode, setMode] = useState<AppMode>(readInitialMode);
-  const { theme, preference, setPreference } = useTheme();
+  const [mode] = useState<AppMode>(readInitialMode);
+  const { theme, setPreference } = useTheme();
   const [standaloneId] = useState<string | null>(readStandaloneId);
 
   useEffect(() => {
@@ -110,39 +110,18 @@ export function App() {
       <a href={window.location.hash || "#"} className={styles.skipLink} onClick={skipToContent}>
         Pular para o conteúdo
       </a>
-      {/* Alterna entre o DS Playground (vitrine de componentes) e o ProtoTable
-          (índice de protótipos/produtos reais) — telas deliberadamente
-          distintas, sem Sidebar/dados compartilhados entre si (pedido
-          explícito do usuário), mas com a MESMA estrutura visual (painel
-          lateral + conteúdo, mesmos tokens de cor/fonte) pra lerem como dois
-          módulos do mesmo sistema — cada uma expõe um botão pra ir pra outra,
-          em vez de um seletor externo por cima das duas. */}
+      {/* O módulo ProtoTable permanece acessível pelos parâmetros pt_* da URL. */}
       {mode === "prototable" ? (
         <ProtoTablePage
           theme={theme}
-          themePreference={preference}
           onThemePreferenceChange={setPreference}
-          onNavigateToPlayground={() => {
-            // Limpa o caminho do ProtoTable da URL — sem isso, um reload
-            // futuro (readInitialMode) voltaria pro ProtoTable mesmo depois
-            // da pessoa escolher voltar explicitamente pro Playground.
-            const params = new URLSearchParams(window.location.search);
-            params.delete("pt_project");
-            params.delete("pt_module");
-            params.delete("pt_flow");
-            const query = params.toString();
-            window.history.pushState({}, "", `${window.location.pathname}${query ? `?${query}` : ""}`);
-            setMode("playground");
-          }}
         />
       ) : (
         <>
           <Sidebar
             selectedId={selectedId}
             theme={theme}
-            themePreference={preference}
             onThemePreferenceChange={setPreference}
-            onNavigateToPrototable={() => setMode("prototable")}
           />
           <main className={styles.main}>
             {selectedId === ICON_LIBRARY_ID ? (

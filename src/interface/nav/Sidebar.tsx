@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { SideNav, type SideNavItem } from "../../components/SideNav/SideNav";
-import { Button } from "../../components/Button/Button";
+import { Chip } from "../../components/Chip/Chip";
 import { TextField } from "../../components/TextField/TextField";
 import { normalizeForSearch } from "../../components/shared/normalizeForSearch";
 import { Icon } from "../../components/Icon/Icon";
@@ -48,12 +48,7 @@ function buildItems(selectedId: string): SideNavItem[] {
 interface SidebarProps {
   selectedId: string;
   theme: Theme;
-  themePreference: ThemePreference;
   onThemePreferenceChange: (preference: ThemePreference) => void;
-  /** Navega pro módulo ProtoTable (índice de protótipos) — módulo irmão
-      deste, mesma estrutura visual, dados totalmente separados (ver
-      App.tsx). */
-  onNavigateToPrototable: () => void;
 }
 
 /** Marca do SeleneSDK — usada no topo do menu dos dois módulos. */
@@ -66,43 +61,23 @@ export function Brand({ icon, name }: { icon: "moon" | "pencil-ruler"; name: str
   );
 }
 
-/** Rodapé fixo do menu — modo de cor + atalho pro outro módulo. */
-export function SidebarFooter({
-  theme,
-  themePreference,
-  onThemePreferenceChange,
-  moduleLabel,
-  moduleIcon,
-  moduleDirection,
-  onNavigate,
-}: {
+/** Rodapé do catálogo e ProtoTable — tema e versão, sem troca de módulo. */
+export function SidebarFooter({ theme, onThemePreferenceChange }: {
   theme: Theme;
-  themePreference: ThemePreference;
   onThemePreferenceChange: (preference: ThemePreference) => void;
-  moduleLabel: string;
-  moduleIcon: "moon" | "pencil-ruler";
-  moduleDirection: "forward" | "back";
-  onNavigate: () => void;
 }) {
   return (
     <div className={styles.footer}>
-      <div className={styles.appearance}>
-        <ThemeToggle theme={theme} preference={themePreference} onChange={onThemePreferenceChange} />
-        <p className={styles.version}>Versão {__SDK_VERSION__}</p>
-      </div>
-      <Button
-        variant="secondary"
-        fullWidth
-        label={moduleLabel}
-        leftIcon={moduleIcon}
-        rightIcon={moduleDirection === "forward" ? "arrow-right" : undefined}
-        onPress={onNavigate}
-      />
+      <ThemeToggle theme={theme} onChange={onThemePreferenceChange} />
+      <span className={styles.version}>
+        <span className={styles.srOnly}>Versão {__SDK_VERSION__}</span>
+        <span aria-hidden="true"><Chip label={`v${__SDK_VERSION__}`} /></span>
+      </span>
     </div>
   );
 }
 
-export function Sidebar({ selectedId, theme, themePreference, onThemePreferenceChange, onNavigateToPrototable }: SidebarProps) {
+export function Sidebar({ selectedId, theme, onThemePreferenceChange }: SidebarProps) {
   // Todos os grupos começam expandidos.
   const [openKeys, setOpenKeys] = useState<string[]>(() => buildItems(selectedId).map((item) => item.key));
 
@@ -159,12 +134,7 @@ export function Sidebar({ selectedId, theme, themePreference, onThemePreferenceC
       footer={
         <SidebarFooter
           theme={theme}
-          themePreference={themePreference}
           onThemePreferenceChange={onThemePreferenceChange}
-          moduleLabel="ProtoTable"
-          moduleIcon="pencil-ruler"
-          moduleDirection="forward"
-          onNavigate={onNavigateToPrototable}
         />
       }
     />

@@ -149,11 +149,7 @@ function aggregatedColumns<T extends Record<string, unknown>>(
 }
 
 interface ProtoTablePageProps {
-  /** Navega de volta pro módulo DS Playground — módulo irmão deste, mesma
-      estrutura visual, dados totalmente separados (ver App.tsx). */
-  onNavigateToPlayground: () => void;
   theme: Theme;
-  themePreference: ThemePreference;
   onThemePreferenceChange: (preference: ThemePreference) => void;
 }
 
@@ -167,7 +163,7 @@ interface ProtoTablePageProps {
     módulos do mesmo sistema, mesmo com dados 100% separados. Metadados de
     autoria/data/histórico vêm 100% do git real de cada Tela, agregados pra
     cima (ver scripts/prototable-manifest.mjs) — nunca digitados à mão. */
-export function ProtoTablePage({ onNavigateToPlayground, theme, themePreference, onThemePreferenceChange }: ProtoTablePageProps) {
+export function ProtoTablePage({ theme, onThemePreferenceChange }: ProtoTablePageProps) {
   const [openKeys, setOpenKeys] = useState<string[]>(["projetos"]);
   const [manifest, setManifest] = useState<Manifest>(staticManifest as unknown as Manifest);
   const [historyTarget, setHistoryTarget] = useState<HistoryTarget>(null);
@@ -343,12 +339,7 @@ export function ProtoTablePage({ onNavigateToPlayground, theme, themePreference,
           footer={
             <SidebarFooter
               theme={theme}
-              themePreference={themePreference}
               onThemePreferenceChange={onThemePreferenceChange}
-              moduleLabel="SeleneSDK"
-              moduleIcon="moon"
-              moduleDirection="back"
-              onNavigate={onNavigateToPlayground}
             />
           }
         />
