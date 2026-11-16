@@ -83,6 +83,7 @@ export function SidebarFooter({
 }) {
   return (
     <div className={styles.footer}>
+      <p className={styles.version}>Versão {__SDK_VERSION__}</p>
       <ThemeToggle preference={themePreference} onChange={onThemePreferenceChange} />
       <Button
         variant="secondary"

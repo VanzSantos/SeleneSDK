@@ -74,3 +74,13 @@
   clip-path: inset(50%);
   white-space: nowrap;
 }
+
+.version {
+  margin: 0;
+  color: var(--texto-secundario);
+  font-family: var(--texto-p-family);
+  font-size: var(--texto-p-size);
+  font-weight: var(--texto-p-weight);
+  line-height: var(--texto-p-line-height);
+  overflow-wrap: anywhere;
+}
