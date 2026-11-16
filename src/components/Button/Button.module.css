@@ -134,16 +134,15 @@
   border-radius: var(--raio-pp);
 }
 
-.link:not([data-icon-only]):hover:not(:disabled),
-.link:not([data-icon-only])[data-state="hover"]:not(:disabled) {
+/* O marcador permanente pertence apenas ao rótulo, nunca aos ícones. */
+.link .label {
   text-decoration: underline;
   text-decoration-thickness: var(--borda-espessura);
   text-underline-offset: var(--espaco-xp);
 }
 
-/* iconOnly não tem texto para sublinhar: muda somente a cor do ícone. */
-.link[data-icon-only]:hover:not(:disabled),
-.link[data-icon-only][data-state="hover"]:not(:disabled) {
+.link:hover:not(:disabled),
+.link[data-state="hover"]:not(:disabled) {
   --btn-content-color: var(--acao-link-texto-sobreposto);
 }
 

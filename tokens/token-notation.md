@@ -96,13 +96,14 @@ permanecem estáveis. Nenhum token novo e nenhum token renomeado nesta fase.
 ## Button link — estados restritos
 
 O Button link aceita somente default, hover e disabled e cinco formatos, sem
-contador. No default e disabled não há sublinhado; no hover textual só aparece
-sublinhado, sem fundo ou mudança de cor. Espessura usa `borda-espessura` e offset
+contador. O rótulo textual mantém sublinhado em default, hover e disabled;
+hover muda texto e ícones para `acao-link-texto-sobreposto`, sem fundo.
+Espessura usa `borda-espessura` e offset
 usa `espaco-xp` (token de espaçamento existente). No iconOnly o hover muda apenas
 a cor do ícone para `acao-link-texto-sobreposto`; não há texto para sublinhar.
 Foram removidos `acao-link-fundo-sobreposto`, `acao-link-fundo-pressionado` e
 `acao-link-texto-pressionado`, sem outros consumidores. `acao-link-texto-sobreposto`
-permanece consumido no hover do iconOnly. Nenhum token novo foi necessário.
+permanece consumido no hover de todos os formatos do link. Nenhum token novo foi necessário.
 A matriz final tem 120 combinações preenchidas + 15 de link por tema = 135,
 e 270 nos dois temas. Os aliases anteriores da referência text.png não fazem
 mais parte da especificação atual. Foco e alvo mínimo mantêm seus tokens.
