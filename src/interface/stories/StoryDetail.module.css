@@ -158,3 +158,12 @@
   color: var(--texto-primario);
 }
 
+
+/* Opt-in: índices com subseções de pré-visualização cabem na área rolável. */
+.tocExpanded {
+  position: sticky;
+  max-height: calc(100dvh - var(--espaco-m) * 4);
+  overflow-y: auto;
+  padding: var(--espaco-pp);
+  box-sizing: border-box;
+}

@@ -2,6 +2,10 @@ import { Button, type ButtonProps, type ButtonLinkState, type ButtonState, type 
 import styles from "./ButtonDemo.module.css";
 
 const VARIANTS: ButtonVariant[] = ["primary", "secondary", "neutral", "destructive", "link"];
+export const BUTTON_PREVIEW_SECTIONS = [
+  ...VARIANTS.map((variant) => ({ id: `button-preview-${variant}`, title: variant })),
+  { id: "button-preview-count-limits", title: "Limites do contador" },
+];
 const STATES: ButtonState[] = ["default", "hover", "pressed", "disabled", "loading"];
 const FORMATS: { id: string; title: string; props: Extract<ButtonProps, { variant?: Exclude<ButtonVariant, "link"> }> }[] = [
   { id: "text", title: "Somente texto", props: { label: "Detalhes" } },
@@ -27,7 +31,7 @@ export function ButtonDemo() {
       <p className={styles.note}>Ícones e Spinner usam icone-grande (24px); iconOnly preenchido tem alvo quadrado botao-altura e link acomoda ícone e borda. Matriz: preenchidos com seis formatos e cinco estados; link com cinco formatos e três estados, sem contador. São 135 combinações por tema. Use o seletor de tema do Playground para conferir a mesma matriz em claro e escuro.</p>
       <div className={styles.matrix} data-button-matrix>
         {VARIANTS.filter((variant) => variant !== "link").map((variant) => (
-          <section key={variant} className={styles.variant} aria-labelledby={`button-variant-${variant}`} data-variant={variant}>
+          <section key={variant} id={BUTTON_PREVIEW_SECTIONS.find((section) => section.title === variant)?.id} className={styles.variant} aria-labelledby={`button-variant-${variant}`} data-variant={variant}>
             <h3 id={`button-variant-${variant}`} className={styles.heading}>{variant}</h3>
             {FORMATS.map((format) => (
               <fieldset key={format.id} className={styles.format} data-format={format.id}>
@@ -44,7 +48,7 @@ export function ButtonDemo() {
             ))}
           </section>
         ))}
-        <section className={styles.variant} aria-labelledby="button-variant-link" data-variant="link">
+        <section id={BUTTON_PREVIEW_SECTIONS.find((section) => section.title === "link")?.id} className={styles.variant} aria-labelledby="button-variant-link" data-variant="link">
           <h3 id="button-variant-link" className={styles.heading}>link</h3>
           {LINK_FORMATS.map((format) => (
             <fieldset key={format.id} className={styles.format} data-format={format.id}>
@@ -61,7 +65,7 @@ export function ButtonDemo() {
           ))}
         </section>
       </div>
-      <section className={styles.variant} aria-label="Limites do contador">
+      <section id={BUTTON_PREVIEW_SECTIONS.find((section) => section.title === "Limites do contador")?.id} className={styles.variant} aria-label="Limites do contador">
         <h3 className={styles.heading}>Limites do contador</h3>
         <div className={styles.states}>
           <Button label="Notificações" count={0} />

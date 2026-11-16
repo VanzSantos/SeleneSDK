@@ -1,5 +1,5 @@
 import type { StoryMeta } from "../types";
-import { ButtonDemo } from "../atoms/ButtonDemo";
+import { ButtonDemo, BUTTON_PREVIEW_SECTIONS } from "../atoms/ButtonDemo";
 
 const story: StoryMeta = {
   id: "button",
@@ -24,6 +24,7 @@ const story: StoryMeta = {
 <Button variant="link" label="Detalhes" state="hover" />
 <Button variant="link" iconOnly leftIcon="eye" accessibleLabel="Mostrar detalhes" />
 <Button variant="primary" iconOnly leftIcon="eye" accessibleLabel="Mostrar senha" />`,
+  previewSections: BUTTON_PREVIEW_SECTIONS,
   Demo: ButtonDemo,
 };
 
