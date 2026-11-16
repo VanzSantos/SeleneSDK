@@ -1,14 +1,19 @@
 .button {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--espaco-xp);
-  height: 44px;
-  padding: 0 var(--espaco-m);
+  gap: var(--espaco-pp);
+  box-sizing: border-box;
+  min-height: var(--botao-altura);
+  height: auto;
+  max-width: 100%;
+  padding: var(--espaco-pp) var(--espaco-m);
   border-radius: var(--raio-pp);
-  border: 1px solid transparent;
+  border: var(--borda-espessura) solid transparent;
   background: var(--btn-bg);
-  color: var(--btn-text);
+  --btn-content-color: var(--btn-text);
+  color: var(--btn-content-color);
   font-family: var(--texto-rotulo-botao-family);
   font-size: var(--texto-rotulo-botao-size);
   font-weight: var(--texto-rotulo-botao-weight);
@@ -16,24 +21,66 @@
   cursor: pointer;
 }
 
-.button:hover:not(:disabled) {
+.button:not(.link):hover:not(:disabled):not(:active):not([data-state="loading"]):not([data-state="pressed"]),
+.button:not(.link)[data-state="hover"] {
   background: var(--btn-bg-hover);
-  color: var(--btn-text-hover, var(--btn-text));
+  --btn-content-color: var(--btn-text-hover, var(--btn-text));
 }
 
-.button:active:not(:disabled) {
+.button:not(.link):active:not(:disabled):not([data-state="loading"]),
+.button:not(.link)[data-state="pressed"] {
   background: var(--btn-bg-active);
+  --btn-content-color: var(--btn-text-active, var(--btn-text));
 }
 
 .button:focus-visible {
   outline: var(--foco-espessura) solid var(--borda-foco);
-  outline-offset: 2px;
+  outline-offset: var(--foco-deslocamento);
 }
 
 .button:disabled {
   background: var(--acao-inativa);
-  color: var(--acao-inativa-texto);
+  --btn-content-color: var(--acao-inativa-texto);
   cursor: not-allowed;
+}
+
+/* O contorno leve identifica o estado inativo sem alterar a paleta de ações. */
+.button:not(.link):disabled {
+  border-color: var(--borda-base);
+}
+
+/* O formato somente ícone usa o mesmo alvo nos dois eixos. */
+.button:not(.link)[data-icon-only] {
+  width: var(--botao-altura);
+  min-width: var(--botao-altura);
+  padding: 0;
+}
+
+/* Preserva a caixa vetorial ao quebrar conteúdo textual. */
+.content > svg {
+  flex-shrink: 0;
+}
+
+.content {
+  display: inline-flex;
+  flex-wrap: wrap;
+  min-width: 0;
+  max-width: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: var(--espaco-pp);
+}
+
+.loading .content {
+  visibility: hidden;
+}
+
+.loadingIndicator {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .fullWidth {
@@ -41,22 +88,17 @@
 }
 
 .label {
-  white-space: nowrap;
+  min-width: 0;
+  white-space: normal;
+  overflow-wrap: anywhere;
 }
 
-/* variantes preenchidas (outlined=false) */
+/* Variantes preenchidas */
 .primary {
   --btn-bg: var(--acao-primaria);
   --btn-bg-hover: var(--acao-primaria-sobreposta);
   --btn-bg-active: var(--acao-primaria-pressionada);
   --btn-text: var(--acao-primaria-texto);
-}
-
-.secondary {
-  --btn-bg: var(--acao-secundaria);
-  --btn-bg-hover: var(--acao-secundaria-sobreposta);
-  --btn-bg-active: var(--acao-secundaria-pressionada);
-  --btn-text: var(--acao-secundaria-texto);
 }
 
 .neutral {
@@ -66,7 +108,7 @@
   --btn-text: var(--acao-neutra-texto);
 }
 
-.subtle {
+.secondary {
   --btn-bg: var(--acao-sutil);
   --btn-bg-hover: var(--acao-sutil-sobreposta);
   --btn-bg-active: var(--acao-sutil-pressionada);
@@ -82,83 +124,30 @@
 
 .link {
   --btn-bg: var(--acao-link);
-  --btn-bg-hover: var(--acao-link);
-  --btn-bg-active: var(--acao-link);
   --btn-text: var(--acao-link-texto);
-  --btn-text-hover: var(--acao-link-texto-sobreposto);
+  text-decoration: none;
   height: auto;
   /* alvo mínimo de 24x24 (WCAG 2.5.8) — o botão-link sem padding ficava com 22x22 (só ícone) */
-  min-width: 24px;
-  min-height: 24px;
+  min-width: var(--alvo-minimo);
+  min-height: var(--alvo-minimo);
   padding: 0;
-  border-radius: 2px;
+  border-radius: var(--raio-pp);
 }
 
-.link:hover:not(:disabled) {
+/* O marcador permanente pertence apenas ao rótulo, nunca aos ícones. */
+.link .label {
   text-decoration: underline;
+  text-decoration-thickness: var(--borda-espessura);
+  text-underline-offset: var(--espaco-xp);
 }
 
-/* outlined — preenchimento 10% (*-transparente) só aparece no hover, nunca em repouso */
-.outlined {
-  background: transparent;
+.link:hover:not(:disabled),
+.link[data-state="hover"]:not(:disabled) {
+  --btn-content-color: var(--acao-link-texto-sobreposto);
 }
 
-.outlined.primary {
-  --btn-bg: transparent;
-  --btn-bg-hover: var(--acao-primaria-transparente);
-  --btn-bg-active: var(--acao-primaria-transparente);
-  --btn-text: var(--acao-primaria-sobreposta);
-  border-color: var(--acao-primaria-sobreposta);
-}
-
-.outlined.secondary {
-  --btn-bg: transparent;
-  --btn-bg-hover: var(--acao-secundaria-transparente);
-  --btn-bg-active: var(--acao-secundaria-transparente);
-  /* -sobreposta dava 3.25:1 (falha AA de texto) — -pressionada é o tom mais escuro
-     que a família secundária tem, sobe pra 5.23:1 (AA; não alcança AAA por ser um
-     verde-amarelado, hue com luminância naturalmente alta mesmo escurecido). */
-  --btn-text: var(--texto-apoio-3);
-  border-color: var(--texto-apoio-3);
-}
-
-:root[data-theme="dark"] .outlined.primary {
-  /* acao-primaria-sobreposta (#12693b) sobre o fundo escuro dava 2,68:1 de texto */
-  --btn-text: var(--acao-link-texto);
-  border-color: var(--acao-link-texto);
-}
-
-:root[data-theme="dark"] .outlined.destructive {
-  --btn-text: var(--texto-erro);
-  border-color: var(--texto-erro);
-}
-
-.outlined.neutral {
-  --btn-bg: transparent;
-  --btn-bg-hover: var(--acao-neutra-transparente);
-  --btn-bg-active: var(--acao-neutra-transparente);
-  --btn-text: var(--acao-neutra);
-  border-color: var(--acao-neutra);
-}
-
-/* outlined.subtle não existe — combinação bloqueada em tempo de execução no
-   Button.tsx. Ver decisions em contratos/button.contract.json: nenhum tom da
-   família 'sutil' é ao mesmo tempo legível o bastante e distinto do neutral
-   outlined o suficiente pra justificar a variante contornada. */
-
-.outlined.destructive {
-  --btn-bg: transparent;
-  --btn-bg-hover: var(--acao-destrutiva-transparente);
-  --btn-bg-active: var(--acao-destrutiva-transparente);
-  --btn-text: var(--acao-destrutiva-sobreposta);
-  border-color: var(--acao-destrutiva-sobreposta);
-}
-
-.outlined.link {
-  --btn-bg: transparent;
-  --btn-bg-hover: transparent;
-  --btn-text: var(--acao-link-texto);
-  border-color: var(--acao-link-texto);
+.link:disabled {
+  background: var(--acao-link);
 }
 
 /* state=loading — aria-busy, bloqueia clique via handler; permanece focável (não usa :disabled) */
@@ -171,12 +160,38 @@
    quando o rótulo visível dá lugar ao Spinner. */
 .srOnly {
   position: absolute;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
+  width: var(--borda-espessura);
+  height: var(--borda-espessura);
+  margin: calc(-1 * var(--borda-espessura));
   padding: 0;
   overflow: hidden;
   clip: rect(0 0 0 0);
   white-space: nowrap;
   border: 0;
+}
+
+/* Badge info: conteúdo textual não interativo, compartilhando seus tokens. */
+.count {
+  display: inline-flex;
+  flex-shrink: 0;
+  white-space: nowrap;
+  align-items: center;
+  justify-content: center;
+  min-width: calc(var(--icone-pequeno) + var(--espaco-xp));
+  box-sizing: border-box;
+  padding: var(--espaco-xp) var(--espaco-pp);
+  border-radius: var(--raio-circular);
+  background: var(--fundo-info-forte);
+  color: var(--texto-invertido);
+  font-family: var(--texto-micro-forte-family);
+  font-size: var(--texto-micro-forte-size);
+  font-weight: var(--texto-micro-forte-weight);
+  line-height: var(--texto-micro-forte-line-height);
+}
+
+/* Ajuste local: mantém o indicador e aria-busy sem rotação contínua. */
+@media (prefers-reduced-motion: reduce) {
+  .loadingIndicator > span {
+    animation: none;
+  }
 }

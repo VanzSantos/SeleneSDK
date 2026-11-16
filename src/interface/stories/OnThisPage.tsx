@@ -1,4 +1,4 @@
-import { useEffect, useState, type MouseEvent } from "react";
+import { useEffect, useRef, useState, type MouseEvent } from "react";
 import { Link } from "../../components/Link/Link";
 import styles from "./OnThisPage.module.css";
 
@@ -27,7 +27,8 @@ export function sectionHref(storyId: string, sectionId: string) {
 }
 
 /** Menu fixo à direita, "Nesta página" — links de âncora pras seções da tela. */
-export function OnThisPage({ storyId, items }: { storyId: string; items: TocItem[] }) {
+export function OnThisPage({ storyId, items, keepActiveVisible = false }: { storyId: string; items: TocItem[]; keepActiveVisible?: boolean }) {
+  const navRef = useRef<HTMLElement>(null);
   const [activeId, setActiveId] = useState(items[0]?.id);
 
   // Seção atual = a última cujo topo já passou da faixa superior da área rolável (<main>).
@@ -58,6 +59,20 @@ export function OnThisPage({ storyId, items }: { storyId: string; items: TocItem
     };
   }, [items]);
 
+  // Rola apenas o índice expandido, sem deslocar a seção em leitura.
+  useEffect(() => {
+    if (!keepActiveVisible) return;
+    const nav = navRef.current;
+    const scroller = nav?.parentElement;
+    const active = nav?.querySelector('a[aria-current="page"]');
+    if (!scroller || !active) return;
+    const bounds = scroller.getBoundingClientRect();
+    const item = active.getBoundingClientRect();
+    const inset = parseFloat(getComputedStyle(scroller).paddingTop) || 0;
+    if (item.top < bounds.top + inset) scroller.scrollTop += item.top - bounds.top - inset;
+    else if (item.bottom > bounds.bottom - inset) scroller.scrollTop += item.bottom - bounds.bottom + inset;
+  }, [activeId, keepActiveVisible]);
+
   function handleClick(event: MouseEvent<HTMLElement>) {
     // Cmd/Ctrl/Shift/clique do meio seguem o comportamento do navegador (abrir em nova aba etc.)
     if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
@@ -72,7 +87,7 @@ export function OnThisPage({ storyId, items }: { storyId: string; items: TocItem
   }
 
   return (
-    <nav className={styles.toc} aria-label="Nesta página" onClick={handleClick}>
+    <nav ref={navRef} className={keepActiveVisible ? `${styles.toc} ${styles.expanded}` : styles.toc} aria-label="Nesta página" onClick={handleClick}>
       <h2 className={styles.title}>Nesta página</h2>
       <ul className={styles.list}>
         {items.map((item) => (

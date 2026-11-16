@@ -16,6 +16,8 @@ export interface StoryMeta {
   description?: string;
   /** Só nas telas do grupo Tokens: qual página de tokens renderizar (no lugar do Demo/contrato). */
   tokenPage?: "cores" | "tipografia" | "espacamento" | "sombras";
+  /** Âncoras estáveis renderizadas pela Demo, listadas sob Pré-visualização. */
+  previewSections?: { id: string; title: string }[];
   code: string;
   Demo: ComponentType;
 }

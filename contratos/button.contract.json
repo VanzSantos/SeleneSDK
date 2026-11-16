@@ -5,11 +5,12 @@
   "category": "action",
   "status": "draft",
   "whenToUse": "Usuário precisa executar uma ação (enviar, confirmar, cancelar, navegar por ação).",
-  "whenNotToUse": "Destino é navegação entre páginas por hyperlink puro — nesse caso use variant='link', que existe justamente pra fronteira entre ação e navegação.",
+  "whenNotToUse": "Destino é navegação por URL/href — use o componente Link (âncora). Button variant='link' continua sendo uma ação nativa, com estilo textual.",
   "anatomy": [
     "Container (fundo, borda, raio)",
     "Ícone esquerdo (opcional)",
     "Rótulo / label (texto)",
+    "Contador textual opcional, com tokens do Badge info, entre rótulo e ícone direito",
     "Ícone direito (opcional)",
     "Spinner de carregamento — substitui o conteúdo quando state=loading"
   ],
@@ -25,19 +26,11 @@
         "primary",
         "secondary",
         "neutral",
-        "subtle",
         "destructive",
         "link"
       ],
       "default": "primary",
       "required": true
-    },
-    {
-      "name": "outlined",
-      "type": "boolean",
-      "default": false,
-      "required": false,
-      "description": "false = preenchido. true = contornado (borda + fundo transparente em repouso). Inválido com variant='subtle' — erro em tempo de execução (ver forbidden e decisions)."
     },
     {
       "name": "state",
@@ -51,26 +44,32 @@
       ],
       "default": "default",
       "required": false,
-      "description": "hover/pressed normalmente vêm de eventos reais (mouse/teclado); a prop só força um valor pontual para Storybook/testes. disabled/loading sempre vêm da prop."
+      "description": "União discriminada: variantes preenchidas aceitam cinco estados; link só default/hover/disabled. Link textual mantém sublinhado em default/hover/disabled; hover forçado muda texto e ícones para acao-link-texto-sobreposto, sem fundo. iconOnly não é sublinhado. pressed/loading são proibidos no tipo para link e avisados em dev, com fallback default. Preenchidos preservam loading protegido de hover/active."
     },
     {
       "name": "showLabel",
       "type": "boolean",
       "default": true,
       "required": false,
-      "description": "false só é válido em modo iconOnly."
+      "description": "false só é válido em iconOnly; proibido no tipo e avisado em desenvolvimento fora desse modo."
     },
     {
       "name": "label",
       "type": "string",
       "required": false,
-      "description": "Texto do rótulo."
+      "description": "Rótulo visível; obrigatório no tipo quando accessibleLabel não for fornecido. Proibido em iconOnly. String vazia/sem nome é avisada em desenvolvimento."
     },
     {
       "name": "leftIcon",
       "type": "string",
       "required": false,
       "description": "Nome do ícone (não boolean — decisão corrigida: precisa saber QUAL ícone, não só se existe)."
+    },
+    {
+      "name": "count",
+      "type": "number",
+      "required": false,
+      "description": "Somente variantes preenchidas; proibido em link e iconOnly (tipo + aviso em dev). Contador após o texto e antes do ícone direito: undefined omite, 0 aparece, acima de 99 mostra 99+. Negativo, decimal, NaN ou infinito são omitidos com console.warn apenas em dev. Proibido em iconOnly. Integra o nome acessível, inclusive em loading; disabled mantém o chip azul."
     },
     {
       "name": "rightIcon",
@@ -81,7 +80,8 @@
       "name": "iconOnly",
       "type": "boolean",
       "default": false,
-      "required": false
+      "required": false,
+      "description": "União discriminada: exige accessibleLabel e exatamente um de leftIcon/rightIcon; proíbe label e count. Combinações inválidas recebidas em runtime avisam em dev e omitem conteúdo incompatível."
     },
     {
       "name": "fullWidth",
@@ -94,7 +94,7 @@
       "type": "string",
       "required": false,
       "requiredWhen": "iconOnly = true",
-      "description": "Ausência tratada como erro em tempo de execução."
+      "description": "Obrigatório no tipo para iconOnly ou ausência de label. Em botão textual sem label, renderizado como texto oculto acessível; nunca substitui o contador por aria-label."
     },
     {
       "name": "onPress",
@@ -118,7 +118,6 @@
     "primary",
     "secondary",
     "neutral",
-    "subtle",
     "destructive",
     "link"
   ],
@@ -134,63 +133,86 @@
       "semantic.acao-primaria",
       "semantic.acao-primaria-sobreposta",
       "semantic.acao-primaria-pressionada",
-      "semantic.acao-primaria-transparente",
-      "semantic.acao-secundaria",
-      "semantic.acao-secundaria-sobreposta",
-      "semantic.acao-secundaria-pressionada",
-      "semantic.acao-secundaria-transparente",
       "semantic.acao-neutra",
       "semantic.acao-neutra-sobreposta",
       "semantic.acao-neutra-pressionada",
-      "semantic.acao-neutra-transparente",
       "semantic.acao-sutil",
       "semantic.acao-sutil-sobreposta",
       "semantic.acao-sutil-pressionada",
-      "semantic.acao-sutil-transparente",
       "semantic.acao-destrutiva",
       "semantic.acao-destrutiva-sobreposta",
       "semantic.acao-destrutiva-pressionada",
-      "semantic.acao-destrutiva-transparente",
       "semantic.acao-link",
       "semantic.acao-inativa",
       "semantic.acao-carregando",
-      "transparent (palavra-chave CSS — 'Base/transparente' é primitiva, não exposta pelo pipeline de tokens)"
+      "transparent (palavra-chave CSS — 'Base/transparente' é primitiva, não exposta pelo pipeline de tokens)",
+      "semantic.fundo-info-forte"
     ],
     "text": [
       "semantic.acao-primaria-texto",
-      "semantic.acao-secundaria-texto",
       "semantic.acao-neutra-texto",
       "semantic.acao-sutil-texto",
       "semantic.acao-destrutiva-texto",
       "semantic.acao-link-texto",
       "semantic.acao-link-texto-sobreposto",
       "semantic.acao-inativa-texto",
-      "semantic.acao-carregando-texto"
+      "semantic.texto-primario",
+      "semantic.texto-secundario",
+      "semantic.texto-invertido"
     ],
     "radius": [
-      "structural.raio-pp"
+      "structural.raio-pp",
+      "structural.raio-circular"
     ],
     "focusRing": [
-      "structural.foco-espessura"
+      "structural.foco-espessura",
+      "semantic.borda-foco",
+      "structural.foco-deslocamento"
     ],
     "spacing": [
       "structural.espaco-xp",
       "structural.espaco-pp",
-      "structural.espaco-m"
+      "structural.espaco-m",
+      "structural.espaco-g"
     ],
     "iconSize": [
-      "structural.icone-medio"
+      "structural.icone-medio",
+      "structural.icone-pequeno"
     ],
     "typography": [
-      "type-style.texto-rotulo-botao"
+      "type-style.texto-rotulo-botao",
+      "type-style.texto-micro-forte",
+      "type-style.texto-p",
+      "type-style.texto-m-forte"
+    ],
+    "border": [
+      "semantic.borda-base",
+      "structural.borda-espessura"
+    ],
+    "dimensions": [
+      "structural.botao-altura",
+      "structural.alvo-minimo"
+    ],
+    "demo": [
+      "structural.botao-demo-largura-maxima"
     ]
   },
+  "variantStates": {
+    "primary": ["default", "hover", "pressed", "disabled", "loading"],
+    "secondary": ["default", "hover", "pressed", "disabled", "loading"],
+    "neutral": ["default", "hover", "pressed", "disabled", "loading"],
+    "destructive": ["default", "hover", "pressed", "disabled", "loading"],
+    "link": ["default", "hover", "disabled"]
+  },
+  "variantFormats": {
+    "filled": ["text", "leftIcon", "rightIcon", "bothIcons", "count", "iconOnly"],
+    "link": ["text", "leftIcon", "rightIcon", "bothIcons", "iconOnly"]
+  },
   "variantTokenMap": {
-    "note": "Determinismo extra: tabela de tradução variant→sufixo do token (nomes de token concordam em feminino: 'primaria', 'secundaria', 'neutra', 'destrutiva'; valores de prop concordam em masculino: 'primary'→acao-primaria). Não assumir que o nome da prop bate direto com o token.",
+    "note": "Determinismo extra: tabela de tradução variant→sufixo do token (primary→acao-primaria, secondary→acao-sutil, neutral→acao-neutra e destructive→acao-destrutiva; secondary agora é cinza, enquanto acao-secundaria verde pertence ao CallControlBar). Não assumir que o nome da prop bate direto com o token.",
     "primary": "acao-primaria",
-    "secondary": "acao-secundaria",
     "neutral": "acao-neutra",
-    "subtle": "acao-sutil",
+    "secondary": "acao-sutil",
     "destructive": "acao-destrutiva",
     "link": "acao-link"
   },
@@ -198,15 +220,17 @@
     "role": "button nativo (<button> web / Pressable React Native)",
     "requiredAria": [
       "aria-label quando iconOnly=true",
-      "aria-busy quando state=loading"
+      "aria-busy quando state=loading",
+      "aria-disabled=true durante loading, sem disabled nativo",
+      "aria-description para count acima de 99: Mais de 99 itens."
     ],
     "keyboard": [
       "Enter e Espaço ativam",
       "disabled sai da ordem de tabulação",
       "loading permanece focável — diferente de disabled, o contrato não pede sair do foco durante carregamento"
     ],
-    "contrastMin": "AAA (7:1) como meta pro público 60+, não só o mínimo AA (4.5:1) — ver decisions pro resultado por variante, medido contra branco.",
-    "notes": "Não-negociável — reforçado pelo público-alvo 60+. Indicador de foco sempre visível, nunca removido sem substituto. Alvo de toque com área mínima adequada, atenção redobrada no modo iconOnly."
+    "contrastMin": "Perfil PADRÃO: texto e ícones nos estados ativos ≥4,5:1 (texto grande ≥3:1); indicador de carregamento e foco ≥3:1. Controles disabled têm exceção de contraste; contador permanece legível.",
+    "notes": "Perfil PADRÃO (operadores), sem requisitos S01–S27. Foco visível e alvo mínimo de 24×24 CSS px no desktop. botao-altura define altura mínima, não limite fixo: rótulo pode quebrar e botão cresce com texto ampliado/espaçamento. iconOnly exige nome e um ícone; ícones decorativos são aria-hidden. Texto e contador formam o nome, inclusive em loading; 0 mantém o número e 99+ recebe descrição adicional, sem aria-label substituindo o conteúdo textual. Loading é focável, aria-busy e aria-disabled, bloqueia onPress. O Spinner local para a rotação em prefers-reduced-motion. Resultados programáticos não substituem teste com leitor de tela. Link: sem fundo em todos os estados, sem contador/pressed/loading. Rótulo textual sublinhado em default/hover/disabled com borda-espessura e espaco-xp, sem decoração nos ícones. Hover muda texto e ícones para acao-link-texto-sobreposto. iconOnly permanece sem sublinhado. Marcador permanente permite reconhecer o controle textual sem depender só da cor."
   },
   "events": {
     "status": "não definido no contrato original"
@@ -231,8 +255,13 @@
     "usar onClick em vez de onPress",
     "loading usando o atributo disabled nativo — loading só bloqueia o clique via handler + aria-busy, mantém focável; disabled usa disabled nativo de verdade e sai da tabulação",
     "iconOnly sem accessibleLabel",
-    "outlined=true com variant='subtle' — nenhum tom da família 'sutil' é ao mesmo tempo legível (AA/AAA contra branco) e distinto o bastante do neutral outlined (mínimo de 3:1 entre os dois); usar variant='neutral' outlined nesse caso. Erro em tempo de execução, ver decisions.",
-    "novo estado/variante fora das listas acima sem atualizar este contrato primeiro"
+    "novo estado/variante fora das listas acima sem atualizar este contrato primeiro",
+    "iconOnly com label/count, sem nome acessível ou sem exatamente um ícone",
+    "showLabel=false fora de iconOnly",
+    "botão sem label visível nem accessibleLabel",
+    "aria-label que substitua o conteúdo textual com count",
+    "hover/active sobrescrevendo loading",
+    "link com count, state pressed ou loading"
   ],
   "decisions": [
     "outlined: o preenchimento 10% (*-transparente) aparece só no hover, nunca em repouso.",
@@ -250,7 +279,37 @@
     "CORRIGIDO — auditoria de acessibilidade (2026-11-10, perfil padrão): na variante secondary o texto (acao-secundaria-texto) ficava com 3,68:1 no hover e 2,29:1 no pressed no claro (4,35:1 no pressed escuro); texto escuro sobre um fundo que escurece a cada estado não fecha 4,5:1. Texto do claro mais escuro (#06240f) e hover/pressed menos escuros (claro #86ad1a/#779a16, escuro #98c235/#86ad2d) — todos os estados ≥ 5,07:1.",
     "CORRIGIDO — auditoria de acessibilidade (2026-11-10, perfil padrão): com state='loading' o rótulo dava lugar ao Spinner e o botão ficava sem nome acessível (só aria-busy). O rótulo agora continua no DOM como texto só pra leitor de tela (.srOnly); iconOnly já tinha aria-label.",
     "CORRIGIDO — auditoria de acessibilidade (2026-11-10, perfil padrão, WCAG 2.5.8 — alvo mínimo de 24×24 px): a variante link (height:auto, padding:0) deixava os botões só de ícone com 22×22 (paginação, barra do Datatable, sino de notificações). Agora min-width/min-height de 24px na variante link; o ícone não muda de tamanho.",
-    "CORRIGIDO — auditoria de acessibilidade (2026-11-10, perfil padrão): (1) outlined.primary/destructive no modo escuro usavam acao-primaria-sobreposta/acao-destrutiva-sobreposta como texto e borda (2,68:1 e 3,07:1); no escuro passam a acao-link-texto e texto-erro. (2) outlined.secondary usava acao-secundaria-pressionada como texto — o token mudou de valor (ver decisão da variante secondary) e deixaria de passar; agora usa texto-apoio-3 (#587615 no claro = 5,23:1; #b6da5a no escuro)."
+    "CORRIGIDO — auditoria de acessibilidade (2026-11-10, perfil padrão): (1) outlined.primary/destructive no modo escuro usavam acao-primaria-sobreposta/acao-destrutiva-sobreposta como texto e borda (2,68:1 e 3,07:1); no escuro passam a acao-link-texto e texto-erro. (2) outlined.secondary usava acao-secundaria-pressionada como texto — o token mudou de valor (ver decisão da variante secondary) e deixaria de passar; agora usa texto-apoio-3 (#587615 no claro = 5,23:1; #b6da5a no escuro).",
+    "EXTENSÃO — count opcional atende ao formato solicitado: inteiro finito não negativo, zero visível, limite 99+, omitido com aviso em dev se inválido. Reutiliza tokens e padrão visual do Badge info, sem reimplementar o componente Badge nem introduzir paleta nova; posição antes do ícone direito e conteúdo textual acessível.",
+    "AJUSTADO a pedido do usuário — iconOnly usa união discriminada, exige nome acessível e exatamente um ícone, proíbe label/count. Botões textuais exigem label ou accessibleLabel; showLabel=false fora de iconOnly é proibido. Validação em dev cobre entradas JS e strings vazias.",
+    "REVISADO — meta atual passa ao perfil PADRÃO, AA, por decisão explícita. As decisões históricas sobre público 60+/AAA permanecem registradas, mas não definem a meta deste trabalho.",
+    "CORRIGIDO — hover/pressed forçados agora têm data-state e seletores próprios; loading é protegido de hover/active. Texto e ícone compartilham a cor resolvida do estado, corrigindo link. Spinner usa texto-secundario para contraste, preservando o token compartilhado acao-carregando-texto.",
+    "AJUSTADO a pedido do usuário — link usa aliases de fundo hover/pressed, texto/ícone claros no pressed, disabled transparente e raio-pp. outlined permanece deprecated e compatível até a Etapa 5; não houve migração de consumidores nesta etapa.",
+    "EXTENSÃO — formalizadas medidas do Button/demo e aliases de link em tokens.css na Etapa 1, documentados em token-notation.md para reconciliação com Figma. Incluídos tokens de contador, borda-foco, texto-apoio-3 e texto-erro na whitelist; consumo completo de dimensões será tratado na Etapa 3.",
+    "AJUSTADO a pedido do usuário — preservadas cores compartilhadas das cinco variantes preenchidas. Referência clara AuroraDS difere em hover/pressed primário, cinzas neutral/subtle e vermelho destructive; secondary ausente da imagem. Não copiar vermelho claro que falha 4,5:1.",
+    "AJUSTADO a pedido do usuário — Etapa 3: altura, borda, offset de foco e alvo mínimo consomem botao-altura, borda-espessura, foco-deslocamento e alvo-minimo. O utilitário srOnly usa a espessura de borda como dimensão mínima, sem px fixo. Todas as variantes preservam raio-pp; botao-link-raio removido por ficar sem uso, inclusive no outlined deprecated.",
+    "AJUSTADO a pedido do usuário — disabled dos preenchidos reutiliza borda-base para contorno leve sobre acao-inativa, sem criar paleta nova. Link disabled fica transparente; fundos hover/pressed e cores seguem os aliases aprovados. Cores das cinco variantes preenchidas permanecem atuais nos dois temas.",
+    "CORRIGIDO — loading mantém o conteúdo original no layout, invisível e aria-hidden, e sobrepõe Spinner decorativo com texto-secundario. Mantém largura/altura, foco, aria-busy e nome textual com contador sem duplicação. Hover/pressed não alteram seu fundo; onPress e type não foram modificados.",
+    "EXTENSÃO — demo local com matriz 6 formatos × 6 variantes × 5 estados (180 combinações por tema), usando o tema global do Playground para claro/escuro. Estilos locais usam apenas tokens e preservam espaço para o anel de foco; exemplos outlined mantidos até a Etapa 5.",
+    "CORRIGIDO — Etapa 4, perfil PADRÃO: texto a 200% produzia linha de 48px em botão de altura fixa 44px. botao-altura passa a min-height, com altura automática, padding vertical espaco-pp e quebra do conteúdo/rótulo. Contador não encolhe e mantém número inteiro na mesma linha; nenhum valor visual fixo foi criado.",
+    "CORRIGIDO — loading agora comunica aria-disabled além de aria-busy, mantendo foco e bloqueio existente de onPress. Sem alterações em onPress/type. count 99+ mantém o texto visível no nome e recebe aria-description Mais de 99 itens.; zero permanece explícito.",
+    "AJUSTADO a pedido do usuário — preferência de movimento reduzido atendida localmente no Button: Spinner continua visível, sem rotação, mantendo estado sem depender só de cor. O componente compartilhado Spinner não foi alterado.",
+    "AUDITORIA — Etapa 4: matriz de 180 combinações por tema, nomes/ícones/estados/alvos verificados programaticamente. Contraste mínimo de texto/ícone ativo: 5,07:1 claro e 4,91:1 escuro; contador 5,24:1/4,63:1; indicador loading 6,10:1/5,55:1. Foco contra superfícies: mínimo 3,77:1 claro/7,16:1 escuro. Disabled registrado como exceção, não como falha. Mantida meta PADRÃO.",
+    "AUDITORIA — teclado: 108 combinações ativas por tema acionadas por Enter e Espaço; 36 loading por tema sem acionamento e 36 disabled fora da tabulação. Foco verificado em 144 combinações focáveis por tema, sem cortes no Playground. Texto 200%, espaçamento e reflow emulado 200% verificados; demo isolada a 320 CSS px sem overflow horizontal. Leitor de tela e zoom nativo continuam como validação manual complementar.",
+    "REVISADO — Etapa 5: outlined removido da API, runtime, CSS e demo; decisões antigas preservadas apenas como histórico. Cancelar/Anterior/Voltar e Sidebar migraram de neutral contornado para subtle; FileUpload field e logins alternativos de DividerDemo usam neutral preenchido. ActionCard secundário tem default subtle; gatilho link do FileUpload preservado. onPress/type e callbacks não foram alterados.",
+    "REVISADO — whitelist remove tokens usados exclusivamente pelo estilo contornado do Button. Tokens globais acao-primaria-transparente/acao-destrutiva-transparente e texto-apoio-3/texto-erro preservados por outros consumidores. acao-secundaria-transparente/acao-neutra-transparente/acao-sutil-transparente removidos de tokens.css por ausência de consumo executável restante; exportação Figma tokens.json preservada.",
+    "REVISADO — README-traducao.md deixa de apresentar contorno→outlined como API atual. A tradução antiga permanece documentada nesta decisão e nas decisões anteriores, sem instruir novos consumidores a usar prop removida.",
+    "AJUSTADO a pedido do usuário — Etapa 6: guia de migração publicado em entries/button.ts. Breaking change: Button.outlined, ActionCard.secondaryOutlined e FileUpload.buttonOutlined removidos. Cancelar/Voltar/Anterior e Sidebar usam subtle; FileUpload field e logins alternativos usam neutral; ActionCard secundário tem default subtle e gatilhos link preservam buttonVariant='link'. Guia também explicita seis formatos, seis variantes, limites de count e exigências de iconOnly. Comentários dos tokens refletem seu consumo atual; histórico anterior preservado.",
+    "CORRIGIDO — revisão final: tokensAllowed inclui texto-primario, já consumido pelos títulos da demo Button. Nenhum token ou valor novo criado; whitelist alinhada ao consumo real.",
+    "AJUSTADO a pedido do usuário — Fase 1: removida a variante Button secondary verde antes de reutilizar o nome. Gatilhos auxiliares de DatatableDemo e ConfirmDialogDemo migrados para subtle; sem ação principal ambígua. Removidos acao-secundaria-sobreposta/pressionada/texto sem consumo restante e suas entradas em whitelists. acao-secundaria base preservado por CallControlBar; subtle e seus tokens cinza permanecem nesta fase. Histórico, onPress e type preservados.",
+    "AJUSTADO a pedido do usuário — Fase 2: subtle renomeado para secondary cinza na API, CSS, consumidores e documentação; secondary verde não existe mais no Button. Mesmo visual, estados, nomes acessíveis e comportamento de clique. Variantes finais: primary, secondary, neutral, destructive, link; matriz 5×5×6 = 150 combinações por tema, 300 nos dois temas. Tokens acao-sutil-* mantidos para evitar colisão com acao-secundaria verde ainda consumido por CallControlBar. ActionCard secundário e cancelar/voltar/Sidebar passam a secondary. Histórico anterior preservado; breaking change documentada.",
+    "AJUSTADO a pedido do usuário — Button link agora aceita só default/hover/disabled e cinco formatos, sem count, pressed ou loading. Hover textual apenas sublinha (borda-espessura/espaco-xp), sem fundo nem mudança de cor; exceção iconOnly muda só o ícone para acao-link-texto-sobreposto. Disabled nativo permanece sem fundo/sublinhado. União discriminada e avisos dev validam a API; consumidores válidos mantidos sem mudança de onPress/type. Foco, alvo e raio mantidos; removidos três aliases de fundo/texto pressed sem outros consumidores. Matriz final 135 por tema, 270 total. Histórico preservado.",
+    "AUDITORIA — novo link no perfil PADRÃO: matriz 135 por tema, 15 amostras válidas de link; contraste texto 7,13:1 claro/9,01:1 escuro no Playground, iconOnly hover 11,99:1/11,09:1. Disabled como exceção. Alvo iconOnly 24×24, foco visível com tokens preservados. Texto 200% e espaçamento ampliado emulados, conteúdo e sublinhado sem corte na demo. Teste temporário confirmou erros de tipo para link com count/pressed/loading e foi descartado. Sem sublinhado permanente, link textual isolado tem identificação visual dependente de contexto; ressalva mantida sem alterar especificação. Leitor real e zoom nativo permanecem pendentes.",
+    "AJUSTADO a pedido do usuário — espaço entre ícone esquerdo, rótulo, contador e ícone direito passa de espaco-xp (4px) para espaco-pp (8px), aproximando a referência AuroraDS com conteúdo mais folgado. Token espaco-pp já consta em tokensAllowed; espaco-xp permanece para padding do contador e offset do sublinhado do link. Padding externo, altura mínima, ícones, raio, foco, iconOnly e padding interno do chip permanecem iguais. Loading conserva a largura do conteúdo; onPress/type e histórico preservados.",
+    "AJUSTADO a pedido do usuário — ícones esquerdo/direito e Spinner do Button usam size=large (structural.icone-grande, 24px nos dois temas), sem alterar icone-medio compartilhado. iconOnly preenchido usa largura botao-altura e padding zero, ficando 44×44 com margem geométrica de 10px ao redor do ícone. Link iconOnly mantém alvo-minimo como piso: a caixa de 24px mais borda-espessura em cada lado resulta em 26×26; foco externo com overflow visível não exige ampliar para botao-altura. SVG não encolhe em conteúdo quebrado. Altura textual mínima, gap, chip, onPress e type preservados.",
+    "AJUSTADO a pedido do usuário — link textual mantém sublinhado apenas no rótulo em default, hover e disabled, usando borda-espessura/espaco-xp. Hover real e forçado mudam texto e ícones para acao-link-texto-sobreposto; disabled mantém acao-inativa-texto sem resposta ao hover. iconOnly permanece sem sublinhado. Substitui a decisão visual anterior de sublinhar apenas no hover, reduzindo dependência de cor. Tokens existentes, estados, formatos, foco, alvos, onPress e type preservados.",
+    "AJUSTADO a pedido do usuário — descrição da página resumida; guia atual preservado em Decisões: outlined removido, cancelar/voltar/anterior e Sidebar usam secondary, FileUpload field e logins alternativos usam neutral. ActionCard.secondaryOutlined e FileUpload.buttonOutlined removidos; ActionCard usa secondaryVariant=secondary por padrão, e FileUpload preserva buttonVariant=link nos gatilhos link. subtle passa a secondary cinza; o secondary verde foi removido do Button e seus gatilhos auxiliares usam secondary cinza. Link não aceita count, pressed nem loading: migre count para uma variante preenchida como secondary; remova pressed/loading ou use variante preenchida. Regras de count/iconOnly continuam em Props, Acessibilidade e Proibido; dimensões/tokens/visual permanecem nas decisões anteriores. Histórico preservado.",
+    "AJUSTADO a pedido do usuário e validado com a liderança — ícones esquerdo/direito e Spinner voltam a size=medium (structural.icone-medio, 20px nos dois temas). Tokens compartilhados inalterados. iconOnly preenchido permanece 44×44 via botao-altura, com margem geométrica de 12px ao redor do ícone; link iconOnly usa alvo-minimo e permanece 24×24, com foco externo. Gap espaco-pp (8px), contador, estados, onPress e type preservados. Substitui a decisão de tamanho 24px; histórico preservado."
   ],
   "references": {
     "tokensFile": "tokens/tokens.json — Cores Semânticas (grupo Ações, todas as famílias), Estrutural (raio-pp, foco-espessura, espaco-*, icone-medio), Tipografia Estilo (texto-rotulo-botao)"

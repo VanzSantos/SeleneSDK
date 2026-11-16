@@ -37,7 +37,6 @@ export function FileUploadDemo() {
           onChange={() => {}}
           buttonLabel="Enviar sua foto"
           buttonVariant="link"
-          buttonOutlined={false}
           required
         />
       </div>

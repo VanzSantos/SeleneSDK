@@ -25,13 +25,13 @@ de decisão e tudo que é lido por humano permanece em português.
 
 **Tooltip**: texto→text, direcao→placement, autoAjuste→autoAdjust, idGatilho→triggerId
 
-**Button**: tipo→variant, contorno→outlined, estado→state, rotulo→showLabel, rotuloTexto→label, iconeEsquerda→leftIcon (vira string, não boolean — ver decisão no contrato), iconeDireita→rightIcon, iconeApenas→iconOnly, larguraTotal→fullWidth, rotuloAcessivel→accessibleLabel, onPress→onPress (mantido, já é convenção cross-platform)
+**Button**: tipo→variant, estado→state, rotulo→showLabel, rotuloTexto→label, iconeEsquerda→leftIcon (vira string, não boolean — ver decisão no contrato), iconeDireita→rightIcon, iconeApenas→iconOnly, larguraTotal→fullWidth, rotuloAcessivel→accessibleLabel, onPress→onPress (mantido, já é convenção cross-platform)
 
 **TextField**: rotulo→label, obrigatorio→required, comInfo→withInfo, textoInfo→infoText, placeholder→placeholder, valor→value, estado→state, mensagem→helperText, iconeEsquerda→leftIcon, iconeDireita→rightIcon, onChange→onChange (mantido)
 
 ## Valores de enum traduzidos
 
-- `tipo` do Button: primario→primary, secundario→secondary, neutro→neutral, sutil→subtle, destrutivo→destructive, link→link
+- `tipo` do Button: primario→primary, secundario→secondary (cinza, antigo sutil), neutro→neutral, destrutivo→destructive, link→link
 - `estado` do Button: padrao→default, sobre→hover, pressionado→pressed, desabilitado→disabled, carregando→loading
 - `estado` do TextField: padrao→default, foco→focus, erro→error, desabilitado→disabled, somente-leitura→readOnly
 - `intencao` do HelperText: padrao→default, erro→error

@@ -72,8 +72,7 @@ export function Wizard({
 
       <div className={styles.footer}>
         <Button
-          variant="neutral"
-          outlined
+          variant="secondary"
           label={previousLabel}
           onPress={goBack}
           state={currentStep === 0 || validating ? "disabled" : "default"}

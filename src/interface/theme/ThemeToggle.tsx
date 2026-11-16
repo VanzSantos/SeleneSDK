@@ -1,22 +1,17 @@
-import { Select } from "../../components/Select/Select";
-import type { ThemePreference } from "./useTheme";
-
-const OPTIONS = [
-  { value: "light", label: "Modo claro" },
-  { value: "dark", label: "Modo escuro" },
-  { value: "system", label: "Padrão do sistema" },
-];
+import { Button } from "../../components/Button/Button";
+import type { Theme, ThemePreference } from "./useTheme";
 
 interface ThemeToggleProps {
-  preference: ThemePreference;
+  theme: Theme;
   onChange: (preference: ThemePreference) => void;
 }
 
-/** Seletor de modo de cor — "Padrão do sistema" herda o prefers-color-scheme do SO. */
-export function ThemeToggle({ preference, onChange }: ThemeToggleProps) {
+/** O ícone descreve a próxima ação; a preferência explícita continua persistida. */
+export function ThemeToggle({ theme, onChange }: ThemeToggleProps) {
+  const dark = theme === "dark";
   return (
-    <div role="group" aria-label="Modo de cor">
-      <Select options={OPTIONS} value={preference} onChange={(value) => onChange(value as ThemePreference)} />
-    </div>
+    <Button variant="secondary" iconOnly leftIcon={dark ? "sun" : "moon"}
+      accessibleLabel={dark ? "Ativar modo claro" : "Ativar modo escuro"}
+      onPress={() => onChange(dark ? "light" : "dark")} />
   );
 }

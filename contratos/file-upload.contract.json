@@ -8,7 +8,7 @@
   "whenNotToUse": "Já existe uma imagem/arquivo remoto só pra exibir (isso é ImageThumbnail); a lógica de upload de verdade (progresso, multipart, retry) — este componente só coleta os File[] e entrega via onChange, o resto é responsabilidade de quem consome.",
   "anatomy": [
     "<input type='file'> nativo, sempre presente mas visualmente oculto (display:none) — é ele quem de fato abre o seletor do sistema operacional",
-    "Gatilho visível, uma de três variantes: 'field' (FieldLabel + linha com os arquivos selecionados via Chip removível + botão 'Procurar'), 'button' (só um Button que abre o seletor), 'dropzone' (área tracejada clicável, também aceita arrastar-e-soltar)",
+    "Gatilho visível, uma de três variantes: 'field' (FieldLabel + linha com os arquivos selecionados via Chip removível + Button neutral preenchido 'Procurar'), 'button' (só um Button que abre o seletor), 'dropzone' (área tracejada clicável, também aceita arrastar-e-soltar)",
     "Lista de arquivos selecionados — reaproveita o átomo Chip (removable=true) por arquivo, mesmo nas variantes button/dropzone (aparece abaixo do gatilho)"
   ],
   "dependencies": [
@@ -127,20 +127,12 @@
         "primary",
         "secondary",
         "neutral",
-        "subtle",
         "destructive",
         "link"
       ],
       "default": "neutral",
       "required": false,
-      "description": "Só variant='button'. Reaproveita o enum já definido em button.contract.json (sem redefinir aqui), repassado direto pro variant do Button interno. Default 'neutral' preserva o visual original — único que existia antes desta prop."
-    },
-    {
-      "name": "buttonOutlined",
-      "type": "boolean",
-      "default": true,
-      "required": false,
-      "description": "Só variant='button'. Repassado pro outlined do Button interno — ignorado quando buttonVariant='link' (link não usa outlined como estilo primário, ver button.contract.json). Default true preserva o visual original."
+      "description": "Só variant='button': repassado ao Button interno. Default neutral preenchido. O gatilho field usa neutral; link preserva seu estilo sem fundo no default."
     }
   ],
   "variants": [
@@ -248,7 +240,12 @@
     "Sem preview de imagem nesta v1 (mesmo pra accept='image/*') — não foi pedido; se surgir caso real, decisão nova (provavelmente reaproveitando ImageThumbnail pro preview em vez de reinventar).",
     "Drag-and-drop reforça mas não substitui o clique — a dropzone inteira é um <button> clicável por baixo (mesmo alvo do teclado/Enter), o listener de drop é um extra por cima, não o único caminho (ver a11y notes).",
     "EXTENSÃO — novas props buttonVariant/buttonOutlined (só variant='button'), sob demanda real: SettingsTemplate precisava do gatilho de upload no estilo 'botão link' (ícone + texto, sem fundo/borda), diretamente abaixo do Avatar — o Button interno da variant='button' vinha com variant/outlined FIXOS em 'neutral'/true, sem forma de configurar. Reaproveita o enum ButtonVariant já existente (nenhum enum novo) — default 'neutral'/true preserva 100% o comportamento de todos os outros consumidores já existentes do componente.",
-    "CORRIGIDO — auditoria de acessibilidade (2026-11-10, perfil padrão, WCAG 1.4.11): a borda do controle usava borda-base, com 1,47:1 no claro e 1,88:1 no escuro contra a superfície (mínimo 3:1 pra identificar um componente de interface). Passou a borda-campo, token novo (#6b7280 no claro = 4,83:1; #85847c no escuro = 4,82:1). borda-base continua valendo pra divisórias e superfícies decorativas, que a WCAG não exige em 3:1."
+    "CORRIGIDO — auditoria de acessibilidade (2026-11-10, perfil padrão, WCAG 1.4.11): a borda do controle usava borda-base, com 1,47:1 no claro e 1,88:1 no escuro contra a superfície (mínimo 3:1 pra identificar um componente de interface). Passou a borda-campo, token novo (#6b7280 no claro = 4,83:1; #85847c no escuro = 4,82:1). borda-base continua valendo pra divisórias e superfícies decorativas, que a WCAG não exige em 3:1.",
+    "REVISADO — Etapa 5: buttonOutlined removido. Gatilho field migra de neutral contornado para neutral preenchido; variant button mantém buttonVariant, sem modificador de contorno. Link da foto em SettingsTemplate/FileUploadDemo preservado. Seleção/validação de arquivos, callbacks e input nativo não mudaram.",
+    "AJUSTADO a pedido do usuário — Fase 1: removida a variante Button secondary verde antes de reutilizar o nome. Gatilhos auxiliares de DatatableDemo e ConfirmDialogDemo migrados para subtle; sem ação principal ambígua. Removidos acao-secundaria-sobreposta/pressionada/texto sem consumo restante e suas entradas em whitelists. acao-secundaria base preservado por CallControlBar; subtle e seus tokens cinza permanecem nesta fase. Histórico, onPress e type preservados.",
+    "AJUSTADO a pedido do usuário — Fase 2: subtle renomeado para secondary cinza na API, CSS, consumidores e documentação; secondary verde não existe mais no Button. Mesmo visual, estados, nomes acessíveis e comportamento de clique. Variantes finais: primary, secondary, neutral, destructive, link; matriz 5×5×6 = 150 combinações por tema, 300 nos dois temas. Tokens acao-sutil-* mantidos para evitar colisão com acao-secundaria verde ainda consumido por CallControlBar. ActionCard secundário e cancelar/voltar/Sidebar passam a secondary. Histórico anterior preservado; breaking change documentada.",
+    "AJUSTADO a pedido do usuário — Button link agora aceita só default/hover/disabled e cinco formatos, sem count, pressed ou loading. Hover textual apenas sublinha (borda-espessura/espaco-xp), sem fundo nem mudança de cor; exceção iconOnly muda só o ícone para acao-link-texto-sobreposto. Disabled nativo permanece sem fundo/sublinhado. União discriminada e avisos dev validam a API; consumidores válidos mantidos sem mudança de onPress/type. Foco, alvo e raio mantidos; removidos três aliases de fundo/texto pressed sem outros consumidores. Matriz final 135 por tema, 270 total. Histórico preservado.",
+    "ATUALIZAÇÃO DOCUMENTAL — a matriz atual do Button tem 135 combinações por tema (120 preenchidas: quatro variantes, seis formatos e cinco estados; 15 de link: cinco formatos e três estados), 270 no total. Contagens anteriores de 150/300 nas decisões permanecem apenas como histórico. Variantes atuais: primary, secondary cinza, neutral, destructive e link; link não aceita count, pressed ou loading. Sem mudança de comportamento deste componente."
   ],
   "references": {
     "tokensFile": "tokens/tokens.json — Cores Semânticas (Fundos, Bordas, Textos, Ícones, Ação Primária), Estrutural (raio-pp, foco-espessura, espaco-xp/pp/p/m), Tipografia Estilo (texto-p, texto-m)"

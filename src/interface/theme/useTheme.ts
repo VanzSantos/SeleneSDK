@@ -9,14 +9,16 @@ const STORAGE_KEY = "ds-playground-theme";
 const DARK_QUERY = "(prefers-color-scheme: dark)";
 
 function readInitialPreference(): ThemePreference {
-  if (typeof window === "undefined") return "system";
+  if (typeof window === "undefined") return systemTheme();
   try {
     const stored = window.localStorage.getItem(STORAGE_KEY);
-    if (stored === "light" || stored === "dark" || stored === "system") return stored;
+    if (stored === "light" || stored === "dark") return stored;
+    // Migra o valor legado sem manter uma opção de sistema na interface.
+    if (stored === "system") return systemTheme();
   } catch {
     // localStorage indisponível — cai no padrão abaixo.
   }
-  return "system";
+  return systemTheme();
 }
 
 function systemTheme(): Theme {

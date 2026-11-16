@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { SideNav, type SideNavItem } from "../../components/SideNav/SideNav";
-import { Button } from "../../components/Button/Button";
+import { Chip } from "../../components/Chip/Chip";
+import { TextField } from "../../components/TextField/TextField";
+import { normalizeForSearch } from "../../components/shared/normalizeForSearch";
 import { Icon } from "../../components/Icon/Icon";
 import { GROUP_ORDER, STORIES } from "../stories/registry";
 import type { StoryGroup } from "../stories/types";
 import { ThemeToggle } from "../theme/ThemeToggle";
-import type { ThemePreference } from "../theme/useTheme";
+import type { Theme, ThemePreference } from "../theme/useTheme";
 import styles from "./Sidebar.module.css";
 
 export const ICON_LIBRARY_ID = "__icon-library__";
@@ -45,12 +47,8 @@ function buildItems(selectedId: string): SideNavItem[] {
 
 interface SidebarProps {
   selectedId: string;
-  themePreference: ThemePreference;
+  theme: Theme;
   onThemePreferenceChange: (preference: ThemePreference) => void;
-  /** Navega pro módulo ProtoTable (índice de protótipos) — módulo irmão
-      deste, mesma estrutura visual, dados totalmente separados (ver
-      App.tsx). */
-  onNavigateToPrototable: () => void;
 }
 
 /** Marca do SeleneSDK — usada no topo do menu dos dois módulos. */
@@ -63,57 +61,100 @@ export function Brand({ icon, name }: { icon: "moon" | "pencil-ruler"; name: str
   );
 }
 
-/** Rodapé fixo do menu — modo de cor + atalho pro outro módulo. */
-export function SidebarFooter({
-  themePreference,
-  onThemePreferenceChange,
-  moduleLabel,
-  moduleIcon,
-  moduleDirection,
-  onNavigate,
-}: {
-  themePreference: ThemePreference;
+/** Rodapé do catálogo e ProtoTable — tema e versão, sem troca de módulo. */
+export function SidebarFooter({ theme, onThemePreferenceChange }: {
+  theme: Theme;
   onThemePreferenceChange: (preference: ThemePreference) => void;
-  moduleLabel: string;
-  moduleIcon: "moon" | "pencil-ruler";
-  moduleDirection: "forward" | "back";
-  onNavigate: () => void;
 }) {
   return (
     <div className={styles.footer}>
-      <ThemeToggle preference={themePreference} onChange={onThemePreferenceChange} />
-      <Button
-        variant="neutral"
-        outlined
-        fullWidth
-        label={moduleLabel}
-        leftIcon={moduleIcon}
-        rightIcon={moduleDirection === "forward" ? "arrow-right" : undefined}
-        onPress={onNavigate}
-      />
+      <ThemeToggle theme={theme} onChange={onThemePreferenceChange} />
+      <span className={styles.version}>
+        <span className={styles.srOnly}>Versão {__SDK_VERSION__}</span>
+        <span aria-hidden="true"><Chip label={`v${__SDK_VERSION__}`} /></span>
+      </span>
     </div>
   );
 }
 
-export function Sidebar({ selectedId, themePreference, onThemePreferenceChange, onNavigateToPrototable }: SidebarProps) {
-  // Todos os grupos começam expandidos.
-  const [openKeys, setOpenKeys] = useState<string[]>(() => buildItems(selectedId).map((item) => item.key));
+export function Sidebar({ selectedId, theme, onThemePreferenceChange }: SidebarProps) {
+  // Abre somente o grupo que contém a página atual, sem persistência adicional.
+  const [openKeys, setOpenKeys] = useState<string[]>(() =>
+    buildItems(selectedId).filter((group) => group.children?.some((item) => item.active)).map((group) => group.key)
+  );
+
+  useEffect(() => {
+    const activeGroup = buildItems(selectedId).find((group) => group.children?.some((item) => item.active));
+    if (activeGroup) {
+      setOpenKeys((keys) => keys.includes(activeGroup.key) ? keys : [...keys, activeGroup.key]);
+    }
+  }, [selectedId]);
+
+  const [query, setQuery] = useState("");
+  const normalizedQuery = normalizeForSearch(query.trim());
+  const searching = normalizedQuery.length > 0;
+  const allItems = buildItems(selectedId);
+  const items = searching
+    ? allItems.map((group) => ({ ...group, children: group.children?.filter((item) => normalizeForSearch(item.label).includes(normalizedQuery)) }))
+      .filter((group) => group.children?.length)
+    : allItems;
+  const lastVisiblePage = useRef<string | null>(null);
+  useEffect(() => {
+    if (lastVisiblePage.current === selectedId) return;
+    const activeItem = [...document.querySelectorAll<HTMLElement>('nav[aria-label="Navegação de componentes"] a[aria-current="page"]')]
+      .find((item) => item.getClientRects().length > 0);
+    if (activeItem) {
+      activeItem.scrollIntoView({ block: "nearest", inline: "nearest", behavior: "instant" });
+      lastVisiblePage.current = selectedId;
+    }
+  }, [selectedId, openKeys, searching]);
+
+  const resultCount = items.reduce((count, group) => count + (group.children?.length ?? 0), 0);
+
+  function clearSearch(container: HTMLElement) {
+    setQuery("");
+    container.closest("[role=search]")?.querySelector("input")?.focus();
+  }
 
   return (
     <SideNav
-      items={buildItems(selectedId)}
-      openKeys={openKeys}
-      onOpenKeysChange={setOpenKeys}
+      items={items}
+      openKeys={searching ? items.map((item) => item.key) : openKeys}
+      onOpenKeysChange={(keys) => { if (!searching) setOpenKeys(keys); }}
       accessibleLabel="Navegação de componentes"
-      header={<Brand icon="moon" name="SeleneSDK" />}
+      header={
+        <div className={styles.header}>
+          <Brand icon="moon" name="SeleneSDK" />
+          <div role="search" aria-label="Busca no catálogo"
+            onKeyDown={(event) => {
+              if (!(event.target instanceof HTMLInputElement) || event.nativeEvent.isComposing) return;
+              if (event.key === "Escape") {
+                event.preventDefault();
+                event.stopPropagation();
+                clearSearch(event.currentTarget);
+              } else if (event.key === "Enter") {
+                event.preventDefault();
+                const firstResult = items[0]?.children?.[0];
+                if (firstResult?.href) window.location.hash = firstResult.href.slice(1);
+              }
+            }}>
+            <div className={styles.searchRow}>
+              <TextField accessibleLabel="Buscar" placeholder="Buscar" leftIcon="magnifying-glass"
+                value={query} onChange={setQuery} autoComplete="off" />
+              {query && <button type="button" className={styles.clearSearch} aria-label="Limpar busca" onClick={(event) => clearSearch(event.currentTarget)}>
+                <Icon name="x" size="small" color="var(--texto-primario)" decorative />
+              </button>}
+            </div>
+            <p role="status" aria-live="polite" aria-atomic="true" className={searching && resultCount === 0 ? styles.emptySearch : styles.searchStatus}>
+              {searching ? (resultCount === 0 ? "Nenhum resultado encontrado" : `${resultCount} ${resultCount === 1 ? "resultado" : "resultados"}`) : ""}
+            </p>
+          </div>
+        </div>
+      }
       footer={
         <SidebarFooter
-          themePreference={themePreference}
+          theme={theme}
           onThemePreferenceChange={onThemePreferenceChange}
-          moduleLabel="ProtoTable"
-          moduleIcon="pencil-ruler"
-          moduleDirection="forward"
-          onNavigate={onNavigateToPrototable}
         />
       }
     />

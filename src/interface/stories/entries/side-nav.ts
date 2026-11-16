@@ -9,8 +9,9 @@ const story: StoryMeta = {
   status: "draft",
   category: "action",
   contractFile: "contratos/side-nav.contract.json",
+  // Cabeçalhos preservam aria-controls no painel oculto; setas respeitam movimento reduzido.
   dependencies: ["Link", "Icon", "Drawer"],
-  tokensSummary: ["semantic.fundo-superficie", "semantic.acao-primaria-transparente (item ativo)", "semantic.borda-base", "structural.espaco-p/m/g"],
+  tokensSummary: ["semantic.fundo-superficie", "semantic.acao-primaria-transparente (item ativo)", "semantic.borda-base", "structural.espaco-p/m/g", "structural.foco-espessura / foco-deslocamento"],
   description: "Menu de navegação vertical, lateral — um nível só (flat) ou árvore de até 4 níveis (grupos expansíveis, indentados, mesmo padrão do Accordion). Abaixo de 768px o painel colapsa num Drawer com a mesma árvore. Componente novo — não existia menu lateral persistente no harness antes deste contrato.",
   code: `<SideNav
   items={[

@@ -43,6 +43,7 @@ export function StoryDetail({ story, theme, initialSection }: { story: StoryMeta
     const items: TocItem[] = [
       { id: "inicio", label: "Início" },
       { id: "preview", label: "Pré-visualização" },
+      ...(story.previewSections ?? []).map((section): TocItem => ({ id: section.id, label: section.title, level: 2 })),
       { id: "codigo", label: "Código" },
     ];
     if (contractSource) {
@@ -53,7 +54,7 @@ export function StoryDetail({ story, theme, initialSection }: { story: StoryMeta
       items.push({ id: "detalhes", label: "Detalhes" });
     }
     return items;
-  }, [contractSource]);
+  }, [contractSource, story.previewSections]);
 
   // Link direto pra seção ("#/radio/props"): rola até ela ao abrir a tela.
   useEffect(() => {
@@ -139,8 +140,8 @@ export function StoryDetail({ story, theme, initialSection }: { story: StoryMeta
           </SectionCard>
         )}
       </div>
-      <aside className={styles.toc}>
-        <OnThisPage storyId={story.id} items={tocItems} />
+      <aside className={story.previewSections?.length ? `${styles.toc} ${styles.tocExpanded}` : styles.toc}>
+        <OnThisPage storyId={story.id} items={tocItems} keepActiveVisible={Boolean(story.previewSections?.length)} />
       </aside>
     </div>
   );

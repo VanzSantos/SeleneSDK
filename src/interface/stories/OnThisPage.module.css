@@ -41,3 +41,32 @@
   color: var(--acao-link-texto);
   font-weight: 600;
 }
+
+/* Usa tokens no índice expandido; as páginas sem opt-in preservam o estilo. */
+.expanded {
+  font-size: var(--texto-p-size);
+}
+
+.expanded .title {
+  font-family: var(--texto-micro-forte-family);
+  font-size: var(--texto-micro-forte-size);
+  font-weight: var(--texto-micro-forte-weight);
+}
+
+.expanded .list {
+  border-left-width: var(--borda-espessura);
+}
+
+.expanded a {
+  min-height: var(--alvo-minimo);
+  margin-block: 0;
+  font-weight: var(--texto-p-weight);
+}
+
+.expanded a[aria-current="page"] {
+  font-weight: var(--texto-m-forte-weight);
+}
+
+.expanded a:focus-visible {
+  outline-offset: var(--foco-deslocamento);
+}

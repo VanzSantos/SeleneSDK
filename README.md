@@ -90,7 +90,10 @@ Pra olhar o projeto sem nenhum commit: `npm run dev:vite-only` (ou `AUTOSYNC=0 n
 
 ## ProtoTable — quem criou/atualizou o quê
 
-Além do DS Playground, o app tem uma segunda aba no topo chamada **ProtoTable** —
+Além do DS Playground, o app tem o módulo **ProtoTable**, acessível por URL
+(por exemplo, `http://localhost:5173/?pt_project=`). O rodapé não oferece
+botões de troca de módulo; para voltar ao catálogo, abra a URL sem parâmetros `pt_*`.
+O ProtoTable é
 deliberadamente uma tela separada, não misturada com a vitrine de componentes: é um
 índice dos protótipos reais (não dos componentes), mostrando quem criou cada um, quem
 atualizou por último, quando, e o histórico completo de commits. Nada disso é digitado

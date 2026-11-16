@@ -1,5 +1,6 @@
 import { defineConfig, type Plugin } from "vite";
 import react from "@vitejs/plugin-react";
+import { version } from "./package.json";
 import { buildManifest } from "./scripts/prototable-manifest.mjs";
 
 /** Serve o manifesto do ProtoTable sob demanda em dev — roda `git log` a cada
@@ -22,4 +23,5 @@ function prototableManifestPlugin(): Plugin {
 
 export default defineConfig({
   plugins: [react(), prototableManifestPlugin()],
+  define: { __SDK_VERSION__: JSON.stringify(version) },
 });
