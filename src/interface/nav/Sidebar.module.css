@@ -29,9 +29,13 @@
 }
 
 .searchRow {
-  display: flex;
-  align-items: center;
-  gap: var(--espaco-xp);
+  position: relative;
+  width: 100%;
+}
+
+/* Reserva o espaço da ação sem alterar o TextField compartilhado. */
+.searchRow:has(.clearSearch) input {
+  padding-inline-end: calc(var(--alvo-minimo) + var(--espaco-pp));
 }
 
 .searchRow > div {
@@ -39,6 +43,10 @@
 }
 
 .clearSearch {
+  position: absolute;
+  inset-inline-end: var(--espaco-pp);
+  top: 50%;
+  transform: translateY(-50%);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -46,9 +54,9 @@
   min-width: var(--alvo-minimo);
   min-height: var(--alvo-minimo);
   padding: 0;
-  border: var(--borda-espessura) solid var(--borda-campo);
+  border: none;
   border-radius: var(--raio-pp);
-  background: var(--fundo-campo);
+  background: transparent;
   color: var(--texto-primario);
   cursor: pointer;
 }
