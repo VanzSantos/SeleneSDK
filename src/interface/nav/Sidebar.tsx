@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { SideNav, type SideNavItem } from "../../components/SideNav/SideNav";
 import { Button } from "../../components/Button/Button";
+import { TextField } from "../../components/TextField/TextField";
+import { normalizeForSearch } from "../../components/shared/normalizeForSearch";
 import { Icon } from "../../components/Icon/Icon";
 import { GROUP_ORDER, STORIES } from "../stories/registry";
 import type { StoryGroup } from "../stories/types";
@@ -98,13 +100,56 @@ export function Sidebar({ selectedId, themePreference, onThemePreferenceChange, 
   // Todos os grupos começam expandidos.
   const [openKeys, setOpenKeys] = useState<string[]>(() => buildItems(selectedId).map((item) => item.key));
 
+  const [query, setQuery] = useState("");
+  const normalizedQuery = normalizeForSearch(query.trim());
+  const searching = normalizedQuery.length > 0;
+  const allItems = buildItems(selectedId);
+  const items = searching
+    ? allItems.map((group) => ({ ...group, children: group.children?.filter((item) => normalizeForSearch(item.label).includes(normalizedQuery)) }))
+      .filter((group) => group.children?.length)
+    : allItems;
+  const resultCount = items.reduce((count, group) => count + (group.children?.length ?? 0), 0);
+
+  function clearSearch(container: HTMLElement) {
+    setQuery("");
+    container.closest("[role=search]")?.querySelector("input")?.focus();
+  }
+
   return (
     <SideNav
-      items={buildItems(selectedId)}
-      openKeys={openKeys}
-      onOpenKeysChange={setOpenKeys}
+      items={items}
+      openKeys={searching ? items.map((item) => item.key) : openKeys}
+      onOpenKeysChange={(keys) => { if (!searching) setOpenKeys(keys); }}
       accessibleLabel="Navegação de componentes"
-      header={<Brand icon="moon" name="SeleneSDK" />}
+      header={
+        <div className={styles.header}>
+          <Brand icon="moon" name="SeleneSDK" />
+          <div role="search" aria-label="Busca no catálogo"
+            onKeyDown={(event) => {
+              if (!(event.target instanceof HTMLInputElement) || event.nativeEvent.isComposing) return;
+              if (event.key === "Escape") {
+                event.preventDefault();
+                event.stopPropagation();
+                clearSearch(event.currentTarget);
+              } else if (event.key === "Enter") {
+                event.preventDefault();
+                const firstResult = items[0]?.children?.[0];
+                if (firstResult?.href) window.location.hash = firstResult.href.slice(1);
+              }
+            }}>
+            <div className={styles.searchRow}>
+              <TextField accessibleLabel="Buscar componente" placeholder="Buscar componente" leftIcon="magnifying-glass"
+                value={query} onChange={setQuery} autoComplete="off" />
+              {query && <button type="button" className={styles.clearSearch} aria-label="Limpar busca" onClick={(event) => clearSearch(event.currentTarget)}>
+                <Icon name="x" size="small" color="var(--texto-primario)" decorative />
+              </button>}
+            </div>
+            <p role="status" aria-live="polite" aria-atomic="true" className={searching && resultCount === 0 ? styles.emptySearch : styles.searchStatus}>
+              {searching ? (resultCount === 0 ? "Nenhum componente encontrado" : `${resultCount} ${resultCount === 1 ? "resultado encontrado" : "resultados encontrados"}`) : ""}
+            </p>
+          </div>
+        </div>
+      }
       footer={
         <SidebarFooter
           themePreference={themePreference}
