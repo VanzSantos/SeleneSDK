@@ -15,6 +15,7 @@ const story: StoryMeta = {
   code: `<Textarea label="Descrição" value={v} onChange={setV} maxLength={280} showCharacterCount />
 <Textarea label="Comentário" required state="error" helperText="Obrigatório." />
 <Textarea label="Sem bloqueio físico" maxLength={100} enforceMaxLength={false} showCharacterCount />`,
+  previewAsCards: true,
   Demo: TextareaDemo,
 };
 

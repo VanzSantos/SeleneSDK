@@ -17,6 +17,7 @@ const story: StoryMeta = {
   title="Excluir conta?" description="Esta ação não pode ser desfeita."
   confirmLabel="Excluir" confirmVariant="destructive"
 />`,
+  previewAsCards: true,
   Demo: ConfirmDialogDemo,
 };
 

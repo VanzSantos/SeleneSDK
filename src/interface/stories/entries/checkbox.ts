@@ -1,5 +1,6 @@
 import type { StoryMeta } from "../types";
 import { CheckboxDemo } from "../atoms/CheckboxDemo";
+import { CheckboxMeasures } from "../atoms/CheckboxMeasures";
 
 const story: StoryMeta = {
   id: "checkbox",
@@ -16,6 +17,7 @@ const story: StoryMeta = {
 <Checkbox label="Selecionar tudo" checked={false} indeterminate />
 <Checkbox label="Aceito os termos" required checked={ok} state={ok ? "default" : "error"} helperText="..." />`,
   previewAsCards: true,
+  Measures: CheckboxMeasures,
   Demo: CheckboxDemo,
 };
 

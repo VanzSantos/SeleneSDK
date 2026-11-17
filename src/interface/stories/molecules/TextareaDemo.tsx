@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Textarea } from "../../../components/Textarea/Textarea";
 import styles from "../Demo.module.css";
+import { DemoCard } from "../DemoCard";
 
 export function TextareaDemo() {
   const [descricao, setDescricao] = useState("");
@@ -11,43 +12,55 @@ export function TextareaDemo() {
   );
 
   return (
-    <div className={styles.column} style={{ maxWidth: 360 }}>
-      <Textarea
-        label="Descrição"
-        withInfo
-        infoText="Conte com suas palavras o que aconteceu."
-        placeholder="Digite uma descrição..."
-        value={descricao}
-        onChange={setDescricao}
-        maxLength={280}
-        showCharacterCount
-      />
+    <div className={styles.cards}>
+      <DemoCard title="Com contador" description="Limite de 280 caracteres, que bloqueia a digitação.">
+        <Textarea
+          label="Descrição"
+          withInfo
+          infoText="Conte com suas palavras o que aconteceu."
+          placeholder="Digite uma descrição..."
+          value={descricao}
+          onChange={setDescricao}
+          maxLength={280}
+          showCharacterCount
+        />
+      </DemoCard>
 
-      <Textarea
-        label="Sem bloqueio físico (enforceMaxLength=false)"
-        value={semBloqueio}
-        onChange={setSemBloqueio}
-        maxLength={60}
-        enforceMaxLength={false}
-        showCharacterCount
-        helperText={semBloqueio.length > 60 ? "Limite de 60 caracteres excedido." : undefined}
-        state={semBloqueio.length > 60 ? "error" : "default"}
-      />
+      <DemoCard title="Sem bloqueio físico" description="enforceMaxLength=false: deixa passar do limite e avisa.">
+        <Textarea
+          label="Sem bloqueio físico (enforceMaxLength=false)"
+          value={semBloqueio}
+          onChange={setSemBloqueio}
+          maxLength={60}
+          enforceMaxLength={false}
+          showCharacterCount
+          helperText={semBloqueio.length > 60 ? "Limite de 60 caracteres excedido." : undefined}
+          state={semBloqueio.length > 60 ? "error" : "default"}
+        />
+      </DemoCard>
 
-      <Textarea
-        label="Comentário"
-        required
-        state={comErro ? "default" : "error"}
-        helperText={comErro ? undefined : "Este campo é obrigatório."}
-        value={comErro}
-        onChange={setComErro}
-      />
+      <DemoCard title="Obrigatório com erro">
+        <Textarea
+          label="Comentário"
+          required
+          state={comErro ? "default" : "error"}
+          helperText={comErro ? undefined : "Este campo é obrigatório."}
+          value={comErro}
+          onChange={setComErro}
+        />
+      </DemoCard>
 
-      <Textarea label="Altura fixa" value={fixo} onChange={setFixo} resizable={false} rows={3} />
+      <DemoCard title="Altura fixa" description="resizable=false.">
+        <Textarea label="Altura fixa" value={fixo} onChange={setFixo} resizable={false} rows={3} />
+      </DemoCard>
 
-      <Textarea label="Somente leitura" state="readOnly" value="Valor fixo, não editável." />
+      <DemoCard title="Somente leitura">
+        <Textarea label="Somente leitura" state="readOnly" value="Valor fixo, não editável." />
+      </DemoCard>
 
-      <Textarea label="Desabilitado" state="disabled" placeholder="Indisponível" />
+      <DemoCard title="Desabilitado">
+        <Textarea label="Desabilitado" state="disabled" placeholder="Indisponível" />
+      </DemoCard>
     </div>
   );
 }

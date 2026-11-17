@@ -17,6 +17,7 @@ const story: StoryMeta = {
   currentStep={passo} onStepChange={setPasso} onComplete={finalizar}
   validateStep={(i) => validar(i)}
 />`,
+  previewAsCards: true,
   Demo: WizardDemo,
 };
 

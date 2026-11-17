@@ -15,6 +15,7 @@ const story: StoryMeta = {
   code: `<Tooltip text="Dica curta e objetiva." placement="top">
   <button>gatilho</button>
 </Tooltip>`,
+  previewAsCards: true,
   Demo: TooltipDemo,
 };
 

@@ -1,5 +1,6 @@
 import type { StoryMeta } from "../types";
 import { ChipDemo } from "../atoms/ChipDemo";
+import { ChipMeasures } from "../atoms/ChipMeasures";
 
 const story: StoryMeta = {
   id: "chip",
@@ -16,6 +17,7 @@ const story: StoryMeta = {
 <Chip label="React" removable onRemove={() => removerTag("React")} />
 <Chip label="Erro" variant="error" />`,
   previewAsCards: true,
+  Measures: ChipMeasures,
   Demo: ChipDemo,
 };
 

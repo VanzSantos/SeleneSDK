@@ -14,6 +14,7 @@ const story: StoryMeta = {
   description: "Texto auxiliar abaixo de um campo — ajuda neutra ou erro.",
   code: `<HelperText text="Mínimo de 8 caracteres." intent="default" />
 <HelperText text="E-mail inválido." intent="error" />`,
+  previewAsCards: true,
   Demo: HelperTextDemo,
 };
 

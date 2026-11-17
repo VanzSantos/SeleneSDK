@@ -135,8 +135,13 @@ frase de contexto no corpo do PR ajuda igual.
    O campo `order` (opcional) define a posição no menu; sem ele a tela entra no fim do seu
    grupo, em ordem alfabética.
    Opcional: o campo `Measures` (um componente React) adiciona a seção **Medidas** logo
-   após o código; o `Button` é o exemplo (`stories/atoms/ButtonMeasures.tsx`): as cotas são
-   medidas no DOM e a tabela lê os tokens do `:root`, então nada fica digitado à mão.
+   antes do contrato. Use as peças de `stories/measures/kit.tsx` (`Specimen`, `Block`,
+   `MeasuresTable`); `Button`, `Checkbox`, `Chip` e `Switch` são os exemplos
+   (`stories/atoms/*Measures.tsx`): as cotas são medidas no DOM e a tabela lê os tokens do
+   `:root`, então nada fica digitado à mão.
+   Opcional: `previewAsCards: true` com a demo feita de `<DemoCard title="…">` (um cartão por
+   grupo, com o código gerado dos próprios componentes, ou `code=` quando precisar de outro).
+   Nesse caso a seção "Código" do topo não aparece, porque cada cartão já traz o seu.
 
 ### Um protótipo
 
