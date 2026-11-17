@@ -39,12 +39,34 @@ export function StoryDetail({ story, theme, initialSection }: { story: StoryMeta
   const isResponsive = RESPONSIVE_GROUPS.includes(story.group);
   const standaloneUrl = `${window.location.pathname}?standalone=${story.id}`;
 
+  // Cartões da pré-visualização (DemoCard): o shell não conhece os títulos, então lê do DOM e
+  // acompanha mudanças (uma demo pode trocar de conteúdo, como o Wizard ao concluir).
+  const [cards, setCards] = useState<TocItem[]>([]);
+  useEffect(() => {
+    const root = story.previewAsCards && !story.previewSections ? document.getElementById("preview") : null;
+    if (!root) {
+      setCards([]);
+      return;
+    }
+    const collect = () => {
+      const next = [...root.querySelectorAll<HTMLElement>('section[id^="demo-"]')].map(
+        (card): TocItem => ({ id: card.id, label: card.querySelector("h3")?.textContent ?? "", level: 2 }),
+      );
+      setCards((prev) => (JSON.stringify(prev) === JSON.stringify(next) ? prev : next));
+    };
+    collect();
+    const observer = new MutationObserver(collect);
+    observer.observe(root, { childList: true, subtree: true });
+    return () => observer.disconnect();
+  }, [story.id, story.previewAsCards, story.previewSections]);
+
   // Menu "Nesta página": seções fixas + as de Especificações (do contrato) + "Contrato" por último.
   const tocItems = useMemo<TocItem[]>(() => {
     const items: TocItem[] = [
       { id: "inicio", label: "Início" },
       { id: "preview", label: "Pré-visualização" },
       ...(story.previewSections ?? []).map((section): TocItem => ({ id: section.id, label: section.title, level: 2 })),
+      ...cards,
       ...(story.previewAsCards ? [] : [{ id: "codigo", label: "Código" } as TocItem]),
       ...(story.Measures ? [{ id: "medidas", label: "Medidas" } as TocItem] : []),
     ];
@@ -56,7 +78,7 @@ export function StoryDetail({ story, theme, initialSection }: { story: StoryMeta
       items.push({ id: "detalhes", label: "Detalhes" });
     }
     return items;
-  }, [contractSource, story.previewSections, story.Measures, story.previewAsCards]);
+  }, [contractSource, story.previewSections, story.Measures, story.previewAsCards, cards]);
 
   // Link direto pra seção ("#/radio/props"): rola até ela ao abrir a tela.
   useEffect(() => {
