@@ -1,5 +1,6 @@
 import type { StoryMeta } from "../types";
 import { SwitchDemo } from "../atoms/SwitchDemo";
+import { SwitchMeasures } from "../atoms/SwitchMeasures";
 
 const story: StoryMeta = {
   id: "switch",
@@ -15,6 +16,7 @@ const story: StoryMeta = {
   code: `<Switch label="Notificações por e-mail" checked={notificacoes} onChange={setNotificacoes} />
 <Switch accessibleLabel="Modo escuro" checked={modoEscuro} onChange={setModoEscuro} />`,
   previewAsCards: true,
+  Measures: SwitchMeasures,
   Demo: SwitchDemo,
 };
 

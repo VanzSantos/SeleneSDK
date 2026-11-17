@@ -1,18 +1,21 @@
 import { Icon } from "../../../components/Icon/Icon";
 import styles from "../Demo.module.css";
+import { DemoCard } from "../DemoCard";
 
 export function IconDemo() {
   return (
-    <div className={styles.row}>
-      <div className={styles.item}>
+    <div className={styles.cards}>
+      <DemoCard title="Decorativo" description="Padrão: aria-hidden, o significado vem do texto ao lado.">
         <Icon name="info" size="medium" color="var(--icone-secundario)" />
-        <span className={styles.itemLabel}>decorativo</span>
-      </div>
-      <div className={styles.item}>
-        <Icon name="arrow-right" size="large" color="var(--acao-primaria)" />
-        <span className={styles.itemLabel}>size="large"</span>
-      </div>
-      <div className={styles.item}>
+      </DemoCard>
+      <DemoCard title="Tamanho" description="size small, medium ou large.">
+        <div className={styles.row}>
+          <Icon name="arrow-right" size="small" color="var(--acao-primaria)" />
+          <Icon name="arrow-right" size="medium" color="var(--acao-primaria)" />
+          <Icon name="arrow-right" size="large" color="var(--acao-primaria)" />
+        </div>
+      </DemoCard>
+      <DemoCard title="Com significado" description="decorative=false exige accessibleLabel, que o leitor de tela anuncia.">
         <Icon
           name="eye"
           size="medium"
@@ -20,8 +23,7 @@ export function IconDemo() {
           decorative={false}
           accessibleLabel="Mostrar senha"
         />
-        <span className={styles.itemLabel}>decorative=false</span>
-      </div>
+      </DemoCard>
     </div>
   );
 }

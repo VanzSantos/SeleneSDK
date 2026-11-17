@@ -45,7 +45,7 @@ export function StoryDetail({ story, theme, initialSection }: { story: StoryMeta
       { id: "inicio", label: "Início" },
       { id: "preview", label: "Pré-visualização" },
       ...(story.previewSections ?? []).map((section): TocItem => ({ id: section.id, label: section.title, level: 2 })),
-      { id: "codigo", label: "Código" },
+      ...(story.previewAsCards ? [] : [{ id: "codigo", label: "Código" } as TocItem]),
       ...(story.Measures ? [{ id: "medidas", label: "Medidas" } as TocItem] : []),
     ];
     if (contractSource) {
@@ -56,7 +56,7 @@ export function StoryDetail({ story, theme, initialSection }: { story: StoryMeta
       items.push({ id: "detalhes", label: "Detalhes" });
     }
     return items;
-  }, [contractSource, story.previewSections, story.Measures]);
+  }, [contractSource, story.previewSections, story.Measures, story.previewAsCards]);
 
   // Link direto pra seção ("#/radio/props"): rola até ela ao abrir a tela.
   useEffect(() => {
@@ -127,11 +127,14 @@ export function StoryDetail({ story, theme, initialSection }: { story: StoryMeta
         </SectionCard>
         )}
 
-        <SectionCard id="codigo" title="Código">
-          <pre className={styles.code}>
-            <code>{story.code}</code>
-          </pre>
-        </SectionCard>
+        {/* Com cartões, cada exemplo já traz o seu código; a seção única só vale para as demos sem cartões. */}
+        {!story.previewAsCards && (
+          <SectionCard id="codigo" title="Código">
+            <pre className={styles.code}>
+              <code>{story.code}</code>
+            </pre>
+          </SectionCard>
+        )}
 
         {Measures && (
           <SectionCard id="medidas" title="Medidas">

@@ -14,6 +14,7 @@ const story: StoryMeta = {
   description: "Nomeia um campo de formulário. Asterisco é decorativo — obrigatoriedade real é do input.",
   code: `<FieldLabel text="Login" required />
 <FieldLabel text="Senha" required withInfo infoText="..." />`,
+  previewAsCards: true,
   Demo: FieldLabelDemo,
 };
 

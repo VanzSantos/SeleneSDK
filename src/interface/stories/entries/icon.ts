@@ -15,6 +15,7 @@ const story: StoryMeta = {
   code: `<Icon name="info" size="medium" color="var(--icone-secundario)" />
 <Icon name="arrow-right" size="large" color="var(--acao-primaria)" />
 <Icon name="eye" decorative={false} accessibleLabel="Mostrar senha" />`,
+  previewAsCards: true,
   Demo: IconDemo,
 };
 
