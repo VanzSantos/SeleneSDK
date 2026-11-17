@@ -13,6 +13,7 @@ const story: StoryMeta = {
   tokensSummary: ["semantic.fundo-superficie/secundario", "semantic.borda-base", "structural.raio-pp", "structural.icone-pequeno"],
   description: "Quantidade com botões +/-, sem digitação livre. Nasceu como tipo de célula pra Datatable. Renomeado de 'Stepper' pra liberar esse nome pro componente de passo-a-passo.",
   code: `<QuantitySelector value={quantidade} min={0} max={10} accessibleLabel="Quantidade" onChange={setQuantidade} />`,
+  previewAsCards: true,
   Demo: QuantitySelectorDemo,
 };
 

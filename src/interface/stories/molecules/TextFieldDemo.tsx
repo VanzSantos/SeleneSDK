@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { TextField } from "../../../components/TextField/TextField";
 import styles from "../Demo.module.css";
+import { DemoCard } from "../DemoCard";
 
 export function TextFieldDemo() {
   const [texto, setTexto] = useState("");
@@ -13,9 +14,8 @@ export function TextFieldDemo() {
   const [telefoneComDdi, setTelefoneComDdi] = useState("");
 
   return (
-    <div className={styles.column} style={{ maxWidth: 360 }}>
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Todas as composições de ícone possíveis</span>
+    <div className={styles.cards}>
+      <DemoCard title="Todas as composições de ícone possíveis">
         <div className={styles.column} style={{ maxWidth: 320 }}>
           <TextField
             label="Sem ícone"
@@ -54,10 +54,9 @@ export function TextFieldDemo() {
             onChange={setSenha}
           />
         </div>
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Estados</span>
+      <DemoCard title="Estados">
         <div className={styles.column} style={{ maxWidth: 320 }}>
           <TextField
             label="E-mail"
@@ -69,10 +68,9 @@ export function TextFieldDemo() {
           <TextField label="Somente leitura" state="readOnly" value="valor fixo" />
           <TextField label="Desabilitado" state="disabled" placeholder="Indisponível" />
         </div>
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Telefone (type=tel) — máscara automática, com e sem DDI</span>
+      <DemoCard title="Telefone" description="type=tel. máscara automática, com e sem DDI.">
         <div className={styles.column} style={{ maxWidth: 320 }}>
           <TextField
             label="Telefone"
@@ -90,7 +88,7 @@ export function TextFieldDemo() {
             onChange={setTelefoneComDdi}
           />
         </div>
-      </div>
+      </DemoCard>
     </div>
   );
 }

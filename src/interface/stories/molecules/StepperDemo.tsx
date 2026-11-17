@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Stepper } from "../../../components/Stepper/Stepper";
 import { Button } from "../../../components/Button/Button";
 import styles from "../Demo.module.css";
+import { DemoCard } from "../DemoCard";
 
 export function StepperDemo() {
   const [passo, setPasso] = useState(1);
@@ -14,21 +15,16 @@ export function StepperDemo() {
   ];
 
   return (
-    <div className={`${styles.column} ${styles.stack}`} style={{ maxWidth: "none" }}>
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>variant="stacked" (padrão) — conector ligando os marcadores, texto abaixo</span>
+    <div className={styles.cards}>
+      <DemoCard title={"variant=\"stacked\""} description="Padrão. conector ligando os marcadores, texto abaixo.">
         <Stepper items={etapas} currentStep={1} accessibleLabel="Etapas do cadastro" variant="stacked" />
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>variant="inline" — texto ao lado do marcador, sem conector</span>
+      <DemoCard title={"variant=\"inline\""} description="Texto ao lado do marcador, sem conector.">
         <Stepper items={etapas} currentStep={1} accessibleLabel="Etapas do cadastro (inline)" variant="inline" />
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>
-          Interativo (onStepClick — só etapas concluídas/atual são clicáveis)
-        </span>
+      <DemoCard title="Interativo" description="OnStepClick — só etapas concluídas/atual são clicáveis.">
         <Stepper
           items={etapas}
           currentStep={passo}
@@ -49,12 +45,11 @@ export function StepperDemo() {
             state={passo === etapas.length - 1 ? "disabled" : "default"}
           />
         </div>
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Última etapa (todas concluídas exceto a atual)</span>
+      <DemoCard title="Última etapa" description="Todas concluídas exceto a atual.">
         <Stepper items={etapas} currentStep={etapas.length - 1} accessibleLabel="Etapas quase completas" />
-      </div>
+      </DemoCard>
     </div>
   );
 }

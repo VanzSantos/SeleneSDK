@@ -7,6 +7,7 @@ import { QuantitySelector } from "../../../components/QuantitySelector/QuantityS
 import { ImageThumbnail } from "../../../components/ImageThumbnail/ImageThumbnail";
 import { Modal } from "../../../components/Modal/Modal";
 import styles from "../Demo.module.css";
+import { DemoCard } from "../DemoCard";
 
 const PLACEHOLDER =
   "data:image/svg+xml;utf8," +
@@ -202,7 +203,7 @@ function CompleteExample() {
   }
 
   return (
-    <div className={`${styles.column} ${styles.stack}`} style={{ maxWidth: "none" }}>
+    <div className={styles.cards}>
       <Datatable
         title="Pedidos"
         toolbarActions={
@@ -453,31 +454,61 @@ function WideExample() {
   );
 }
 
+const SIMPLE_CODE = `<Datatable
+  columns={columns}
+  data={pedidos}
+  rowKey="id"
+  accessibleLabel="Lista simples de pedidos"
+/>`;
+
+const COMPLETE_CODE = `<Datatable
+  title="Pedidos"
+  columns={columns}
+  data={pedidos}
+  rowKey="id"
+  accessibleLabel="Lista completa de pedidos"
+  selectable
+  selectedRowKeys={selectedRowKeys}
+  onSelectionChange={setSelectedRowKeys}
+  sortColumnKey={sortColumnKey}
+  sortDirection={sortDirection}
+  onSortChange={handleSortChange}
+  filterValues={filterValues}
+  onFilterChange={handleFilterChange}
+  page={page}
+  pageSize={pageSize}
+  onPageChange={setPage}
+  onRowSave={handleRowSave}
+  onExport={handleExport}
+/>`;
+
+const WIDE_CODE = `<Datatable
+  title="Produtos"
+  columns={columns} // inclui a coluna "Ações" com sticky: "right"
+  data={produtos}
+  rowKey="id"
+  accessibleLabel="Lista de produtos com muitas colunas"
+  density="compact"
+/>`;
+
 export function DatatableDemo() {
   return (
-    <div className={`${styles.column} ${styles.stack}`} style={{ maxWidth: "none" }}>
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>
-          Simples — sem sort/filtro/seleção/paginação, célula de 2 linhas (StackedText)
-        </span>
-        <SimpleExample />
-      </div>
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>
-          Completo — toolbar (título, densidade, colunas, exportação), filtro oculto (clique no
-          título da coluna), sort separado, seleção, paginação, edição de linha (Cliente/Status
-          viram inputs, salvar pede confirmação), habilitar/desabilitar (ícone de olho, também
-          pede confirmação), loading e vazio
-        </span>
-        <CompleteExample />
-      </div>
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>
-          Muitas colunas — scroll horizontal com coluna de Ações fixa (sticky), imagem clicável,
-          status com múltiplos badges, quantidade via QuantitySelector, mover linha pra cima/baixo
-        </span>
-        <WideExample />
-      </div>
+    <div className={styles.cards}>
+      <DemoCard title="Simples" code={SIMPLE_CODE} description="Sem sort/filtro/seleção/paginação, célula de 2 linhas (StackedText).">
+        <div style={{ width: "100%" }}>
+          <SimpleExample />
+        </div>
+      </DemoCard>
+      <DemoCard title="Completo" code={COMPLETE_CODE} description="Toolbar (título, densidade, colunas, exportação), filtro oculto (clique no título da coluna), sort separado, seleção, paginação, edição de linha (Cliente/Status viram inputs, salvar pede confirmação), habilitar/desabilitar (ícone de olho, também pede confirmação), loading e vazio.">
+        <div style={{ width: "100%" }}>
+          <CompleteExample />
+        </div>
+      </DemoCard>
+      <DemoCard title="Muitas colunas" code={WIDE_CODE} description="Scroll horizontal com coluna de Ações fixa (sticky), imagem clicável, status com múltiplos badges, quantidade via QuantitySelector, mover linha pra cima/baixo.">
+        <div style={{ width: "100%" }}>
+          <WideExample />
+        </div>
+      </DemoCard>
     </div>
   );
 }

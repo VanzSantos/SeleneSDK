@@ -1,0 +1,213 @@
+/* Cor das cotas: só nesta seção de documentação. A cor do texto usa icone-info (contraste AA
+   nos dois temas) e o preenchimento usa fundo-info-forte com transparência. */
+.measures {
+  --cota-texto: var(--icone-info);
+  --cota-linha: var(--fundo-info-forte);
+  --cota-fundo: color-mix(in srgb, var(--fundo-info-forte) 22%, transparent);
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-gg);
+}
+
+.block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-m);
+  min-width: 0;
+}
+
+.heading {
+  margin: 0;
+  font-family: var(--texto-m-forte-family);
+  font-size: var(--texto-m-forte-size);
+  font-weight: var(--texto-m-forte-weight);
+  line-height: var(--texto-m-forte-line-height);
+  color: var(--texto-primario);
+}
+
+.lead {
+  margin: 0;
+  font-family: var(--texto-p-family);
+  font-size: var(--texto-p-size);
+  line-height: var(--texto-p-line-height);
+  color: var(--texto-secundario);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+  gap: var(--espaco-m);
+}
+
+.figure {
+  margin: 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  border: var(--borda-espessura) solid var(--borda-base);
+  border-radius: var(--raio-p);
+  background: var(--fundo-superficie);
+  overflow: hidden;
+}
+
+/* Fundo pontilhado, como numa planta de medidas. */
+.stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 160px;
+  padding: var(--espaco-g) var(--espaco-g) var(--espaco-g) calc(var(--espaco-g) + var(--espaco-gg));
+  background-image: radial-gradient(color-mix(in srgb, var(--borda-base) 70%, transparent) 1px, transparent 1px);
+  background-size: 12px 12px;
+}
+
+.caption {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-xp);
+  padding: var(--espaco-p) var(--espaco-m);
+  border-top: var(--borda-espessura) solid var(--borda-base);
+  font-family: var(--texto-p-family);
+  font-size: var(--texto-p-size);
+  line-height: var(--texto-p-line-height);
+  color: var(--texto-secundario);
+}
+
+.caption strong {
+  color: var(--texto-primario);
+}
+
+.specimen {
+  position: relative;
+  display: inline-flex;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.fill {
+  position: absolute;
+  background: var(--cota-fundo);
+}
+
+.outline {
+  position: absolute;
+  box-sizing: border-box;
+  border: var(--borda-espessura) dashed var(--cota-linha);
+}
+
+.target {
+  position: absolute;
+  box-sizing: border-box;
+  border: var(--borda-espessura) dashed var(--cota-linha);
+  background: var(--cota-fundo);
+}
+
+.vline {
+  position: absolute;
+  width: var(--borda-espessura);
+  background: var(--cota-linha);
+}
+
+.vline::before,
+.vline::after {
+  content: "";
+  position: absolute;
+  left: calc(-1 * var(--espaco-xp));
+  width: calc(var(--espaco-pp) + var(--borda-espessura));
+  height: var(--borda-espessura);
+  background: var(--cota-linha);
+}
+
+.vline::before {
+  top: 0;
+}
+
+.vline::after {
+  bottom: 0;
+}
+
+.tag {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  font-family: var(--texto-micro-forte-family);
+  font-size: var(--texto-micro-forte-size);
+  font-weight: var(--texto-micro-forte-weight);
+  line-height: 1;
+  white-space: nowrap;
+  color: var(--cota-texto);
+}
+
+.tag[data-anchor="end"] {
+  transform: translate(-100%, -50%);
+}
+
+/* Tabela */
+.tableWrap {
+  overflow-x: auto;
+  border: var(--borda-espessura) solid var(--borda-base);
+  border-radius: var(--raio-pp);
+  background: var(--fundo-superficie);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--texto-p-family);
+  font-size: var(--texto-p-size);
+  line-height: var(--texto-p-line-height);
+  color: var(--texto-primario);
+}
+
+.table th,
+.table td {
+  padding: var(--espaco-pp) var(--espaco-p);
+  text-align: left;
+  vertical-align: top;
+  border-bottom: var(--borda-espessura) solid var(--borda-base);
+}
+
+.table thead th {
+  background: var(--fundo-secundario);
+  white-space: nowrap;
+}
+
+.table tbody th {
+  font-weight: 500;
+}
+
+.table tr:last-child th,
+.table tr:last-child td {
+  border-bottom: none;
+}
+
+.value {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+.token {
+  display: inline-block;
+  margin: 0 var(--espaco-xp) var(--espaco-xp) 0;
+  padding: 0 var(--espaco-pp);
+  border-radius: var(--raio-xp);
+  background: var(--fundo-secundario);
+  font-family: "SF Mono", Menlo, Consolas, monospace;
+  font-size: 12px;
+}
+
+.srOnly {
+  position: absolute;
+  width: var(--borda-espessura);
+  height: var(--borda-espessura);
+  margin: calc(-1 * var(--borda-espessura));
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}

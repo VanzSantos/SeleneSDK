@@ -1,11 +1,11 @@
 import { Popover } from "../../../components/Popover/Popover";
 import styles from "../Demo.module.css";
+import { DemoCard } from "../DemoCard";
 
 export function PopoverDemo() {
   return (
-    <div className={styles.column}>
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>role="dialog" (padrão) — mini-formulário livre</span>
+    <div className={styles.cards}>
+      <DemoCard title={"role=\"dialog\""} description="Padrão. mini-formulário livre.">
         <Popover
           accessibleLabel="Editar apelido"
           content={
@@ -28,10 +28,9 @@ export function PopoverDemo() {
             Editar apelido
           </button>
         </Popover>
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>role="menu" — lista de ações</span>
+      <DemoCard title={"role=\"menu\""} description="Lista de ações.">
         <Popover
           role="menu"
           accessibleLabel="Ações"
@@ -54,10 +53,9 @@ export function PopoverDemo() {
             ⋯
           </button>
         </Popover>
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>tone="dark" — painel escuro, pra gatilhos sobre superfícies escuras (ex.: CallControlBar)</span>
+      <DemoCard title={"tone=\"dark\""} description="Painel escuro, pra gatilhos sobre superfícies escuras (ex.: CallControlBar).">
         <div style={{ display: "inline-block", padding: 16, background: "var(--fundo-invertido)", borderRadius: "var(--raio-p)" }}>
           <Popover
             role="menu"
@@ -84,7 +82,7 @@ export function PopoverDemo() {
             </button>
           </Popover>
         </div>
-      </div>
+      </DemoCard>
     </div>
   );
 }

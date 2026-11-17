@@ -17,6 +17,7 @@ const story: StoryMeta = {
 <Badge variant="accent1" label="Beta" />
 <Badge variant="error" count={5} />
 <Badge variant="dark" count={140} max={99} />`,
+  previewAsCards: true,
   Demo: BadgeDemo,
 };
 

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { CallControlBar } from "../../../components/CallControlBar/CallControlBar";
 import styles from "../Demo.module.css";
+import { DemoCard } from "../DemoCard";
 
 const MIC_DEVICES = [
   { id: "mic-1", label: "Microfone do sistema" },
@@ -29,11 +30,8 @@ export function CallControlBarDemo() {
   const [cameraOn2, setCameraOn2] = useState(false);
 
   return (
-    <div className={styles.column}>
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>
-          Completo — chevron de dispositivo no microfone/câmera + configurações (alto-falante, desfoque de fundo)
-        </span>
+    <div className={styles.cards}>
+      <DemoCard title="Completo" description="Chevron de dispositivo no microfone/câmera + configurações (alto-falante, desfoque de fundo).">
         <div style={{ padding: 32, background: "var(--fundo-secundario)", borderRadius: 8, display: "flex", justifyContent: "center" }}>
           <CallControlBar
             micOn={micOn}
@@ -54,10 +52,9 @@ export function CallControlBarDemo() {
             onToggleBackgroundBlur={() => setBlurEnabled((v) => !v)}
           />
         </div>
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Mínimo — sem seleção de dispositivo nem configurações (microfone e câmera desligados)</span>
+      <DemoCard title="Mínimo" description="Sem seleção de dispositivo nem configurações (microfone e câmera desligados).">
         <div style={{ padding: 32, background: "var(--fundo-secundario)", borderRadius: 8, display: "flex", justifyContent: "center" }}>
           <CallControlBar
             micOn={micOn2}
@@ -67,7 +64,7 @@ export function CallControlBarDemo() {
             onHangUp={() => {}}
           />
         </div>
-      </div>
+      </DemoCard>
     </div>
   );
 }

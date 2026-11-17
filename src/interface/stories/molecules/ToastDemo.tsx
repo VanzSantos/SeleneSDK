@@ -1,13 +1,21 @@
 import { ToastProvider, useToast } from "../../../components/Toast/ToastProvider";
 import styles from "../Demo.module.css";
+import { DemoCard } from "../DemoCard";
 
 function ToastTriggers() {
   const { toast } = useToast();
 
   return (
-    <div className={styles.column} style={{ maxWidth: 440 }}>
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Os 4 intents</span>
+    <div className={styles.cards}>
+      <DemoCard
+        title="Os 4 intents"
+        code={`const { toast } = useToast();
+
+toast({ intent: "info", message: "Sua sessão expira em 5 minutos." });
+toast({ intent: "success", message: "Item salvo com sucesso." });
+toast({ intent: "warning", message: "Sua senha expira em 3 dias." });
+toast({ intent: "error", message: "Falha ao salvar." });`}
+      >
         <div className={styles.row}>
           <button
             type="button"
@@ -38,10 +46,17 @@ function ToastTriggers() {
             error
           </button>
         </div>
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Com ação secundária</span>
+      <DemoCard
+        title="Com ação secundária"
+        code={`toast({
+  intent: "success",
+  message: "Item excluído.",
+  actionLabel: "Desfazer",
+  onAction: () => toast({ intent: "info", message: "Exclusão desfeita." }),
+});`}
+      >
         <button
           type="button"
           className={styles.trigger}
@@ -56,10 +71,14 @@ function ToastTriggers() {
         >
           Excluir item (com Desfazer)
         </button>
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Fila (máx. 3 visíveis — dispara 5 de uma vez)</span>
+      <DemoCard
+        title="Fila"
+        code={`for (let i = 1; i <= 5; i++) {
+  toast({ intent: "info", message: \`Notificação \${i} de 5\` });
+}`}
+        description="Máx. 3 visíveis — dispara 5 de uma vez.">
         <button
           type="button"
           className={styles.trigger}
@@ -71,10 +90,12 @@ function ToastTriggers() {
         >
           Disparar 5 toasts
         </button>
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Sem auto-dispensa (duration=0)</span>
+      <DemoCard
+        title="Sem auto-dispensa"
+        code={`toast({ intent: "warning", message: "Fica até fechar manualmente.", duration: 0 });`}
+        description="Duration=0.">
         <button
           type="button"
           className={styles.trigger}
@@ -84,7 +105,7 @@ function ToastTriggers() {
         >
           Disparar persistente
         </button>
-      </div>
+      </DemoCard>
     </div>
   );
 }

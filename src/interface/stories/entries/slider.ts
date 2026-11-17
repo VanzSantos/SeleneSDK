@@ -14,6 +14,7 @@ const story: StoryMeta = {
   description: "Seleção numérica por arraste sobre input[type=range] nativo — valor único ou intervalo (dois cabos empilhados, técnica padrão de dual-range slider).",
   code: `<Slider label="Volume" value={volume} onChange={setVolume} />
 <Slider label="Faixa de preço" range value={faixa} onChange={setFaixa} min={0} max={1000} />`,
+  previewAsCards: true,
   Demo: SliderDemo,
 };
 

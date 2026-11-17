@@ -14,6 +14,7 @@ const story: StoryMeta = {
   description: "Progresso mensurável (0-100%) — diferente do Spinner, que é indeterminado. accessibleLabel é sempre obrigatório. Variantes warning/critical/neutral pensadas pra listas de prioridade (ver ProgressList).",
   code: `<ProgressBar value={42} accessibleLabel="Enviando arquivo" showValue />
 <ProgressBar value={100} variant="success" accessibleLabel="Envio concluído" />`,
+  previewAsCards: true,
   Demo: ProgressBarDemo,
 };
 

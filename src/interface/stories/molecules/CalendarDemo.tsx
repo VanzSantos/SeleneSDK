@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Calendar } from "../../../components/Calendar/Calendar";
 import styles from "../Demo.module.css";
+import { DemoCard } from "../DemoCard";
 
 function todayISO(): string {
   const now = new Date();
@@ -18,17 +19,15 @@ export function CalendarDemo() {
   const maxDateISO = `${ano}-${String(mes).padStart(2, "0")}-${String(maxDate).padStart(2, "0")}`;
 
   return (
-    <div className={styles.row} style={{ alignItems: "flex-start", flexWrap: "wrap", gap: 32 }}>
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Livre — clique no rótulo do mês pra pular direto</span>
+    <div className={styles.cards}>
+      <DemoCard title="Livre" description="Clique no rótulo do mês pra pular direto.">
         <Calendar value={data} onChange={setData} accessibleLabel="Data do evento" />
         <p style={{ marginTop: 8, fontSize: 13, color: "var(--texto-secundario)" }}>
           Selecionado: {data ?? "nenhuma"}
         </p>
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Com minDate/maxDate (só o mês atual) e um dia específico bloqueado</span>
+      <DemoCard title="Com minDate/maxDate" description="Só o mês atual (minDate/maxDate) e um dia específico bloqueado.">
         <Calendar
           value={dataComLimites}
           onChange={setDataComLimites}
@@ -40,7 +39,7 @@ export function CalendarDemo() {
         <p style={{ marginTop: 8, fontSize: 13, color: "var(--texto-secundario)" }}>
           Selecionado: {dataComLimites ?? "nenhuma"}
         </p>
-      </div>
+      </DemoCard>
     </div>
   );
 }

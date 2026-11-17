@@ -14,6 +14,7 @@ const story: StoryMeta = {
   description: "Combobox customizado (não é <select> nativo), com navegação por teclado, typeahead e seleção única ou múltipla.",
   code: `<Select label="País" options={paises} value={pais} onChange={setPais} />
 <Select label="Países visitados" multiple options={paises} value={arr} onChange={setArr} />`,
+  previewAsCards: true,
   Demo: SelectDemo,
 };
 

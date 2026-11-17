@@ -14,6 +14,7 @@ const story: StoryMeta = {
   description: "Campo de texto que abre o Calendar num popover ancorado — data única ou intervalo (dois campos independentes, Início/Fim). Ícone de calendário à esquerda do trigger (showIcon=false esconde). hideLabel omite o FieldLabel visível sem perder o nome acessível (vira aria-label).",
   code: `<DatePicker label="Data de entrega" value={data} onChange={setData} />
 <DatePicker label="Período" range value={intervalo} onChange={setIntervalo} />`,
+  previewAsCards: true,
   Demo: DatePickerDemo,
 };
 

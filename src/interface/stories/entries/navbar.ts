@@ -20,6 +20,7 @@ const story: StoryMeta = {
   ]}
   actions={<Avatar name="Ana Souza" size="small" />}
 />`,
+  previewAsCards: true,
   Demo: NavBarDemo,
 };
 

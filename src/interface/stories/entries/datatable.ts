@@ -40,6 +40,7 @@ const story: StoryMeta = {
   onPageChange={setPage}
   onPageSizeChange={setPageSize}
 />`,
+  previewAsCards: true,
   Demo: DatatableDemo,
 };
 

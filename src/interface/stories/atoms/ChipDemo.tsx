@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Chip } from "../../../components/Chip/Chip";
 import styles from "../Demo.module.css";
+import { DemoCard } from "../DemoCard";
 
 export function ChipDemo() {
   const [filtros, setFiltros] = useState<Record<string, boolean>>({
@@ -11,9 +12,8 @@ export function ChipDemo() {
   const [tags, setTags] = useState(["React", "TypeScript", "Vite"]);
 
   return (
-    <div className={styles.column} style={{ maxWidth: 440 }}>
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Selecionável (filtro)</span>
+    <div className={styles.cards}>
+      <DemoCard title="Selecionável" description="Filtro.">
         <div className={styles.row}>
           <Chip
             label="Ativos"
@@ -31,10 +31,9 @@ export function ChipDemo() {
             onToggle={(v) => setFiltros((f) => ({ ...f, arquivados: v }))}
           />
         </div>
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Removível (tag)</span>
+      <DemoCard title="Removível" description="Tag.">
         <div className={styles.row}>
           {tags.map((tag) => (
             <Chip
@@ -46,10 +45,9 @@ export function ChipDemo() {
           ))}
           {tags.length === 0 && <span className={styles.itemLabel}>Nenhuma tag restante.</span>}
         </div>
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Variantes de cor (estático)</span>
+      <DemoCard title="Variantes de cor" description="Estático.">
         <div className={styles.row}>
           <Chip label="Neutral" variant="neutral" />
           <Chip label="Info" variant="info" />
@@ -57,10 +55,9 @@ export function ChipDemo() {
           <Chip label="Aviso" variant="warning" />
           <Chip label="Erro" variant="error" />
         </div>
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Selecionável + removível ao mesmo tempo</span>
+      <DemoCard title="Selecionável + removível ao mesmo tempo">
         <div className={styles.row}>
           <Chip
             label="Combinado"
@@ -70,14 +67,13 @@ export function ChipDemo() {
             onRemove={() => alert("Removido")}
           />
         </div>
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Desabilitado</span>
+      <DemoCard title="Desabilitado">
         <div className={styles.row}>
           <Chip label="Desabilitado" disabled removable onRemove={() => {}} />
         </div>
-      </div>
+      </DemoCard>
     </div>
   );
 }

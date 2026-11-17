@@ -15,6 +15,7 @@ const story: StoryMeta = {
   code: `<Divider />
 <Divider label="ou" />
 <Divider orientation="vertical" />`,
+  previewAsCards: true,
   Demo: DividerDemo,
 };
 

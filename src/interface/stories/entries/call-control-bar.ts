@@ -19,6 +19,7 @@ const story: StoryMeta = {
   speakerDevices={speakers} selectedSpeakerDeviceId={spkId} onSelectSpeakerDevice={setSpkId}
   backgroundBlurEnabled={blur} onToggleBackgroundBlur={() => setBlur(v => !v)}
 />`,
+  previewAsCards: true,
   Demo: CallControlBarDemo,
 };
 

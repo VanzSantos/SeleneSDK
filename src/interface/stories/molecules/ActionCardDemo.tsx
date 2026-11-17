@@ -1,11 +1,11 @@
 import { ActionCard } from "../../../components/ActionCard/ActionCard";
 import styles from "../Demo.module.css";
+import { DemoCard } from "../DemoCard";
 
 export function ActionCardDemo() {
   return (
-    <div className={`${styles.column} ${styles.stack}`} style={{ maxWidth: 720 }}>
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Grade de ações administrativas</span>
+    <div className={styles.cards}>
+      <DemoCard title="Grade de ações administrativas">
         <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 12 }}>
           <ActionCard
             icon="user"
@@ -46,10 +46,9 @@ export function ActionCardDemo() {
             onPrimaryAction={() => {}}
           />
         </div>
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Com ação secundária em texto (link, padrão)</span>
+      <DemoCard title="Com ação secundária em texto" description="Link, padrão.">
         <div style={{ maxWidth: 340 }}>
           <ActionCard
             icon="star"
@@ -62,10 +61,9 @@ export function ActionCardDemo() {
             onSecondaryAction={() => {}}
           />
         </div>
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Com dois botões no rodapé (secundário secondary)</span>
+      <DemoCard title="Com dois botões no rodapé" description="Secundário secondary.">
         <div style={{ maxWidth: 340 }}>
           <ActionCard
             icon="trash"
@@ -80,7 +78,7 @@ export function ActionCardDemo() {
             secondaryVariant="secondary"
           />
         </div>
-      </div>
+      </DemoCard>
     </div>
   );
 }

@@ -6,6 +6,7 @@ import { UserCard } from "../../../components/UserCard/UserCard";
 import { Icon, type IconName } from "../../../components/Icon/Icon";
 import { Popover } from "../../../components/Popover/Popover";
 import styles from "../Demo.module.css";
+import { DemoCard } from "../DemoCard";
 
 /** Só o ícone do logo (sem nome/URL) — vai no slot `headerCollapsed`, pro
     logo continuar visível mesmo com o trilho recolhido a 64px (o slot
@@ -136,9 +137,8 @@ export function SideNavDemo() {
   ];
 
   return (
-    <div className={styles.column} style={{ maxWidth: "none" }}>
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Um nível só (flat) — com Icon por item</span>
+    <div className={styles.cards}>
+      <DemoCard title="Um nível só" description="flat. com Icon por item.">
         <div style={{ height: 280, border: "1px solid var(--borda-base)", borderRadius: "var(--raio-pp)", overflow: "hidden", display: "flex" }}>
           <SideNav
             items={flatItems}
@@ -154,14 +154,9 @@ export function SideNavDemo() {
             </button>
           </div>
         </div>
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>
-          Multi-nível (até 4) — árvore expansível indentada; header/footer compostos com
-          Avatar+StackedText+Popover, estética inspirada nas referências (workspace no topo,
-          cartão de perfil com menu no rodapé)
-        </span>
+      <DemoCard title="Multi-nível" description="Até 4. árvore expansível indentada; header/footer compostos com Avatar+StackedText+Popover, estética inspirada nas referências (workspace no topo, cartão de perfil com menu no rodapé).">
         <div style={{ height: 480, border: "1px solid var(--borda-base)", borderRadius: "var(--raio-pp)", overflow: "hidden", display: "flex" }}>
           <SideNav
             items={treeItems}
@@ -175,14 +170,9 @@ export function SideNavDemo() {
             Conteúdo da página ao lado.
           </div>
         </div>
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>
-          Recolhido (collapsed) — trilho só de ícones; passe o mouse por cima pra ver o painel
-          completo (mesmo header/footer compostos acima) abrir sobre o conteúdo, sem empurrar o
-          layout
-        </span>
+      <DemoCard title="Recolhido" description="collapsed. trilho só de ícones; passe o mouse por cima pra ver o painel completo (mesmo header/footer compostos acima) abrir sobre o conteúdo, sem empurrar o layout.">
         <div style={{ height: 480, border: "1px solid var(--borda-base)", borderRadius: "var(--raio-pp)", overflow: "hidden", display: "flex", position: "relative" }}>
           <SideNav
             items={treeItems}
@@ -200,10 +190,9 @@ export function SideNavDemo() {
             Conteúdo da página ao lado.
           </div>
         </div>
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>width="small" (200px, mesma escala small/medium/large do Drawer)</span>
+      <DemoCard title={"width=\"small\""} description="200px, mesma escala small/medium/large do Drawer.">
         <div style={{ height: 280, border: "1px solid var(--borda-base)", borderRadius: "var(--raio-pp)", overflow: "hidden", display: "flex" }}>
           <SideNav
             items={flatItems}
@@ -215,20 +204,16 @@ export function SideNavDemo() {
             Conteúdo da página ao lado.
           </div>
         </div>
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>
-          mobileOpen/onMobileOpenChange — modo controlado: o hambúrguer embutido some, o
-          consumidor desenha o próprio gatilho (botão abaixo) e controla o mesmo Drawer por fora
-        </span>
+      <DemoCard title="mobileOpen/onMobileOpenChange" description="Modo controlado: o hambúrguer embutido some, o consumidor desenha o próprio gatilho (botão abaixo) e controla o mesmo Drawer por fora.">
         <div className={styles.pageArea} style={{ padding: 16, display: "flex", flexDirection: "column", gap: 8, alignItems: "flex-start" }}>
           <button type="button" className={styles.trigger} onClick={() => setMobileOpen(true)}>
             Abrir navegação (gatilho próprio do consumidor)
           </button>
           <SideNav items={flatItems} mobileOpen={mobileOpen} onMobileOpenChange={setMobileOpen} header={<strong style={{ fontSize: 16 }}>SeleneSDK</strong>} />
         </div>
-      </div>
+      </DemoCard>
     </div>
   );
 }

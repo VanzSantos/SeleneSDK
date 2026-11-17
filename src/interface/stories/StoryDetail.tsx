@@ -33,6 +33,7 @@ type DeviceView = "desktop" | "mobile";
 
 export function StoryDetail({ story, theme, initialSection }: { story: StoryMeta; theme: Theme; initialSection?: string }) {
   const Demo = story.Demo;
+  const Measures = story.Measures;
   const [deviceView, setDeviceView] = useState<DeviceView>("desktop");
   const contractSource = getContractSource(story.contractFile);
   const isResponsive = RESPONSIVE_GROUPS.includes(story.group);
@@ -45,6 +46,7 @@ export function StoryDetail({ story, theme, initialSection }: { story: StoryMeta
       { id: "preview", label: "Pré-visualização" },
       ...(story.previewSections ?? []).map((section): TocItem => ({ id: section.id, label: section.title, level: 2 })),
       { id: "codigo", label: "Código" },
+      ...(story.Measures ? [{ id: "medidas", label: "Medidas" } as TocItem] : []),
     ];
     if (contractSource) {
       const { specs, contractId } = contractNavItems(contractSource);
@@ -54,7 +56,7 @@ export function StoryDetail({ story, theme, initialSection }: { story: StoryMeta
       items.push({ id: "detalhes", label: "Detalhes" });
     }
     return items;
-  }, [contractSource, story.previewSections]);
+  }, [contractSource, story.previewSections, story.Measures]);
 
   // Link direto pra seção ("#/radio/props"): rola até ela ao abrir a tela.
   useEffect(() => {
@@ -91,6 +93,14 @@ export function StoryDetail({ story, theme, initialSection }: { story: StoryMeta
           {story.description && <p className={styles.description}>{story.description}</p>}
         </div>
 
+        {story.previewAsCards ? (
+          <section id="preview" className={styles.previewGroup} aria-labelledby="preview-titulo">
+            <h2 id="preview-titulo" className={styles.previewTitle}>Pré-visualização</h2>
+            <div className={styles.previewCards} role="region" aria-label="Pré-visualização do componente">
+              <Demo />
+            </div>
+          </section>
+        ) : (
         <SectionCard id="preview" title="Pré-visualização" actions={deviceControls}>
           <div
             className={isResponsive ? `${styles.canvas} ${styles.canvasFlush}` : styles.canvas}
@@ -115,12 +125,19 @@ export function StoryDetail({ story, theme, initialSection }: { story: StoryMeta
             )}
           </div>
         </SectionCard>
+        )}
 
         <SectionCard id="codigo" title="Código">
           <pre className={styles.code}>
             <code>{story.code}</code>
           </pre>
         </SectionCard>
+
+        {Measures && (
+          <SectionCard id="medidas" title="Medidas">
+            <Measures />
+          </SectionCard>
+        )}
 
         {contractSource ? (
           <ContractPanel fileName={story.contractFile ?? ""} source={contractSource} />

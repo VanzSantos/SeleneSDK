@@ -2,6 +2,7 @@ import { UserCard } from "../../../components/UserCard/UserCard";
 import { Popover } from "../../../components/Popover/Popover";
 import { Icon, type IconName } from "../../../components/Icon/Icon";
 import styles from "../Demo.module.css";
+import { DemoCard } from "../DemoCard";
 
 function MenuRow({ icon, label }: { icon: IconName; label: string }) {
   return (
@@ -30,14 +31,12 @@ function MenuRow({ icon, label }: { icon: IconName; label: string }) {
 
 export function UserCardDemo() {
   return (
-    <div className={styles.column} style={{ maxWidth: 320 }}>
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Sozinho (sem Popover — não abre nada, só demonstração visual)</span>
+    <div className={styles.cards}>
+      <DemoCard title="Sozinho" description="Sem Popover — não abre nada, só demonstração visual.">
         <UserCard name="Tuhel Rana" secondaryText="tuhelrana@gmail.com" />
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Uso real — como gatilho de um Popover com menu de conta (mesmo padrão usado no rodapé do SideNav)</span>
+      <DemoCard title="Uso real" description="Como gatilho de um Popover com menu de conta (mesmo padrão usado no rodapé do SideNav).">
         <Popover
           placement="top-start"
           accessibleLabel="Menu da conta"
@@ -52,7 +51,7 @@ export function UserCardDemo() {
         >
           <UserCard name="Ana Souza" secondaryText="ana.souza@selenesdk.com" accessibleLabel="Menu da conta" />
         </Popover>
-      </div>
+      </DemoCard>
     </div>
   );
 }

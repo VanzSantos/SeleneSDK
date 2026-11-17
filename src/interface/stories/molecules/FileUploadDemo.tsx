@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { FileUpload, type FileUploadRejection } from "../../../components/FileUpload/FileUpload";
 import styles from "../Demo.module.css";
+import { DemoCard } from "../DemoCard";
 
 export function FileUploadDemo() {
   const [arquivoField, setArquivoField] = useState<File[]>([]);
@@ -9,9 +10,8 @@ export function FileUploadDemo() {
   const [rejeitados, setRejeitados] = useState<FileUploadRejection[]>([]);
 
   return (
-    <div className={styles.column} style={{ maxWidth: 480 }}>
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>variant="field"</span>
+    <div className={styles.cards}>
+      <DemoCard title={"variant=\"field\""}>
         <FileUpload
           variant="field"
           label="Comprovante de endereço"
@@ -22,15 +22,13 @@ export function FileUploadDemo() {
           maxSizeMB={5}
           onReject={setRejeitados}
         />
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>variant="button" (multiple)</span>
+      <DemoCard title={"variant=\"button\""} description="Multiple.">
         <FileUpload variant="button" value={arquivosButton} onChange={setArquivosButton} multiple buttonLabel="Anexar arquivos" />
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>variant="button" — buttonVariant="link" (sem fundo/borda) + required</span>
+      <DemoCard title={"variant=\"button\""} description={"buttonVariant=\"link\" (sem fundo/borda) + required."}>
         <FileUpload
           variant="button"
           value={[]}
@@ -39,10 +37,9 @@ export function FileUploadDemo() {
           buttonVariant="link"
           required
         />
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>variant="dropzone" (multiple, arraste ou clique)</span>
+      <DemoCard title={"variant=\"dropzone\""} description="Multiple, arraste ou clique.">
         <FileUpload
           variant="dropzone"
           value={arquivosDropzone}
@@ -51,15 +48,14 @@ export function FileUploadDemo() {
           onReject={setRejeitados}
           dropzoneLabel="Arraste uma planilha aqui ou clique para importar"
         />
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>state="error" / state="disabled"</span>
+      <DemoCard title={"state=\"error\" / state=\"disabled\""}>
         <div className={styles.row} style={{ alignItems: "flex-start", gap: 16 }}>
           <FileUpload variant="field" label="Documento" value={[]} onChange={() => {}} state="error" helperText="Arquivo obrigatório." />
           <FileUpload variant="field" label="Documento" value={[]} onChange={() => {}} state="disabled" helperText="Bloqueado nesta etapa." />
         </div>
-      </div>
+      </DemoCard>
 
       {rejeitados.length > 0 && (
         <p style={{ fontSize: 13, color: "var(--texto-erro)" }}>

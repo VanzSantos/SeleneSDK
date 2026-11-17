@@ -14,6 +14,7 @@ const story: StoryMeta = {
   description: "Campo de texto que abre um popover com duas colunas roláveis (Hora/Minuto) — horário único ou intervalo (dois campos independentes, Início/Fim). Ícone de relógio à esquerda do trigger (showIcon=false esconde).",
   code: `<TimePicker label="Horário do compromisso" value={horario} onChange={setHorario} />
 <TimePicker label="Janela" range value={intervalo} onChange={setIntervalo} />`,
+  previewAsCards: true,
   Demo: TimePickerDemo,
 };
 

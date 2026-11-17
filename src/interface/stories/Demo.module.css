@@ -101,3 +101,30 @@
 :root[data-theme="dark"] .pageArea {
   background: var(--fundo-superficie);
 }
+
+/* Demos em pilha com grupos (.section) que ocupam toda a largura do card de pré-visualização,
+   cada grupo numa caixa — em vez de uma coluna estreita centralizada. Uso: `.column .stack .wide`. */
+.column.stack.wide {
+  max-width: none !important;
+}
+
+.column.stack.wide > .section {
+  box-sizing: border-box;
+  min-width: 0;
+  padding: var(--espaco-m);
+  border: 1px solid var(--borda-base);
+  border-radius: var(--raio-pp);
+}
+
+.column.stack.wide > .section > .sectionLabel {
+  align-self: flex-start;
+}
+
+/* Raiz das demos feitas de DemoCard: um cartão por grupo, empilhados na largura toda. */
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-g);
+  width: 100%;
+  min-width: 0;
+}

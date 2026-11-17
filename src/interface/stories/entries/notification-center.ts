@@ -18,6 +18,7 @@ const story: StoryMeta = {
   onMarkAllAsRead={() => marcarTodasComoLidas()}
   onDeleteMany={(ids) => apagarVarias(ids)}
 />`,
+  previewAsCards: true,
   Demo: NotificationCenterDemo,
 };
 

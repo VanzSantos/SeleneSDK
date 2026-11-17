@@ -13,6 +13,7 @@ const story: StoryMeta = {
   tokensSummary: ["semantic.icone-secundario", "structural.raio-xp/foco-espessura/espaco-xp/pp/p"],
   description: "Textarea (sem label) + barra de utilitários opcionais (anexar imagem, marcar importante) + botão Publicar, desabilitado até haver texto. 100% controlado — não limpa o campo sozinho após onSubmit. maxLength/showCharacterCount/limitMode controlam contador e limite (bloquear digitação ou avisar+bloquear o botão).",
   code: `<CommentComposer value={texto} onChange={setTexto} onSubmit={(v) => { salvar(v); setTexto(""); }} maxLength={280} showCharacterCount limitMode="warn" />`,
+  previewAsCards: true,
   Demo: CommentComposerDemo,
 };
 

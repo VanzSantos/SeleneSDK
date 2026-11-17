@@ -174,14 +174,17 @@
 }
 
 .tokenRows {
+  container-type: inline-size;
   border: 1px solid var(--borda-base);
   border-radius: var(--raio-pp);
   background: var(--fundo-superficie);
 }
 
+/* Três colunas alinhadas em todas as linhas: nome | claro | escuro. Valores que não são cor
+   (medida, tipografia, sombra) ocupam as duas colunas da direita. */
 .tokenRow {
   display: grid;
-  grid-template-columns: minmax(180px, 260px) 1fr;
+  grid-template-columns: minmax(0, 1.9fr) minmax(0, 1fr) minmax(0, 1fr);
   gap: var(--espaco-m);
   align-items: center;
   padding: var(--espaco-pp) var(--espaco-p);
@@ -192,8 +195,45 @@
   border-bottom: none;
 }
 
+.tokenNameBox {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-xp);
+  min-width: 0;
+}
+
 .tokenName {
-  word-break: break-all;
+  overflow-wrap: break-word;
+}
+
+.tokenNote {
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--texto-secundario);
+}
+
+.tokenCell {
+  display: flex;
+  align-items: center;
+  gap: var(--espaco-pp);
+  min-width: 0;
+}
+
+.tokenValue {
+  grid-column: 2 / -1;
+  min-width: 0;
+}
+
+/* Contêiner estreito: o nome ocupa a linha toda e claro/escuro ficam lado a lado embaixo. */
+@container (max-width: 560px) {
+  .tokenRow {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  .tokenNameBox,
+  .tokenValue {
+    grid-column: 1 / -1;
+  }
 }
 
 .swatches,

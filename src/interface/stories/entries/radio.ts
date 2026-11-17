@@ -14,6 +14,7 @@ const story: StoryMeta = {
   description: "Escolher exatamente 1 entre N opções — radios com o mesmo name viram um grupo nativamente. Pra name automático + legend + erro compartilhado, ver RadioGroup.",
   code: `<Radio label="Mensal" name="plano" value="mensal" checked={plano === "mensal"} onChange={setPlano} />
 <Radio label="Anual" name="plano" value="anual" checked={plano === "anual"} onChange={setPlano} />`,
+  previewAsCards: true,
   Demo: RadioDemo,
 };
 

@@ -15,6 +15,7 @@ const story: StoryMeta = {
   code: `<Avatar src="/foto.jpg" name="Ana Souza" />
 <Avatar name="Ana Souza" size="large" status="online" />
 <Avatar accessibleLabel="Usuário anônimo" shape="square" />`,
+  previewAsCards: true,
   Demo: AvatarDemo,
 };
 

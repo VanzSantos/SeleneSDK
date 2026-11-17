@@ -18,6 +18,7 @@ const story: StoryMeta = {
   value={plano}
   onChange={setPlano}
 />`,
+  previewAsCards: true,
   Demo: RadioGroupDemo,
 };
 

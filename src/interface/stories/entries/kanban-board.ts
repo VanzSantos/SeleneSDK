@@ -21,6 +21,7 @@ const story: StoryMeta = {
   onEdit={(id) => editar(id)}
   onDelete={(id) => apagar(id)}
 />`,
+  previewAsCards: true,
   Demo: KanbanBoardDemo,
 };
 

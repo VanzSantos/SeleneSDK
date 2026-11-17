@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { DateTimePicker } from "../../../components/DateTimePicker/DateTimePicker";
 import styles from "../Demo.module.css";
+import { DemoCard } from "../DemoCard";
 
 export function DateTimePickerDemo() {
   const [inicioEvento, setInicioEvento] = useState<string | null>(null);
@@ -12,26 +13,22 @@ export function DateTimePickerDemo() {
   const [semIcone, setSemIcone] = useState<string | null>(null);
 
   return (
-    <div className={`${styles.column} ${styles.stack}`} style={{ maxWidth: 560 }}>
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Campo único — Calendar + Hora/Minuto no mesmo popover</span>
+    <div className={styles.cards}>
+      <DemoCard title="Campo único" description="Calendar + Hora/Minuto no mesmo popover.">
         <DateTimePicker label="Início do evento" value={inicioEvento} onChange={setInicioEvento} />
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Intervalo (início/fim) — fim nunca antes de início</span>
+      <DemoCard title="Intervalo" description="Início/fim. fim nunca antes de início.">
         <DateTimePicker label="Janela de manutenção" range value={intervalo} onChange={setIntervalo} />
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>showPicker=false — só digitação, sem popover</span>
+      <DemoCard title="showPicker=false" description="Só digitação, sem popover.">
         <DateTimePicker label="Data e hora (só digitação)" value={soDigitacao} onChange={setSoDigitacao} showPicker={false} />
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>showIcon=false — sem o ícone de calendário à esquerda</span>
+      <DemoCard title="showIcon=false" description="Sem o ícone de calendário à esquerda.">
         <DateTimePicker label="Data e hora" value={semIcone} onChange={setSemIcone} showIcon={false} />
-      </div>
+      </DemoCard>
     </div>
   );
 }

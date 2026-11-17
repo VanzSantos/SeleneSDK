@@ -4,6 +4,7 @@ import { Avatar } from "../../../components/Avatar/Avatar";
 import { Icon } from "../../../components/Icon/Icon";
 import { Badge } from "../../../components/Badge/Badge";
 import styles from "../Demo.module.css";
+import { DemoCard } from "../DemoCard";
 
 export function NavBarDemo() {
   const [rota, setRota] = useState("/pedidos");
@@ -16,11 +17,8 @@ export function NavBarDemo() {
   ].map((item) => ({ ...item, active: item.href === rota }));
 
   return (
-    <div className={`${styles.column} ${styles.stack}`} style={{ maxWidth: "none" }}>
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>
-          Completa — brand, navegação primária (item ativo controlado de fora) e ações
-        </span>
+    <div className={styles.cards}>
+      <DemoCard title="Completa" description="Brand, navegação primária (item ativo controlado de fora) e ações.">
         <div className={styles.row} style={{ marginBottom: 8 }}>
           {items.map((item) => (
             <button
@@ -44,18 +42,13 @@ export function NavBarDemo() {
             </>
           }
         />
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Só brand + ações (items vazio — topbar mínima)</span>
+      <DemoCard title="Só brand + ações" description="Items vazio — topbar mínima.">
         <NavBar brand={<strong>Produto</strong>} items={[]} actions={<Avatar name="Bruno Lima" size="small" />} />
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>
-          Multi-nível (até 4) — item com filhos vira dropdown em cascata; redimensione a
-          janela abaixo de 768px pra ver o colapso no Drawer (mesma árvore, formato expansível)
-        </span>
+      <DemoCard title="Multi-nível" description="Até 4. item com filhos vira dropdown em cascata; redimensione a janela abaixo de 768px pra ver o colapso no Drawer (mesma árvore, formato expansível).">
         <NavBar
           brand={<strong style={{ fontSize: 18 }}>SeleneSDK</strong>}
           items={[
@@ -82,10 +75,9 @@ export function NavBarDemo() {
             { label: "Sobre", href: "/sobre" },
           ]}
         />
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>sticky (role pra ver, precisa de conteúdo rolável abaixo)</span>
+      <DemoCard title="sticky" description="Role pra ver, precisa de conteúdo rolável abaixo.">
         <div style={{ height: 160, overflow: "auto", border: "1px solid var(--borda-base)", borderRadius: "var(--raio-pp)" }}>
           <NavBar sticky brand={<strong>Sticky</strong>} items={items.slice(0, 2)} />
           <div style={{ padding: 16 }}>
@@ -93,7 +85,7 @@ export function NavBarDemo() {
             <p style={{ height: 300 }}>Conteúdo alto só pra forçar o scroll interno.</p>
           </div>
         </div>
-      </div>
+      </DemoCard>
     </div>
   );
 }

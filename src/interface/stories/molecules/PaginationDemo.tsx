@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Pagination } from "../../../components/Pagination/Pagination";
 import styles from "../Demo.module.css";
+import { DemoCard } from "../DemoCard";
 
 export function PaginationDemo() {
   const [page, setPage] = useState(1);
@@ -10,9 +11,8 @@ export function PaginationDemo() {
   const [pageSemSeletor, setPageSemSeletor] = useState(3);
 
   return (
-    <div className={styles.column}>
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Com seletor de itens por página (onPageSizeChange fornecida)</span>
+    <div className={styles.cards}>
+      <DemoCard title="Com seletor de itens por página" description="OnPageSizeChange fornecida.">
         <Pagination
           page={page}
           onPageChange={setPage}
@@ -23,17 +23,15 @@ export function PaginationDemo() {
             setPage(1);
           }}
         />
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Sem seletor (onPageSizeChange ausente — pageSize fixo)</span>
+      <DemoCard title="Sem seletor" description="OnPageSizeChange ausente — pageSize fixo.">
         <Pagination page={pageSemSeletor} onPageChange={setPageSemSeletor} totalItems={48} pageSize={12} />
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Vazio (0 registros)</span>
+      <DemoCard title="Vazio" description="0 registros.">
         <Pagination page={1} onPageChange={() => {}} totalItems={0} pageSize={10} />
-      </div>
+      </DemoCard>
     </div>
   );
 }

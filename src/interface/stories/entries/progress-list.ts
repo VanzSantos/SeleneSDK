@@ -16,6 +16,7 @@ const story: StoryMeta = {
   { label: "No prazo", value: 50, count: "50 Qt", variant: "neutral" },
   { label: "Atrasado", value: 25, count: "25 Qt", variant: "critical" },
 ]} />`,
+  previewAsCards: true,
   Demo: ProgressListDemo,
 };
 

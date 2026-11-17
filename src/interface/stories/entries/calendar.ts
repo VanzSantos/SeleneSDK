@@ -19,6 +19,7 @@ const story: StoryMeta = {
   maxDate="2026-12-31"
   accessibleLabel="Data do evento"
 />`,
+  previewAsCards: true,
   Demo: CalendarDemo,
 };
 

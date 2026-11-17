@@ -15,6 +15,7 @@ const story: StoryMeta = {
   code: `<Chip label="Ativos" selected={ativo} onToggle={setAtivo} />
 <Chip label="React" removable onRemove={() => removerTag("React")} />
 <Chip label="Erro" variant="error" />`,
+  previewAsCards: true,
   Demo: ChipDemo,
 };
 

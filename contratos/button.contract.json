@@ -10,7 +10,7 @@
     "Container (fundo, borda, raio)",
     "Ícone esquerdo (opcional)",
     "Rótulo / label (texto)",
-    "Contador textual opcional, com tokens do Badge info, entre rótulo e ícone direito",
+    "Contador textual opcional (pílula em par invertido ao do botão), entre rótulo e ícone direito",
     "Ícone direito (opcional)",
     "Spinner de carregamento — substitui o conteúdo quando state=loading"
   ],
@@ -69,7 +69,7 @@
       "name": "count",
       "type": "number",
       "required": false,
-      "description": "Somente variantes preenchidas; proibido em link e iconOnly (tipo + aviso em dev). Contador após o texto e antes do ícone direito: undefined omite, 0 aparece, acima de 99 mostra 99+. Negativo, decimal, NaN ou infinito são omitidos com console.warn apenas em dev. Proibido em iconOnly. Integra o nome acessível, inclusive em loading; disabled mantém o chip azul."
+      "description": "Somente variantes preenchidas; proibido em link e iconOnly (tipo + aviso em dev). Contador após o texto e antes do ícone direito: undefined omite, 0 aparece, acima de 99 mostra 99+. Negativo, decimal, NaN ou infinito são omitidos com console.warn apenas em dev. Proibido em iconOnly. Integra o nome acessível, inclusive em loading; Cor invertida em relação ao botão (pílula na cor do texto, número na cor do fundo); disabled usa pílula cinza escuro (cinza claro no tema escuro)."
     },
     {
       "name": "rightIcon",
@@ -146,7 +146,11 @@
       "semantic.acao-inativa",
       "semantic.acao-carregando",
       "transparent (palavra-chave CSS — 'Base/transparente' é primitiva, não exposta pelo pipeline de tokens)",
-      "semantic.fundo-info-forte"
+      "semantic.acao-primaria-texto (fundo da pílula do contador no primary)",
+      "semantic.acao-neutra-texto (fundo da pílula do contador no neutral)",
+      "semantic.acao-sutil-texto (fundo da pílula do contador no secondary)",
+      "semantic.acao-destrutiva-texto (fundo da pílula do contador no destructive)",
+      "semantic.texto-secundario (fundo da pílula do contador no disabled)"
     ],
     "text": [
       "semantic.acao-primaria-texto",
@@ -158,7 +162,11 @@
       "semantic.acao-inativa-texto",
       "semantic.texto-primario",
       "semantic.texto-secundario",
-      "semantic.texto-invertido"
+      "semantic.acao-primaria (número do contador no primary)",
+      "semantic.acao-neutra (número do contador no neutral)",
+      "semantic.acao-sutil (número do contador no secondary)",
+      "semantic.acao-destrutiva (número do contador no destructive)",
+      "semantic.fundo-superficie (número do contador no disabled)"
     ],
     "radius": [
       "structural.raio-pp",
@@ -192,9 +200,6 @@
     "dimensions": [
       "structural.botao-altura",
       "structural.alvo-minimo"
-    ],
-    "demo": [
-      "structural.botao-demo-largura-maxima"
     ]
   },
   "variantStates": {
@@ -309,7 +314,8 @@
     "AJUSTADO a pedido do usuário — ícones esquerdo/direito e Spinner do Button usam size=large (structural.icone-grande, 24px nos dois temas), sem alterar icone-medio compartilhado. iconOnly preenchido usa largura botao-altura e padding zero, ficando 44×44 com margem geométrica de 10px ao redor do ícone. Link iconOnly mantém alvo-minimo como piso: a caixa de 24px mais borda-espessura em cada lado resulta em 26×26; foco externo com overflow visível não exige ampliar para botao-altura. SVG não encolhe em conteúdo quebrado. Altura textual mínima, gap, chip, onPress e type preservados.",
     "AJUSTADO a pedido do usuário — link textual mantém sublinhado apenas no rótulo em default, hover e disabled, usando borda-espessura/espaco-xp. Hover real e forçado mudam texto e ícones para acao-link-texto-sobreposto; disabled mantém acao-inativa-texto sem resposta ao hover. iconOnly permanece sem sublinhado. Substitui a decisão visual anterior de sublinhar apenas no hover, reduzindo dependência de cor. Tokens existentes, estados, formatos, foco, alvos, onPress e type preservados.",
     "AJUSTADO a pedido do usuário — descrição da página resumida; guia atual preservado em Decisões: outlined removido, cancelar/voltar/anterior e Sidebar usam secondary, FileUpload field e logins alternativos usam neutral. ActionCard.secondaryOutlined e FileUpload.buttonOutlined removidos; ActionCard usa secondaryVariant=secondary por padrão, e FileUpload preserva buttonVariant=link nos gatilhos link. subtle passa a secondary cinza; o secondary verde foi removido do Button e seus gatilhos auxiliares usam secondary cinza. Link não aceita count, pressed nem loading: migre count para uma variante preenchida como secondary; remova pressed/loading ou use variante preenchida. Regras de count/iconOnly continuam em Props, Acessibilidade e Proibido; dimensões/tokens/visual permanecem nas decisões anteriores. Histórico preservado.",
-    "AJUSTADO a pedido do usuário e validado com a liderança — ícones esquerdo/direito e Spinner voltam a size=medium (structural.icone-medio, 20px nos dois temas). Tokens compartilhados inalterados. iconOnly preenchido permanece 44×44 via botao-altura, com margem geométrica de 12px ao redor do ícone; link iconOnly usa alvo-minimo e permanece 24×24, com foco externo. Gap espaco-pp (8px), contador, estados, onPress e type preservados. Substitui a decisão de tamanho 24px; histórico preservado."
+    "AJUSTADO a pedido do usuário e validado com a liderança — ícones esquerdo/direito e Spinner voltam a size=medium (structural.icone-medio, 20px nos dois temas). Tokens compartilhados inalterados. iconOnly preenchido permanece 44×44 via botao-altura, com margem geométrica de 12px ao redor do ícone; link iconOnly usa alvo-minimo e permanece 24×24, com foco externo. Gap espaco-pp (8px), contador, estados, onPress e type preservados. Substitui a decisão de tamanho 24px; histórico preservado.",
+    "AJUSTADO a pedido do usuário — contador deixa de ser azul (fundo-info-forte, que não contrastava bem com a maioria das cores) e passa a ser o inverso do botão: pílula na cor do texto do botão (branca em primary e destructive) e número na cor do fundo dele; em secondary e disabled a pílula é cinza escuro (cinza claro no tema escuro). No neutral o par também inverte entre os temas. Nenhum token novo foi criado: reaproveita acao-*-texto, acao-*, texto-secundario e fundo-superficie, que já trocam de valor entre temas. Contraste medido no navegador: texto/pílula entre 4,91:1 e 17,74:1 e pílula/fundo entre 4,91:1 e 17,74:1 em default/hover/pressed; disabled 7,56:1 (claro) e 8,70:1 (escuro). Removidos fundo-info-forte e texto-invertido da whitelist. Demo: matriz sem largura máxima (token botao-demo-largura-maxima removido), estados em uma linha quando cabem e quebram só sem espaço."
   ],
   "references": {
     "tokensFile": "tokens/tokens.json — Cores Semânticas (grupo Ações, todas as famílias), Estrutural (raio-pp, foco-espessura, espaco-*, icone-medio), Tipografia Estilo (texto-rotulo-botao)"

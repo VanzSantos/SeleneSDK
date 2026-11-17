@@ -21,6 +21,7 @@ const story: StoryMeta = {
   onChange={setOpenKeys}
   mode="single"
 />`,
+  previewAsCards: true,
   Demo: AccordionDemo,
 };
 

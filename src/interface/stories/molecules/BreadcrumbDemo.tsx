@@ -1,11 +1,11 @@
 import { Breadcrumb } from "../../../components/Breadcrumb/Breadcrumb";
 import styles from "../Demo.module.css";
+import { DemoCard } from "../DemoCard";
 
 export function BreadcrumbDemo() {
   return (
-    <div className={styles.column} style={{ maxWidth: 480 }}>
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>3 níveis</span>
+    <div className={styles.cards}>
+      <DemoCard title="3 níveis">
         <Breadcrumb
           items={[
             { label: "Início", href: "/" },
@@ -13,15 +13,13 @@ export function BreadcrumbDemo() {
             { label: "Perfil" },
           ]}
         />
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>2 níveis (mínimo)</span>
+      <DemoCard title="2 níveis" description="Mínimo.">
         <Breadcrumb items={[{ label: "Início", href: "/" }, { label: "Sobre" }]} />
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Último item com href (ignorado)</span>
+      <DemoCard title="Último item com href" description="Ignorado.">
         <Breadcrumb
           items={[
             { label: "Início", href: "/" },
@@ -29,10 +27,9 @@ export function BreadcrumbDemo() {
             { label: "Fone X", href: "/produtos/fone-x" },
           ]}
         />
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Com ícone no primeiro item (firstItemIcon)</span>
+      <DemoCard title="Com ícone no primeiro item" description="FirstItemIcon.">
         <Breadcrumb
           firstItemIcon="house"
           items={[
@@ -41,12 +38,9 @@ export function BreadcrumbDemo() {
             { label: "Perfil" },
           ]}
         />
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>
-          Colapsado (6 níveis, mais que o collapseThreshold padrão de 3) — clique nas reticências
-        </span>
+      <DemoCard title="Colapsado" description="6 níveis, mais que o collapseThreshold padrão de 3. clique nas reticências.">
         <Breadcrumb
           firstItemIcon="house"
           items={[
@@ -58,7 +52,7 @@ export function BreadcrumbDemo() {
             { label: "Fone Olhosvaldo" },
           ]}
         />
-      </div>
+      </DemoCard>
     </div>
   );
 }

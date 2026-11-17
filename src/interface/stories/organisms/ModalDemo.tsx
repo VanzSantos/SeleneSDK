@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Modal } from "../../../components/Modal/Modal";
 import { Button } from "../../../components/Button/Button";
 import styles from "../Demo.module.css";
+import { DemoCard } from "../DemoCard";
 
 export function ModalDemo() {
   const [tituloEX, setTituloEX] = useState(false);
@@ -16,9 +17,8 @@ export function ModalDemo() {
   const [alerta, setAlerta] = useState(false);
 
   return (
-    <div className={styles.column} style={{ maxWidth: 480 }}>
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Cabeçalho — 4 variações</span>
+    <div className={styles.cards}>
+      <DemoCard title="Cabeçalho" description="4 variações.">
         <div className={styles.row}>
           <button type="button" className={styles.trigger} onClick={() => setTituloEX(true)}>
             Título + X
@@ -64,10 +64,9 @@ export function ModalDemo() {
             <Button variant="primary" label="Fechar" onPress={() => setSemCabecalho(false)} />
           </div>
         </Modal>
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Tamanhos (size)</span>
+      <DemoCard title="Tamanhos" description="Size.">
         <div className={styles.row}>
           <button type="button" className={styles.trigger} onClick={() => setPequeno(true)}>
             small
@@ -82,10 +81,9 @@ export function ModalDemo() {
         <Modal open={grande} onClose={() => setGrande(false)} title="Modal grande" size="large">
           <p style={{ margin: 0 }}>720px de largura máxima.</p>
         </Modal>
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Padding (mesma escala do Card)</span>
+      <DemoCard title="Padding" description="Mesma escala do Card.">
         <div className={styles.row}>
           <button type="button" className={styles.trigger} onClick={() => setPaddingSmall(true)}>
             padding=&quot;small&quot;
@@ -110,10 +108,9 @@ export function ModalDemo() {
         >
           <p style={{ margin: 0 }}>espaco-g (24px) — mesmo valor de Card padding=&quot;medium&quot;.</p>
         </Modal>
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>dismissible=false (só fecha pelo botão dentro)</span>
+      <DemoCard title="dismissible=false" description="Só fecha pelo botão dentro.">
         <button type="button" className={styles.trigger} onClick={() => setNaoDismissible(true)}>
           Abrir modal não-dismissible
         </button>
@@ -130,10 +127,9 @@ export function ModalDemo() {
             <Button variant="primary" label="Entendi" onPress={() => setNaoDismissible(false)} />
           </div>
         </Modal>
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>role=alertdialog (confirmação crítica)</span>
+      <DemoCard title="role=alertdialog" description="Confirmação crítica.">
         <button type="button" className={styles.trigger} onClick={() => setAlerta(true)}>
           Excluir item
         </button>
@@ -152,7 +148,7 @@ export function ModalDemo() {
             </div>
           </div>
         </Modal>
-      </div>
+      </DemoCard>
     </div>
   );
 }

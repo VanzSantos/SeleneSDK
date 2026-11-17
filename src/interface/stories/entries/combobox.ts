@@ -14,6 +14,7 @@ const story: StoryMeta = {
   description: "Como o Select, mas o próprio campo aceita digitação pra filtrar em tempo real — pra listas longas (padrão 'Select2').",
   code: `<ComboBox label="País" options={paises} value={pais} onChange={setPais} />
 <ComboBox label="Países visitados" multiple options={paises} value={arr} onChange={setArr} />`,
+  previewAsCards: true,
   Demo: ComboBoxDemo,
 };
 

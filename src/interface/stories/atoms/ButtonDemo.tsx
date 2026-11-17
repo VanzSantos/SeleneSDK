@@ -1,4 +1,6 @@
 import { Button, type ButtonProps, type ButtonLinkState, type ButtonState, type ButtonVariant } from "../../../components/Button/Button";
+import { SectionCard } from "../SectionCard";
+import { CopyButton } from "../../../components/CopyButton/CopyButton";
 import styles from "./ButtonDemo.module.css";
 
 const VARIANTS: ButtonVariant[] = ["primary", "secondary", "neutral", "destructive", "link"];
@@ -25,55 +27,92 @@ const LINK_FORMATS: { id: string; title: string; props: Extract<ButtonProps, { v
   { id: "icon", title: "Somente ícone", props: { variant: "link", iconOnly: true, leftIcon: "eye", accessibleLabel: "Mostrar detalhes" } },
 ];
 
+/** Monta o JSX de um exemplo a partir das mesmas props usadas no cartão, então o código
+    mostrado nunca diverge do que está renderizado. */
+function toJsx(props: Record<string, unknown>) {
+  const attrs = Object.entries(props).map(([key, value]) =>
+    value === true ? key : typeof value === "string" ? `${key}="${value}"` : `${key}={${JSON.stringify(value)}}`,
+  );
+  return `<Button ${attrs.join(" ")} />`;
+}
+
+function CodeBlock({ code, label }: { code: string; label: string }) {
+  return (
+    <div className={styles.codeBlock}>
+      <pre className={styles.code}>
+        <code>{code}</code>
+      </pre>
+      <div className={styles.copy}>
+        <CopyButton value={code} accessibleLabel={`Copiar código: ${label}`} />
+      </div>
+    </div>
+  );
+}
+
+/** Um formato (ex.: "Somente texto") = título + cartão com a linha de estados + o código. */
+function FormatBlock({ id, title, code, children }: { id: string; title: string; code: string; children: React.ReactNode }) {
+  return (
+    <div role="group" aria-labelledby={id} className={styles.format} data-format={id.split("--")[1]}>
+      <h4 id={id} className={styles.formatTitle}>{title}</h4>
+      <div className={styles.card}>
+        <div className={styles.states}>{children}</div>
+      </div>
+      <CodeBlock code={code} label={title} />
+    </div>
+  );
+}
+
+const COUNT_LIMITS_CODE = [
+  toJsx({ label: "Notificações", count: 0 }),
+  toJsx({ label: "Notificações", count: 100, rightIcon: "arrow-right" }),
+  toJsx({ label: "Consultar todas as notificações e solicitações pendentes de análise", count: 100, leftIcon: "bell", rightIcon: "arrow-right" }),
+].join("\n");
+
 export function ButtonDemo() {
   return (
     <div className={styles.demo}>
-      <p className={styles.note}>Ícones e Spinner usam icone-medio (20px); iconOnly preenchido tem alvo quadrado botao-altura e link iconOnly mantém alvo mínimo de 24×24. Matriz: preenchidos com seis formatos e cinco estados; link com cinco formatos e três estados, sem contador. Link textual tem sublinhado permanente apenas no rótulo; hover muda a cor do texto e dos ícones. Disabled mantém o sublinhado; iconOnly não é sublinhado. São 135 combinações por tema. Use o seletor de tema do Playground para conferir a mesma matriz em claro e escuro.</p>
       <div className={styles.matrix} data-button-matrix>
         {VARIANTS.filter((variant) => variant !== "link").map((variant) => (
-          <section key={variant} id={BUTTON_PREVIEW_SECTIONS.find((section) => section.title === variant)?.id} className={styles.variant} aria-labelledby={`button-variant-${variant}`} data-variant={variant}>
-            <h3 id={`button-variant-${variant}`} className={styles.heading}>{variant}</h3>
+          <SectionCard key={variant} id={BUTTON_PREVIEW_SECTIONS.find((section) => section.title === variant)?.id ?? `button-preview-${variant}`} title={variant} headingLevel={3}>
+            <div className={styles.variantBody} data-variant={variant}>
             {FORMATS.map((format) => (
-              <fieldset key={format.id} className={styles.format} data-format={format.id}>
-                <legend className={styles.legend}>{format.title}</legend>
-                <div className={styles.states}>
-                  {STATES.map((state) => (
-                    <div key={state} className={styles.sample}>
-                      <span className={styles.stateLabel}>{state}</span>
-                      <Button {...format.props} variant={variant} state={state} />
-                    </div>
-                  ))}
-                </div>
-              </fieldset>
-            ))}
-          </section>
-        ))}
-        <section id={BUTTON_PREVIEW_SECTIONS.find((section) => section.title === "link")?.id} className={styles.variant} aria-labelledby="button-variant-link" data-variant="link">
-          <h3 id="button-variant-link" className={styles.heading}>link</h3>
-          {LINK_FORMATS.map((format) => (
-            <fieldset key={format.id} className={styles.format} data-format={format.id}>
-              <legend className={styles.legend}>{format.title}</legend>
-              <div className={styles.states}>
-                {LINK_STATES.map((state) => (
+              <FormatBlock key={format.id} id={`button-${variant}--${format.id}`} title={format.title} code={toJsx({ variant, ...format.props })}>
+                {STATES.map((state) => (
                   <div key={state} className={styles.sample}>
                     <span className={styles.stateLabel}>{state}</span>
-                    <Button {...format.props} state={state} />
+                    <Button {...format.props} variant={variant} state={state} />
                   </div>
                 ))}
-              </div>
-            </fieldset>
+              </FormatBlock>
+            ))}
+            </div>
+          </SectionCard>
+        ))}
+        <SectionCard id="button-preview-link" title="link" headingLevel={3}>
+          <div className={styles.variantBody} data-variant="link">
+          {LINK_FORMATS.map((format) => (
+            <FormatBlock key={format.id} id={`button-link--${format.id}`} title={format.title} code={toJsx({ ...format.props })}>
+              {LINK_STATES.map((state) => (
+                <div key={state} className={styles.sample}>
+                  <span className={styles.stateLabel}>{state}</span>
+                  <Button {...format.props} state={state} />
+                </div>
+              ))}
+            </FormatBlock>
           ))}
-        </section>
+          </div>
+        </SectionCard>
+        <SectionCard id="button-preview-count-limits" title="Limites do contador" headingLevel={3}>
+          <div className={styles.card}>
+            <div className={styles.states}>
+              <Button label="Notificações" count={0} />
+              <Button label="Notificações" count={100} rightIcon="arrow-right" />
+              <Button label="Consultar todas as notificações e solicitações pendentes de análise" count={100} leftIcon="bell" rightIcon="arrow-right" />
+            </div>
+          </div>
+          <CodeBlock label="Limites do contador" code={COUNT_LIMITS_CODE} />
+        </SectionCard>
       </div>
-      <section id={BUTTON_PREVIEW_SECTIONS.find((section) => section.title === "Limites do contador")?.id} className={styles.variant} aria-label="Limites do contador">
-        <h3 className={styles.heading}>Limites do contador</h3>
-        <div className={styles.states}>
-          <Button label="Notificações" count={0} />
-          <Button label="Notificações" count={100} rightIcon="arrow-right" />
-          <Button label="Consultar todas as notificações e solicitações pendentes de análise" count={100} leftIcon="bell" rightIcon="arrow-right" />
-        </div>
-      </section>
-
     </div>
   );
 }

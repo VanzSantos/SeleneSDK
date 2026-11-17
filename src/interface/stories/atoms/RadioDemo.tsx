@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { Radio } from "../../../components/Radio/Radio";
 import styles from "../Demo.module.css";
+import { DemoCard } from "../DemoCard";
 
 export function RadioDemo() {
   const [plano, setPlano] = useState("mensal");
 
   return (
-    <div className={styles.column} style={{ maxWidth: 340 }}>
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Grupo interativo (mesmo name)</span>
+    <div className={styles.cards}>
+      <DemoCard title="Grupo interativo" description="Mesmo name.">
         <div className={styles.column} style={{ maxWidth: 320 }}>
           <Radio label="Mensal" name="plano" value="mensal" checked={plano === "mensal"} onChange={setPlano} />
           <Radio label="Anual" name="plano" value="anual" checked={plano === "anual"} onChange={setPlano} />
@@ -20,16 +20,15 @@ export function RadioDemo() {
             onChange={setPlano}
           />
         </div>
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Estados</span>
+      <DemoCard title="Estados">
         <div className={styles.column} style={{ maxWidth: 320 }}>
           <Radio label="Erro" name="estado-erro" value="x" checked={false} state="error" />
           <Radio label="Desabilitado, desmarcado" name="estado-disabled-1" value="x" checked={false} state="disabled" />
           <Radio label="Desabilitado, marcado" name="estado-disabled-2" value="x" checked={true} state="disabled" />
         </div>
-      </div>
+      </DemoCard>
     </div>
   );
 }

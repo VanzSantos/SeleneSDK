@@ -15,6 +15,7 @@ const story: StoryMeta = {
   code: `<Popover placement="top-start" accessibleLabel="Menu da conta" content={<MenuContent />}>
   <UserCard name="Ana Souza" secondaryText="ana.souza@selenesdk.com" />
 </Popover>`,
+  previewAsCards: true,
   Demo: UserCardDemo,
 };
 

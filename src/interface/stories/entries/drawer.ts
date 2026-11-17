@@ -18,6 +18,7 @@ const story: StoryMeta = {
 <Drawer open={aberto} onClose={() => setAberto(false)} title="Filtros" modal={false}>
   <p>Painel persistente — resto da página continua interativo.</p>
 </Drawer>`,
+  previewAsCards: true,
   Demo: DrawerDemo,
 };
 

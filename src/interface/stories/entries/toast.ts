@@ -15,6 +15,7 @@ const story: StoryMeta = {
   code: `const { toast } = useToast();
 toast({ intent: "success", message: "Item salvo." });
 toast({ intent: "error", message: "Falha ao salvar.", actionLabel: "Tentar de novo", onAction: retry });`,
+  previewAsCards: true,
   Demo: ToastDemo,
 };
 

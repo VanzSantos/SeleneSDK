@@ -1,11 +1,11 @@
 import { Timeline } from "../../../components/Timeline/Timeline";
 import styles from "../Demo.module.css";
+import { DemoCard } from "../DemoCard";
 
 export function TimelineDemo() {
   return (
-    <div className={styles.column} style={{ maxWidth: 420 }}>
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Histórico de um pedido</span>
+    <div className={styles.cards}>
+      <DemoCard title="Histórico de um pedido">
         <Timeline
           accessibleLabel="Histórico do pedido #4521"
           items={[
@@ -16,10 +16,9 @@ export function TimelineDemo() {
             { title: "Em transporte", timestamp: "19/08 08:00" },
           ]}
         />
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Com caixa de valor destacada + anexos (ex.: histórico clínico)</span>
+      <DemoCard title="Com caixa de valor destacada + anexos" description="Ex.: histórico clínico.">
         <Timeline
           accessibleLabel="Histórico do caso"
           items={[
@@ -44,7 +43,7 @@ export function TimelineDemo() {
             { title: "Internação registrada", timestamp: "25/07/2024 08:15", tone: "info" },
           ]}
         />
-      </div>
+      </DemoCard>
     </div>
   );
 }

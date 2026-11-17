@@ -15,6 +15,7 @@ const story: StoryMeta = {
   code: `<Popover content={<div>...</div>} accessibleLabel="Editar">
   <Button label="Abrir" />
 </Popover>`,
+  previewAsCards: true,
   Demo: PopoverDemo,
 };
 

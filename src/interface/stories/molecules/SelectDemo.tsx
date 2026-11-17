@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Select } from "../../../components/Select/Select";
 import styles from "../Demo.module.css";
+import { DemoCard } from "../DemoCard";
 
 const PAISES = [
   { value: "br", label: "Brasil" },
@@ -18,9 +19,8 @@ export function SelectDemo() {
   const [comErro, setComErro] = useState("");
 
   return (
-    <div className={styles.column} style={{ maxWidth: 360 }}>
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Seleção única</span>
+    <div className={styles.cards}>
+      <DemoCard title="Seleção única">
         <Select
           label="País"
           withInfo
@@ -30,10 +30,9 @@ export function SelectDemo() {
           value={pais}
           onChange={setPais}
         />
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Seleção múltipla (fica aberto ao marcar)</span>
+      <DemoCard title="Seleção múltipla" description="Fica aberto ao marcar.">
         <Select
           label="Países visitados"
           multiple
@@ -42,10 +41,9 @@ export function SelectDemo() {
           value={paises}
           onChange={setPaises}
         />
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Obrigatório + erro</span>
+      <DemoCard title="Obrigatório + erro">
         <Select
           label="País"
           required
@@ -56,10 +54,9 @@ export function SelectDemo() {
           value={comErro}
           onChange={setComErro}
         />
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Desabilitado</span>
+      <DemoCard title="Desabilitado">
         <Select
           label="País"
           state="disabled"
@@ -67,7 +64,7 @@ export function SelectDemo() {
           options={PAISES}
           value=""
         />
-      </div>
+      </DemoCard>
     </div>
   );
 }
