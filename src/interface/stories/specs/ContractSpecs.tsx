@@ -116,7 +116,26 @@ function pxOf(value: string | null): number {
   return value ? parseFloat(value) : 0;
 }
 
-export function TokenVisual({ token }: { token: ResolvedToken }) {
+/** `columns`: usado na tabela de tokens do contrato — as duas cores (claro/escuro) viram
+    duas células de colunas alinhadas, em vez de um grupo solto ao lado do nome. */
+export function TokenVisual({ token, columns = false }: { token: ResolvedToken; columns?: boolean }) {
+  if (token.kind === "color" && columns) {
+    return (
+      <>
+        <span className={styles.tokenCell}>
+          <span className={styles.swatch} style={{ background: token.light ?? undefined }} />
+          <code>{token.light}</code>
+          <span className={styles.muted}>claro</span>
+        </span>
+        <span className={styles.tokenCell}>
+          <span className={styles.swatch} style={{ background: token.dark ?? undefined }} />
+          <code>{token.dark}</code>
+          <span className={styles.muted}>escuro</span>
+        </span>
+      </>
+    );
+  }
+
   if (token.kind === "color") {
     return (
       <span className={styles.swatches}>
@@ -203,17 +222,33 @@ export function TokenVisual({ token }: { token: ResolvedToken }) {
   return <span className={styles.muted}>palavra-chave CSS, não é um token</span>;
 }
 
+/** "semantic.x (nota)" → caminho do token + nota explicativa. Sem parênteses, só o caminho. */
+function splitTokenEntry(raw: string): { path: string; note?: string } {
+  const match = raw.match(/^([\w.-]+)\s*\(([\s\S]+)\)\s*$/);
+  return match ? { path: match[1], note: match[2] } : { path: raw };
+}
+
 function TokenGroup({ groupKey, paths }: { groupKey: string; paths: string[] }) {
   return (
     <div className={styles.tokenGroup}>
       <h3 className={styles.tokenGroupTitle}>{TOKEN_GROUP_LABEL[groupKey] ?? groupKey}</h3>
       <div className={styles.tokenRows}>
-        {paths.map((path) => {
+        {paths.map((raw) => {
+          const { path, note } = splitTokenEntry(raw);
           const token = resolveToken(path);
           return (
-            <div key={path} className={styles.tokenRow}>
-              <code className={styles.tokenName}>{path}</code>
-              <TokenVisual token={token} />
+            <div key={raw} className={styles.tokenRow}>
+              <div className={styles.tokenNameBox}>
+                <code className={styles.tokenName}>{path}</code>
+                {note && <span className={styles.tokenNote}>{note}</span>}
+              </div>
+              {token.kind === "color" ? (
+                <TokenVisual token={token} columns />
+              ) : (
+                <div className={styles.tokenValue}>
+                  <TokenVisual token={token} />
+                </div>
+              )}
             </div>
           );
         })}

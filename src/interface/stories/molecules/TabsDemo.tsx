@@ -2,15 +2,15 @@ import { useState } from "react";
 import { Tabs } from "../../../components/Tabs/Tabs";
 import { TabPanel } from "../../../components/Tabs/TabPanel";
 import styles from "../Demo.module.css";
+import { DemoCard } from "../DemoCard";
 
 export function TabsDemo() {
   const [aba, setAba] = useState("detalhes");
   const [abaComContador, setAbaComContador] = useState("abertos");
 
   return (
-    <div className={styles.column} style={{ maxWidth: 440 }}>
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Básico (com aba desabilitada)</span>
+    <div className={styles.cards}>
+      <DemoCard title="Básico" description="Com aba desabilitada.">
         <div style={{ width: "100%" }}>
           <Tabs
             accessibleLabel="Detalhes do registro"
@@ -32,10 +32,9 @@ export function TabsDemo() {
             <p style={{ margin: 0 }}>Conteúdo de Configurações (aba desabilitada, nunca aparece).</p>
           </TabPanel>
         </div>
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Com contador (count) — quantidade de registros por aba</span>
+      <DemoCard title="Com contador" description="count. quantidade de registros por aba.">
         <div style={{ width: "100%" }}>
           <Tabs
             accessibleLabel="Registros por situação"
@@ -57,7 +56,7 @@ export function TabsDemo() {
             <p style={{ margin: 0 }}>Nenhum chamado arquivado.</p>
           </TabPanel>
         </div>
-      </div>
+      </DemoCard>
     </div>
   );
 }

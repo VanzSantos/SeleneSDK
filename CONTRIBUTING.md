@@ -134,6 +134,9 @@ frase de contexto no corpo do PR ajuda igual.
    editar — é por isso que duas pessoas cadastrando componentes ao mesmo tempo não colidem.
    O campo `order` (opcional) define a posição no menu; sem ele a tela entra no fim do seu
    grupo, em ordem alfabética.
+   Opcional: o campo `Measures` (um componente React) adiciona a seção **Medidas** logo
+   após o código; o `Button` é o exemplo (`stories/atoms/ButtonMeasures.tsx`): as cotas são
+   medidas no DOM e a tabela lê os tokens do `:root`, então nada fica digitado à mão.
 
 ### Um protótipo
 

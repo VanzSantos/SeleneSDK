@@ -15,6 +15,7 @@ const story: StoryMeta = {
   code: `<Alert intent="error" description="Usuário ou senha inválidos." />
 <Alert intent="success" title="Tudo certo" description="Cadastro salvo." />
 <Alert intent="info" description="..." dismissible onDismiss={() => setVisivel(false)} />`,
+  previewAsCards: true,
   Demo: AlertDemo,
 };
 

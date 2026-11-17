@@ -19,6 +19,7 @@ const story: StoryMeta = {
   actionLabel="Limpar filtros"
   onAction={limparFiltros}
 />`,
+  previewAsCards: true,
   Demo: EmptyStateDemo,
 };
 

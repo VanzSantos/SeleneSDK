@@ -1,23 +1,22 @@
 import { useState } from "react";
 import { Skeleton } from "../../../components/Skeleton/Skeleton";
 import styles from "../Demo.module.css";
+import { DemoCard } from "../DemoCard";
 
 export function SkeletonDemo() {
   const [carregado, setCarregado] = useState(false);
 
   return (
-    <div className={styles.column} style={{ maxWidth: 440 }}>
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Shapes</span>
+    <div className={styles.cards}>
+      <DemoCard title="Shapes">
         <div className={styles.row} style={{ alignItems: "center" }}>
           <Skeleton shape="circle" />
           <Skeleton shape="text" width="160px" />
           <Skeleton shape="rect" width="80px" height="80px" />
         </div>
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Card de perfil (composição)</span>
+      <DemoCard title="Card de perfil" description="Composição.">
         <div style={{ display: "flex", gap: 12, width: "100%", alignItems: "center" }}>
           <Skeleton shape="circle" />
           <div style={{ display: "flex", flexDirection: "column", gap: 8, flex: 1 }}>
@@ -25,10 +24,9 @@ export function SkeletonDemo() {
             <Skeleton shape="text" width="40%" />
           </div>
         </div>
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Alternando carregando/carregado</span>
+      <DemoCard title="Alternando carregando/carregado">
         <button type="button" className={styles.trigger} onClick={() => setCarregado((c) => !c)}>
           {carregado ? "Voltar pro carregamento" : "Simular conteúdo carregado"}
         </button>
@@ -39,7 +37,7 @@ export function SkeletonDemo() {
             <Skeleton shape="text" width="100%" />
           )}
         </div>
-      </div>
+      </DemoCard>
     </div>
   );
 }

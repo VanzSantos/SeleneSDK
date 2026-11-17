@@ -14,6 +14,7 @@ const story: StoryMeta = {
   description: "Indicador de carregamento em andamento. Cor sempre explícita, nunca herdada — mesma regra do Icon.",
   code: `<Spinner size="medium" color="var(--acao-primaria)" />
 <Spinner color="var(--acao-destrutiva)" decorative={false} accessibleLabel="Carregando" />`,
+  previewAsCards: true,
   Demo: SpinnerDemo,
 };
 

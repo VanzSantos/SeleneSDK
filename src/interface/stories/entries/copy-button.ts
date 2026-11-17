@@ -13,6 +13,7 @@ const story: StoryMeta = {
   tokensSummary: ["semantic.icone-secundario/sucesso/inativo", "structural.raio-pp"],
   description: "Botão iconOnly que copia um texto pra área de transferência — confirmação visual transiente (ícone vira check por ~2s) e aria-label muda pra 'Copiado!' durante esse tempo.",
   code: `<CopyButton value="sk_live_51H8x9F2aB3f" accessibleLabel="Copiar chave de API" />`,
+  previewAsCards: true,
   Demo: CopyButtonDemo,
 };
 

@@ -16,6 +16,7 @@ const story: StoryMeta = {
   <form onSubmit={...}>...</form>
 </Card>
 <Card elevation="high">Card destacado</Card>`,
+  previewAsCards: true,
   Demo: CardDemo,
 };
 

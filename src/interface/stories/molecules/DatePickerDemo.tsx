@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { DatePicker } from "../../../components/DatePicker/DatePicker";
 import styles from "../Demo.module.css";
+import { DemoCard } from "../DemoCard";
 
 export function DatePickerDemo() {
   const [data, setData] = useState<string | null>(null);
@@ -13,9 +14,8 @@ export function DatePickerDemo() {
   const [dataSemIcone, setDataSemIcone] = useState<string | null>(null);
 
   return (
-    <div className={`${styles.column} ${styles.stack}`} style={{ maxWidth: 480 }}>
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Campo único</span>
+    <div className={styles.cards}>
+      <DemoCard title="Campo único">
         <DatePicker
           label="Data de nascimento"
           value={data}
@@ -23,10 +23,9 @@ export function DatePickerDemo() {
           maxDate="2026-08-18"
           helperText="Data selecionada só pode ser hoje ou antes."
         />
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Estado de erro</span>
+      <DemoCard title="Estado de erro">
         <DatePicker
           label="Data de entrega"
           value={dataComErro}
@@ -34,22 +33,19 @@ export function DatePickerDemo() {
           state="error"
           helperText="Escolha uma data válida."
         />
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Intervalo (início/fim) — fim nunca antes de início</span>
+      <DemoCard title="Intervalo" description="Início/fim. fim nunca antes de início.">
         <DatePicker label="Período da reserva" range value={intervalo} onChange={setIntervalo} />
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>showPicker=false — só digitação, sem popover</span>
+      <DemoCard title="showPicker=false" description="Só digitação, sem popover.">
         <DatePicker label="Data (só digitação)" value={dataSoDigitacao} onChange={setDataSoDigitacao} showPicker={false} />
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>showIcon=false — sem o ícone de calendário à esquerda</span>
+      <DemoCard title="showIcon=false" description="Sem o ícone de calendário à esquerda.">
         <DatePicker label="Data" value={dataSemIcone} onChange={setDataSemIcone} showIcon={false} />
-      </div>
+      </DemoCard>
     </div>
   );
 }

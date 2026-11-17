@@ -14,6 +14,7 @@ const story: StoryMeta = {
   description: "Liga/desliga com efeito instantâneo, sem submit. Label opcional — use accessibleLabel quando o rótulo já existe fora do componente.",
   code: `<Switch label="Notificações por e-mail" checked={notificacoes} onChange={setNotificacoes} />
 <Switch accessibleLabel="Modo escuro" checked={modoEscuro} onChange={setModoEscuro} />`,
+  previewAsCards: true,
   Demo: SwitchDemo,
 };
 

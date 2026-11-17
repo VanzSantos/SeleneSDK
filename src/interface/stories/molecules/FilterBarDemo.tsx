@@ -2,6 +2,7 @@ import { useState } from "react";
 import { FilterBar } from "../../../components/FilterBar/FilterBar";
 import { Select } from "../../../components/Select/Select";
 import styles from "../Demo.module.css";
+import { DemoCard } from "../DemoCard";
 
 export function FilterBarDemo() {
   const [busca, setBusca] = useState("");
@@ -19,9 +20,8 @@ export function FilterBarDemo() {
   }
 
   return (
-    <div className={styles.column} style={{ maxWidth: 640 }}>
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Com busca + filtros livres + resumo removível</span>
+    <div className={styles.cards}>
+      <DemoCard title="Com busca + filtros livres + resumo removível">
         <FilterBar
           searchValue={busca}
           onSearchChange={setBusca}
@@ -56,12 +56,11 @@ export function FilterBarDemo() {
             </>
           }
         />
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Só busca, sem filtros nem resumo</span>
+      <DemoCard title="Só busca, sem filtros nem resumo">
         <FilterBar searchValue="" onSearchChange={() => {}} searchPlaceholder="Buscar..." />
-      </div>
+      </DemoCard>
     </div>
   );
 }

@@ -13,6 +13,7 @@ const story: StoryMeta = {
   tokensSummary: ["semantic.borda-base/erro/inativo", "structural.raio-pp", "type-style.texto-g-forte"],
   description: "Um campo por dígito pra código de verificação (2FA, SMS, e-mail) — foco avança sozinho, cola o código inteiro de uma vez, Backspace volta pra caixa anterior.",
   code: `<Otp label="Código de verificação" value={codigo} onChange={setCodigo} onComplete={() => verificar(codigo)} />`,
+  previewAsCards: true,
   Demo: OtpDemo,
 };
 

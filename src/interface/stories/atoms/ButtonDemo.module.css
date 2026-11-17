@@ -1,27 +1,31 @@
 .demo {
   width: 100%;
-  max-width: var(--botao-demo-largura-maxima);
-  display: flex;
-  flex-direction: column;
-  gap: var(--espaco-g);
-  padding: var(--espaco-pp);
   box-sizing: border-box;
 }
 
+/* Cada variante é um cartão (SectionCard) próprio; dentro dele, cada formato é um título +
+   um quadro com os estados lado a lado + o código. */
 .matrix {
   display: flex;
   flex-direction: column;
   gap: var(--espaco-g);
 }
 
-.variant {
+.variantBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-g);
+  min-width: 0;
+}
+
+.format {
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: var(--espaco-m);
+  gap: var(--espaco-pp);
 }
 
-.heading {
+.formatTitle {
   margin: 0;
   font-family: var(--texto-m-forte-family);
   font-size: var(--texto-m-forte-size);
@@ -30,17 +34,16 @@
   color: var(--texto-primario);
 }
 
-.format {
+.card {
+  box-sizing: border-box;
   min-width: 0;
-  margin: 0;
-  padding: var(--espaco-m);
+  padding: var(--espaco-g);
   border: var(--borda-espessura) solid var(--borda-base);
-  border-radius: var(--raio-pp);
+  border-radius: var(--raio-p);
+  background: var(--fundo-superficie);
 }
 
-.legend,
-.stateLabel,
-.note {
+.stateLabel {
   font-family: var(--texto-p-family);
   font-size: var(--texto-p-size);
   font-weight: var(--texto-p-weight);
@@ -48,25 +51,48 @@
   color: var(--texto-secundario);
 }
 
-.legend {
-  padding: 0 var(--espaco-xp);
-}
-
-.note {
-  margin: 0;
-}
-
+/* Os estados ficam numa linha, centralizados, e só quebram quando não cabem. */
 .states {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  gap: var(--espaco-m);
+  align-items: flex-start;
+  justify-content: center;
+  gap: var(--espaco-g);
 }
 
+/* flex-basis 0 + min-width max-content reparte a largura sobrando entre os estados. */
 .sample {
+  flex: 1 1 0;
+  min-width: max-content;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   gap: var(--espaco-pp);
   padding: var(--espaco-xp);
+}
+
+/* Código do exemplo, logo abaixo do cartão. */
+.codeBlock {
+  position: relative;
+  min-width: 0;
+}
+
+.code {
+  margin: 0;
+  padding: var(--espaco-m);
+  padding-right: calc(var(--espaco-m) + var(--botao-altura));
+  background: var(--fundo-secundario);
+  border-radius: var(--raio-pp);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-family: "SF Mono", Menlo, Consolas, monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--texto-primario);
+}
+
+.copy {
+  position: absolute;
+  top: var(--espaco-pp);
+  right: var(--espaco-pp);
 }

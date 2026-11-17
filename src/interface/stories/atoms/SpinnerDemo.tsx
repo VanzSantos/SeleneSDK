@@ -1,13 +1,13 @@
 import { Spinner, type SpinnerSize } from "../../../components/Spinner/Spinner";
 import styles from "../Demo.module.css";
+import { DemoCard } from "../DemoCard";
 
 const SIZES: SpinnerSize[] = ["small", "medium", "large", "extraLarge"];
 
 export function SpinnerDemo() {
   return (
-    <div className={styles.column} style={{ maxWidth: 420 }}>
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Tamanhos</span>
+    <div className={styles.cards}>
+      <DemoCard title="Tamanhos">
         <div className={styles.row}>
           {SIZES.map((size) => (
             <div key={size} className={styles.item}>
@@ -16,10 +16,9 @@ export function SpinnerDemo() {
             </div>
           ))}
         </div>
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Cor sempre explícita (nunca herdada)</span>
+      <DemoCard title="Cor sempre explícita" description="Nunca herdada.">
         <div className={styles.row}>
           <div className={styles.item}>
             <Spinner color="var(--acao-primaria)" />
@@ -34,17 +33,16 @@ export function SpinnerDemo() {
             <span className={styles.itemLabel}>icone-secundario</span>
           </div>
         </div>
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Standalone com anúncio pra leitor de tela</span>
+      <DemoCard title="Standalone com anúncio pra leitor de tela">
         <div className={styles.row}>
           <div className={styles.item}>
             <Spinner color="var(--acao-primaria)" decorative={false} accessibleLabel="Carregando" />
             <span className={styles.itemLabel}>decorative=false</span>
           </div>
         </div>
-      </div>
+      </DemoCard>
     </div>
   );
 }

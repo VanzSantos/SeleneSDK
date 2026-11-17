@@ -27,6 +27,7 @@ const story: StoryMeta = {
   openKeys={openKeys}
   onOpenKeysChange={setOpenKeys}
 />`,
+  previewAsCards: true,
   Demo: SideNavDemo,
 };
 

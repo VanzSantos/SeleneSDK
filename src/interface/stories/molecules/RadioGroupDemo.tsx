@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { RadioGroup } from "../../../components/RadioGroup/RadioGroup";
 import styles from "../Demo.module.css";
+import { DemoCard } from "../DemoCard";
 
 export function RadioGroupDemo() {
   const [plano, setPlano] = useState("mensal");
@@ -8,9 +9,8 @@ export function RadioGroupDemo() {
   const [genero, setGenero] = useState("");
 
   return (
-    <div className={styles.column} style={{ maxWidth: 400 }}>
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Básico</span>
+    <div className={styles.cards}>
+      <DemoCard title="Básico">
         <RadioGroup
           label="Plano"
           options={[
@@ -20,10 +20,9 @@ export function RadioGroupDemo() {
           value={plano}
           onChange={setPlano}
         />
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Obrigatório + erro + opção desabilitada</span>
+      <DemoCard title="Obrigatório + erro + opção desabilitada">
         <RadioGroup
           label="Forma de entrega"
           required
@@ -37,10 +36,9 @@ export function RadioGroupDemo() {
           state={entrega ? "default" : "error"}
           helperText={entrega ? undefined : "Selecione uma forma de entrega."}
         />
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Horizontal</span>
+      <DemoCard title="Horizontal">
         <RadioGroup
           label="Gênero"
           orientation="horizontal"
@@ -53,7 +51,7 @@ export function RadioGroupDemo() {
           value={genero}
           onChange={setGenero}
         />
-      </div>
+      </DemoCard>
     </div>
   );
 }

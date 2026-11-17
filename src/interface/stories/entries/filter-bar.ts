@@ -18,6 +18,7 @@ const story: StoryMeta = {
   onRemoveFilter={removeFilter} onClearAll={limparTudo}
   filters={<Select options={opcoes} value={status} onChange={setStatus} />}
 />`,
+  previewAsCards: true,
   Demo: FilterBarDemo,
 };
 

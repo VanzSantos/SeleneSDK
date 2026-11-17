@@ -16,8 +16,12 @@ export interface StoryMeta {
   description?: string;
   /** Só nas telas do grupo Tokens: qual página de tokens renderizar (no lugar do Demo/contrato). */
   tokenPage?: "cores" | "tipografia" | "espacamento" | "sombras";
+  /** A Demo devolve vários cartões (um por seção): o shell mostra só o título "Pré-visualização" e não envolve tudo num cartão único. */
+  previewAsCards?: boolean;
   /** Âncoras estáveis renderizadas pela Demo, listadas sob Pré-visualização. */
   previewSections?: { id: string; title: string }[];
+  /** Seção opcional "Medidas" (anatomia, áreas de toque, tabela de tokens), logo após o código. */
+  Measures?: ComponentType;
   code: string;
   Demo: ComponentType;
 }

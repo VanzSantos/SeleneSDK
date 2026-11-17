@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ComboBox } from "../../../components/ComboBox/ComboBox";
 import styles from "../Demo.module.css";
+import { DemoCard } from "../DemoCard";
 
 const PAISES = [
   { value: "br", label: "Brasil" },
@@ -23,9 +24,8 @@ export function ComboBoxDemo() {
   const [comErro, setComErro] = useState("");
 
   return (
-    <div className={styles.column} style={{ maxWidth: 360 }}>
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Seleção única (12 opções, digite pra filtrar)</span>
+    <div className={styles.cards}>
+      <DemoCard title="Seleção única" description="12 opções, digite pra filtrar.">
         <ComboBox
           label="País"
           withInfo
@@ -35,10 +35,9 @@ export function ComboBoxDemo() {
           value={pais}
           onChange={setPais}
         />
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Seleção múltipla (mesmo resumo truncado do Select)</span>
+      <DemoCard title="Seleção múltipla" description="Mesmo resumo truncado do Select.">
         <ComboBox
           label="Países visitados"
           multiple
@@ -47,10 +46,9 @@ export function ComboBoxDemo() {
           value={paises}
           onChange={setPaises}
         />
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Obrigatório + erro</span>
+      <DemoCard title="Obrigatório + erro">
         <ComboBox
           label="País"
           required
@@ -61,12 +59,11 @@ export function ComboBoxDemo() {
           value={comErro}
           onChange={setComErro}
         />
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Desabilitado</span>
+      <DemoCard title="Desabilitado">
         <ComboBox label="País" state="disabled" placeholder="Indisponível" options={PAISES} value="" />
-      </div>
+      </DemoCard>
     </div>
   );
 }

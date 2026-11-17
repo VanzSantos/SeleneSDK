@@ -15,6 +15,7 @@ const story: StoryMeta = {
   code: `<Tabs items={[{value:"a",label:"Detalhes"},{value:"b",label:"Histórico"}]} value={aba} onChange={setAba} />
 <TabPanel value="a" hidden={aba !== "a"}>Conteúdo A</TabPanel>
 <TabPanel value="b" hidden={aba !== "b"}>Conteúdo B</TabPanel>`,
+  previewAsCards: true,
   Demo: TabsDemo,
 };
 

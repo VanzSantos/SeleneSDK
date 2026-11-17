@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { TimePicker } from "../../../components/TimePicker/TimePicker";
 import styles from "../Demo.module.css";
+import { DemoCard } from "../DemoCard";
 
 export function TimePickerDemo() {
   const [horario, setHorario] = useState<string | null>(null);
@@ -13,14 +14,12 @@ export function TimePickerDemo() {
   const [horarioSemIcone, setHorarioSemIcone] = useState<string | null>(null);
 
   return (
-    <div className={`${styles.column} ${styles.stack}`} style={{ maxWidth: 480 }}>
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Campo único (step=5)</span>
+    <div className={styles.cards}>
+      <DemoCard title="Campo único" description="Step=5.">
         <TimePicker label="Horário do compromisso" value={horario} onChange={setHorario} />
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Com minTime/maxTime (horário comercial, step=30)</span>
+      <DemoCard title="Com minTime/maxTime" description="Horário comercial, step=30.">
         <TimePicker
           label="Horário de atendimento"
           value={horarioComercial}
@@ -29,22 +28,19 @@ export function TimePickerDemo() {
           maxTime="18:00"
           step={30}
         />
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Intervalo (início/fim) — fim nunca antes de início</span>
+      <DemoCard title="Intervalo" description="Início/fim. fim nunca antes de início.">
         <TimePicker label="Janela de entrega" range value={intervalo} onChange={setIntervalo} />
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>showPicker=false — só digitação, sem popover</span>
+      <DemoCard title="showPicker=false" description="Só digitação, sem popover.">
         <TimePicker label="Horário (só digitação)" value={horarioSoDigitacao} onChange={setHorarioSoDigitacao} showPicker={false} />
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>showIcon=false — sem o ícone de relógio à esquerda</span>
+      <DemoCard title="showIcon=false" description="Sem o ícone de relógio à esquerda.">
         <TimePicker label="Horário" value={horarioSemIcone} onChange={setHorarioSemIcone} showIcon={false} />
-      </div>
+      </DemoCard>
     </div>
   );
 }

@@ -15,6 +15,7 @@ const story: StoryMeta = {
   code: `<Skeleton shape="circle" />
 <Skeleton shape="text" width="60%" />
 <Skeleton shape="rect" height="160px" />`,
+  previewAsCards: true,
   Demo: SkeletonDemo,
 };
 

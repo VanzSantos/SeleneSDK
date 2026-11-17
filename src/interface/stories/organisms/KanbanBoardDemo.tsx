@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { KanbanBoard, type KanbanColumn, type KanbanMoveEvent } from "../../../components/KanbanBoard/KanbanBoard";
 import styles from "../Demo.module.css";
+import { DemoCard } from "../DemoCard";
 
 const INITIAL_COLUMNS: KanbanColumn[] = [
   {
@@ -104,9 +105,8 @@ export function KanbanBoardDemo() {
   }
 
   return (
-    <div className={`${styles.column} ${styles.stack}`} style={{ maxWidth: "none" }}>
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Board com 4 colunas (uma vazia), drag-and-drop + ações reais de duplicar/habilitar/editar/ver/apagar</span>
+    <div className={styles.cards}>
+      <DemoCard title="Board com 4 colunas" description="Uma vazia), drag-and-drop + ações reais de duplicar/habilitar/editar/ver/apagar.">
         <div style={{ height: 520, width: "100%" }}>
           <KanbanBoard
             columns={columns}
@@ -123,14 +123,13 @@ export function KanbanBoardDemo() {
             Últimas ações: {log.join(", ")}
           </div>
         )}
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Board estático — sem onMoveTicket (drag-and-drop desativado, cartões não são arrastáveis)</span>
+      <DemoCard title="Board estático" description="Sem onMoveTicket (drag-and-drop desativado, cartões não são arrastáveis).">
         <div style={{ height: 400, width: "100%" }}>
           <KanbanBoard columns={INITIAL_COLUMNS} onDuplicate={(id) => registrar(`Duplicar ${id}`)} onEdit={(id) => registrar(`Editar ${id}`)} />
         </div>
-      </div>
+      </DemoCard>
     </div>
   );
 }

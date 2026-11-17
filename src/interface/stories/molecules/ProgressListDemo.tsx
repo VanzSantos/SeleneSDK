@@ -1,11 +1,11 @@
 import { ProgressList } from "../../../components/ProgressList/ProgressList";
 import styles from "../Demo.module.css";
+import { DemoCard } from "../DemoCard";
 
 export function ProgressListDemo() {
   return (
-    <div className={styles.column} style={{ maxWidth: 480 }}>
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Prioridade (variantes de severidade)</span>
+    <div className={styles.cards}>
+      <DemoCard title="Prioridade" description="Variantes de severidade.">
         <ProgressList
           items={[
             { label: "No prazo", value: 50, count: "50 Qt", variant: "neutral" },
@@ -14,10 +14,9 @@ export function ProgressListDemo() {
             { label: "Atrasado", value: 25, count: "25 Qt", variant: "critical" },
           ]}
         />
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Rede de atendimento (mesmo tom pra todas)</span>
+      <DemoCard title="Rede de atendimento" description="Mesmo tom pra todas.">
         <ProgressList
           items={[
             { label: "Ambulatorial", value: 40, max: 250, count: "40 Qt", variant: "success" },
@@ -25,7 +24,7 @@ export function ProgressListDemo() {
             { label: "Pronto Socorro", value: 100, max: 250, count: "100 Qt", variant: "success" },
           ]}
         />
-      </div>
+      </DemoCard>
     </div>
   );
 }

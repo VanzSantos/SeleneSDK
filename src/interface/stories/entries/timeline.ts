@@ -19,6 +19,7 @@ const story: StoryMeta = {
     { title: "Registro de alta", tone: "success", value: "Registro alta: 02/08/2024", attachments: [{ label: "Ver arquivo em anexo", href: "/arquivos/alta.pdf" }] },
   ]}
 />`,
+  previewAsCards: true,
   Demo: TimelineDemo,
 };
 

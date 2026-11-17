@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Accordion } from "../../../components/Accordion/Accordion";
 import styles from "../Demo.module.css";
+import { DemoCard } from "../DemoCard";
 
 export function AccordionDemo() {
   const [singleOpen, setSingleOpen] = useState<string[]>(["faq-1"]);
@@ -24,21 +25,18 @@ export function AccordionDemo() {
   ];
 
   return (
-    <div className={styles.column}>
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>mode="single" (abrir um fecha os outros) — item disabled</span>
+    <div className={styles.cards}>
+      <DemoCard title={"mode=\"single\""} description="Abrir um fecha os outros. item disabled.">
         <Accordion items={faqItems} openKeys={singleOpen} onChange={setSingleOpen} mode="single" />
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>mode="multiple" (padrão — vários abertos ao mesmo tempo)</span>
+      <DemoCard title={"mode=\"multiple\""} description="Padrão — vários abertos ao mesmo tempo.">
         <Accordion items={detalhesItems} openKeys={multipleOpen} onChange={setMultipleOpen} />
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Item único (Collapsible — mesmo componente, array de 1)</span>
+      <DemoCard title="Item único" description="Collapsible — mesmo componente, array de 1.">
         <Accordion items={soloItem} openKeys={soloOpen} onChange={setSoloOpen} />
-      </div>
+      </DemoCard>
     </div>
   );
 }

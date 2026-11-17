@@ -16,6 +16,7 @@ const story: StoryMeta = {
 <Link href="/saiba-mais" label="Sempre sublinhado" underline />
 <Link href="https://exemplo.com" label="Documentação" external />
 <Link href="#" label="Indisponível" state="disabled" />`,
+  previewAsCards: true,
   Demo: LinkDemo,
 };
 

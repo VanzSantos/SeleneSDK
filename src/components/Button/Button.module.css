@@ -41,6 +41,9 @@
 .button:disabled {
   background: var(--acao-inativa);
   --btn-content-color: var(--acao-inativa-texto);
+  /* Disabled: pílula cinza escuro (cinza claro no tema escuro) sobre fundo inativo. */
+  --btn-count-bg: var(--texto-secundario);
+  --btn-count-text: var(--fundo-superficie);
   cursor: not-allowed;
 }
 
@@ -99,6 +102,8 @@
   --btn-bg-hover: var(--acao-primaria-sobreposta);
   --btn-bg-active: var(--acao-primaria-pressionada);
   --btn-text: var(--acao-primaria-texto);
+  --btn-count-bg: var(--acao-primaria-texto);
+  --btn-count-text: var(--acao-primaria);
 }
 
 .neutral {
@@ -106,6 +111,8 @@
   --btn-bg-hover: var(--acao-neutra-sobreposta);
   --btn-bg-active: var(--acao-neutra-pressionada);
   --btn-text: var(--acao-neutra-texto);
+  --btn-count-bg: var(--acao-neutra-texto);
+  --btn-count-text: var(--acao-neutra);
 }
 
 .secondary {
@@ -113,6 +120,8 @@
   --btn-bg-hover: var(--acao-sutil-sobreposta);
   --btn-bg-active: var(--acao-sutil-pressionada);
   --btn-text: var(--acao-sutil-texto);
+  --btn-count-bg: var(--acao-sutil-texto);
+  --btn-count-text: var(--acao-sutil);
 }
 
 .destructive {
@@ -120,6 +129,8 @@
   --btn-bg-hover: var(--acao-destrutiva-sobreposta);
   --btn-bg-active: var(--acao-destrutiva-pressionada);
   --btn-text: var(--acao-destrutiva-texto);
+  --btn-count-bg: var(--acao-destrutiva-texto);
+  --btn-count-text: var(--acao-destrutiva);
 }
 
 .link {
@@ -181,8 +192,10 @@
   box-sizing: border-box;
   padding: var(--espaco-xp) var(--espaco-pp);
   border-radius: var(--raio-circular);
-  background: var(--fundo-info-forte);
-  color: var(--texto-invertido);
+  /* Contador = inverso do botão: pílula na cor do texto do botão e número na cor do
+     fundo dele (definidos por variante abaixo), então sempre contrasta nos dois temas. */
+  background: var(--btn-count-bg);
+  color: var(--btn-count-text);
   font-family: var(--texto-micro-forte-family);
   font-size: var(--texto-micro-forte-size);
   font-weight: var(--texto-micro-forte-weight);

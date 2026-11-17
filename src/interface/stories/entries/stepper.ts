@@ -21,6 +21,7 @@ const story: StoryMeta = {
   currentStep={1}
   accessibleLabel="Etapas do cadastro"
 />`,
+  previewAsCards: true,
   Demo: StepperDemo,
 };
 

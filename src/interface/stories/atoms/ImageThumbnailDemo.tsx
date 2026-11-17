@@ -1,5 +1,6 @@
 import { ImageThumbnail } from "../../../components/ImageThumbnail/ImageThumbnail";
 import styles from "../Demo.module.css";
+import { DemoCard } from "../DemoCard";
 
 const PLACEHOLDER =
   "data:image/svg+xml;utf8," +
@@ -9,19 +10,17 @@ const PLACEHOLDER =
 
 export function ImageThumbnailDemo() {
   return (
-    <div className={styles.column} style={{ maxWidth: 420 }}>
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Tamanhos (não clicável)</span>
+    <div className={styles.cards}>
+      <DemoCard title="Tamanhos" description="Não clicável.">
         <div className={styles.row} style={{ alignItems: "center" }}>
           <ImageThumbnail src={PLACEHOLDER} alt="Fone roxo exemplo" size="small" />
           <ImageThumbnail src={PLACEHOLDER} alt="Fone roxo exemplo" size="medium" />
           <ImageThumbnail src={PLACEHOLDER} alt="Fone roxo exemplo" size="large" />
         </div>
-      </div>
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Clicável (passe o mouse e clique — abre em Modal)</span>
+      </DemoCard>
+      <DemoCard title="Clicável" description="Passe o mouse e clique — abre em Modal.">
         <ImageThumbnail src={PLACEHOLDER} alt="Fone roxo exemplo" clickable />
-      </div>
+      </DemoCard>
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { SegmentedControl } from "../../../components/SegmentedControl/SegmentedControl";
 import styles from "../Demo.module.css";
+import { DemoCard } from "../DemoCard";
 
 export function SegmentedControlDemo() {
   const [visualizacao, setVisualizacao] = useState("lista");
@@ -8,9 +9,8 @@ export function SegmentedControlDemo() {
   const [status, setStatus] = useState("ativos");
 
   return (
-    <div className={styles.column}>
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Com ícones</span>
+    <div className={styles.cards}>
+      <DemoCard title="Com ícones">
         <SegmentedControl
           items={[
             { value: "lista", label: "Lista", icon: "list" },
@@ -20,10 +20,9 @@ export function SegmentedControlDemo() {
           onChange={setVisualizacao}
           accessibleLabel="Modo de visualização"
         />
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>3 opções, sem ícone</span>
+      <DemoCard title="3 opções, sem ícone">
         <SegmentedControl
           items={[
             { value: "dia", label: "Dia" },
@@ -34,10 +33,9 @@ export function SegmentedControlDemo() {
           onChange={setPeriodo}
           accessibleLabel="Período"
         />
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Com opção desabilitada</span>
+      <DemoCard title="Com opção desabilitada">
         <SegmentedControl
           items={[
             { value: "todos", label: "Todos" },
@@ -48,10 +46,9 @@ export function SegmentedControlDemo() {
           onChange={setStatus}
           accessibleLabel="Filtro de status"
         />
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Grupo inteiro desabilitado</span>
+      <DemoCard title="Grupo inteiro desabilitado">
         <SegmentedControl
           items={[
             { value: "a", label: "A" },
@@ -62,7 +59,7 @@ export function SegmentedControlDemo() {
           state="disabled"
           accessibleLabel="Bloqueado"
         />
-      </div>
+      </DemoCard>
     </div>
   );
 }

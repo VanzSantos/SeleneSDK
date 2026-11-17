@@ -17,6 +17,7 @@ const story: StoryMeta = {
   value={visualizacao}
   onChange={setVisualizacao}
 />`,
+  previewAsCards: true,
   Demo: SegmentedControlDemo,
 };
 

@@ -1,11 +1,11 @@
 import { Card } from "../../../components/Card/Card";
 import styles from "../Demo.module.css";
+import { DemoCard } from "../DemoCard";
 
 export function CardDemo() {
   return (
-    <div className={styles.column} style={{ maxWidth: 480 }}>
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Densidades de padding</span>
+    <div className={styles.cards}>
+      <DemoCard title="Densidades de padding">
         <div className={styles.row}>
           <Card padding="small">
             <span className={styles.itemLabel}>small (12px)</span>
@@ -17,10 +17,9 @@ export function CardDemo() {
             <span className={styles.itemLabel}>large (32px, padrão)</span>
           </Card>
         </div>
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Elevation (none / low / medium / high)</span>
+      <DemoCard title="Elevation" description="None / low / medium / high.">
         <div className={styles.row}>
           <Card padding="medium" elevation="none">
             <span className={styles.itemLabel}>none (só borda)</span>
@@ -35,10 +34,9 @@ export function CardDemo() {
             <span className={styles.itemLabel}>high</span>
           </Card>
         </div>
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Conteúdo livre (children)</span>
+      <DemoCard title="Conteúdo livre" description="Children.">
         <Card padding="medium">
           <div className={styles.column} style={{ maxWidth: "none" }}>
             <strong>Sem slots fixos</strong>
@@ -48,7 +46,7 @@ export function CardDemo() {
             </span>
           </div>
         </Card>
-      </div>
+      </DemoCard>
     </div>
   );
 }

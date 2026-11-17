@@ -17,6 +17,7 @@ const story: StoryMeta = {
   { label: "Configurações", href: "/config" },
   { label: "Perfil" },
 ]} />`,
+  previewAsCards: true,
   Demo: BreadcrumbDemo,
 };
 

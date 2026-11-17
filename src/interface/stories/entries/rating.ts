@@ -14,6 +14,7 @@ const story: StoryMeta = {
   description: "Avaliação por estrelas — inteiro ou com meio-ponto (allowHalf), interativa (role=slider) ou readOnly (role=img, ex.: nota média de um produto).",
   code: `<Rating value={nota} onChange={setNota} allowHalf accessibleLabel="Avalie o atendimento" />
 <Rating value={4.5} allowHalf state="readOnly" accessibleLabel="Nota média" />`,
+  previewAsCards: true,
   Demo: RatingDemo,
 };
 

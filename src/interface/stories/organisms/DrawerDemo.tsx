@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Drawer } from "../../../components/Drawer/Drawer";
 import { Button } from "../../../components/Button/Button";
 import styles from "../Demo.module.css";
+import { DemoCard } from "../DemoCard";
 
 export function DrawerDemo() {
   const [bloqueante, setBloqueante] = useState(false);
@@ -13,9 +14,8 @@ export function DrawerDemo() {
   const [empurrando, setEmpurrando] = useState(false);
 
   return (
-    <div className={styles.column} style={{ maxWidth: "none" }}>
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>modal=true (padrão) — bloqueia, igual Modal</span>
+    <div className={styles.cards}>
+      <DemoCard title="modal=true" description="Padrão. bloqueia, igual Modal.">
         <button type="button" className={styles.trigger} onClick={() => setBloqueante(true)}>
           Abrir Drawer bloqueante
         </button>
@@ -24,12 +24,9 @@ export function DrawerDemo() {
             Com backdrop, focus trap e Esc nativos — tente clicar fora ou apertar Esc.
           </p>
         </Drawer>
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>
-          modal=false — persistente, resto da página continua interativo
-        </span>
+      <DemoCard title="modal=false" description="Persistente, resto da página continua interativo.">
         <div className={styles.row}>
           <button type="button" className={styles.trigger} onClick={() => setPersistente(true)}>
             Abrir Drawer persistente
@@ -53,14 +50,9 @@ export function DrawerDemo() {
             isto está aberto. Esc ainda fecha (via listener próprio, não nativo).
           </p>
         </Drawer>
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>
-          layout=&quot;push&quot; (só com modal=false) — fica AO LADO do conteúdo, empurrando
-          em vez de sobrepor. O consumidor precisa colocar o Drawer no mesmo container flex
-          do conteúdo (Datatable não sabe disso sozinho).
-        </span>
+      <DemoCard title="layout=&quot;push&quot;" description="Só com modal=false. fica AO LADO do conteúdo, empurrando em vez de sobrepor. O consumidor precisa colocar o Drawer no mesmo container flex do conteúdo (Datatable não sabe disso sozinho).">
         <button type="button" className={styles.trigger} onClick={() => setEmpurrando((v) => !v)}>
           {empurrando ? "Fechar" : "Abrir"} painel lateral (push)
         </button>
@@ -98,10 +90,9 @@ export function DrawerDemo() {
             <p style={{ margin: 0 }}>Este painel ocupa espaço de verdade, não flutua por cima.</p>
           </Drawer>
         </div>
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Tamanhos (largura)</span>
+      <DemoCard title="Tamanhos" description="Largura.">
         <div className={styles.row}>
           <button type="button" className={styles.trigger} onClick={() => setPequeno(true)}>
             small (320px)
@@ -116,10 +107,9 @@ export function DrawerDemo() {
         <Drawer open={grande} onClose={() => setGrande(false)} title="Grande" size="large">
           <p style={{ margin: 0 }}>560px de largura.</p>
         </Drawer>
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>dismissible=false</span>
+      <DemoCard title="dismissible=false">
         <button type="button" className={styles.trigger} onClick={() => setNaoDismissible(true)}>
           Abrir Drawer não-dismissible
         </button>
@@ -134,7 +124,7 @@ export function DrawerDemo() {
             <Button variant="primary" label="Entendi" onPress={() => setNaoDismissible(false)} />
           </div>
         </Drawer>
-      </div>
+      </DemoCard>
     </div>
   );
 }

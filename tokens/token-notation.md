@@ -46,12 +46,14 @@ Todos os botões link usam `raio-pp` e permanecem sem fundo em todos os estados.
 | `structural.borda-espessura` | `--borda-espessura` | 1px / 1px | Espessura atual da borda |
 | `structural.foco-deslocamento` | `--foco-deslocamento` | 2px / 2px | Distância atual entre botão e foco |
 | `structural.alvo-minimo` | `--alvo-minimo` | 24px / 24px | Alvo mínimo atual do botão link, perfil padrão |
-| `structural.botao-demo-largura-maxima` | `--botao-demo-largura-maxima` | 520px / 520px | Largura máxima atual da demo Button |
 
-Contador: reutilizar `semantic.fundo-info-forte` e `semantic.texto-invertido`,
-como Badge `info`, sem criar uma segunda paleta azul. Tipografia e espaçamento
-também seguem Badge. O azul é próximo, mas não idêntico ao PNG de referência.
-Disabled preserva o contador azul legível, como na referência; loading substitui
+Contador: par invertido ao do botão, sem token novo. A pílula usa a cor do texto do
+botão (`acao-<variante>-texto`) e o número usa a cor do fundo dele
+(`acao-<variante>`), então contrasta em todos os estados e nos dois temas
+(texto/pílula ≥ 4,91:1 e pílula/fundo ≥ 4,91:1 em default, hover e pressed). Em
+secondary a pílula é cinza escuro no claro e cinza claro no escuro. Disabled usa
+`semantic.texto-secundario` como pílula e `semantic.fundo-superficie` como número
+(7,56:1 claro / 8,70:1 escuro). Tipografia e espaçamento seguem o Badge. Loading substitui
 o conteúdo visual pelo Spinner e preserva rótulo e contador no nome acessível.
 O Spinner durante loading usa `semantic.texto-secundario` sobre
 `semantic.acao-carregando`; `semantic.acao-carregando-texto` permanece inalterado

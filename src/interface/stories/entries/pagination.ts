@@ -13,6 +13,7 @@ const story: StoryMeta = {
   tokensSummary: ["semantic.texto-secundario/primario", "semantic.borda-base", "structural.raio-pp"],
   description: "Navegação entre páginas de uma lista/coleção qualquer (fora de uma Datatable, que já tem paginação própria embutida) — resumo, seletor opcional de itens por página, anterior/próxima.",
   code: `<Pagination page={page} onPageChange={setPage} totalItems={237} pageSize={10} onPageSizeChange={setPageSize} />`,
+  previewAsCards: true,
   Demo: PaginationDemo,
 };
 

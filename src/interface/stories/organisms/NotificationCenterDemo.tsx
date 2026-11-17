@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { NotificationCenter, type NotificationItem } from "../../../components/NotificationCenter/NotificationCenter";
 import styles from "../Demo.module.css";
+import { DemoCard } from "../DemoCard";
 
 const NOTIFICATIONS_INICIAIS: NotificationItem[] = [
   { id: "n1", title: "Relatório de agosto disponível", description: "O relatório mensal já pode ser baixado.", timestamp: "há 2 horas", read: false },
@@ -16,11 +17,8 @@ export function NotificationCenterDemo() {
   const [empty, setEmpty] = useState<NotificationItem[]>([]);
 
   return (
-    <div className={styles.column} style={{ maxWidth: 320 }}>
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>
-          Gatilho (sino + contador de não lidas) — clique pra abrir o Drawer com a lista completa
-        </span>
+    <div className={styles.cards}>
+      <DemoCard title="Gatilho" description="Sino + contador de não lidas. clique pra abrir o Drawer com a lista completa.">
         <div style={{ display: "flex", justifyContent: "center", padding: 16, background: "var(--fundo-secundario)", borderRadius: "var(--raio-pp)" }}>
           <NotificationCenter
             notifications={notifications}
@@ -32,13 +30,9 @@ export function NotificationCenterDemo() {
             }}
           />
         </div>
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>
-          Estado "filtered-empty" — todas já lidas; abra e ative o filtro "só não lidas" pra ver a
-          lista filtrada vazia
-        </span>
+      <DemoCard title={"Estado \"filtered-empty\""} description={"Todas já lidas; abra e ative o filtro \"só não lidas\" pra ver a lista filtrada vazia."}>
         <div style={{ display: "flex", justifyContent: "center", padding: 16, background: "var(--fundo-secundario)", borderRadius: "var(--raio-pp)" }}>
           <NotificationCenter
             notifications={allRead}
@@ -50,10 +44,9 @@ export function NotificationCenterDemo() {
             }}
           />
         </div>
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Estado "empty" — lista de notificações vazia desde o início</span>
+      <DemoCard title={"Estado \"empty\""} description="Lista de notificações vazia desde o início.">
         <div style={{ display: "flex", justifyContent: "center", padding: 16, background: "var(--fundo-secundario)", borderRadius: "var(--raio-pp)" }}>
           <NotificationCenter
             notifications={empty}
@@ -65,7 +58,7 @@ export function NotificationCenterDemo() {
             }}
           />
         </div>
-      </div>
+      </DemoCard>
     </div>
   );
 }

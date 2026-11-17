@@ -13,6 +13,7 @@ const story: StoryMeta = {
   tokensSummary: ["semantic.fundo-secundario/superficie", "semantic.texto-secundario", "structural.raio-circular/espaco-pp"],
   description: "Pilha de Avatars sobrepostos (esquerda por cima), com indicador '+N' quando a lista excede max — ex.: responsáveis por um item.",
   code: `<AvatarGroup avatars={[{ name: "Ana" }, { name: "Carlos" }, { name: "Fernanda" }]} max={5} accessibleLabel="Responsáveis" />`,
+  previewAsCards: true,
   Demo: AvatarGroupDemo,
 };
 

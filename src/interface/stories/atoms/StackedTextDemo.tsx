@@ -1,21 +1,19 @@
 import { StackedText } from "../../../components/StackedText/StackedText";
 import styles from "../Demo.module.css";
+import { DemoCard } from "../DemoCard";
 
 export function StackedTextDemo() {
   return (
-    <div className={styles.column} style={{ maxWidth: 320 }}>
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Uso típico — nome + e-mail</span>
+    <div className={styles.cards}>
+      <DemoCard title="Uso típico" description="Nome + e-mail.">
         <StackedText primaryText="Ana Souza" secondaryText="ana@exemplo.com" />
-      </div>
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>align="right" (ex.: célula numérica com unidade)</span>
+      </DemoCard>
+      <DemoCard title={"align=\"right\""} description="Ex.: célula numérica com unidade.">
         <StackedText primaryText="R$ 240,00" secondaryText="à vista" align="right" />
-      </div>
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>align="center"</span>
+      </DemoCard>
+      <DemoCard title={"align=\"center\""}>
         <StackedText primaryText="Ativo" secondaryText="desde 2024" align="center" />
-      </div>
+      </DemoCard>
     </div>
   );
 }

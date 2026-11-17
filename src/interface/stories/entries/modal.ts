@@ -16,6 +16,7 @@ const story: StoryMeta = {
   <p>Esta ação não pode ser desfeita.</p>
   <Button variant="destructive" label="Excluir" onPress={confirmar} />
 </Modal>`,
+  previewAsCards: true,
   Demo: ModalDemo,
 };
 

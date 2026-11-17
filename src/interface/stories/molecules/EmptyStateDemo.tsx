@@ -1,28 +1,26 @@
 import { useState } from "react";
 import { EmptyState } from "../../../components/EmptyState/EmptyState";
 import styles from "../Demo.module.css";
+import { DemoCard } from "../DemoCard";
 
 export function EmptyStateDemo() {
   const [temFiltro, setTemFiltro] = useState(true);
 
   return (
-    <div className={styles.column} style={{ maxWidth: 480 }}>
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Só título</span>
+    <div className={styles.cards}>
+      <DemoCard title="Só título">
         <EmptyState title="Nenhum item ainda" />
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Com ícone e descrição</span>
+      <DemoCard title="Com ícone e descrição">
         <EmptyState
           icon="info"
           title="Nenhum resultado encontrado"
           description="Tente ajustar os termos da busca ou remover alguns filtros."
         />
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Com ação (interativo)</span>
+      <DemoCard title="Com ação" description="Interativo.">
         {temFiltro ? (
           <EmptyState
             icon="info"
@@ -34,7 +32,7 @@ export function EmptyStateDemo() {
         ) : (
           <p style={{ margin: 0 }}>3 itens encontrados (filtros limpos).</p>
         )}
-      </div>
+      </DemoCard>
     </div>
   );
 }

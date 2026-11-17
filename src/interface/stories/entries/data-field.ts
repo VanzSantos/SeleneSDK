@@ -14,6 +14,7 @@ const story: StoryMeta = {
   description: "Campo só-leitura rotulado — rótulo pequeno em cima, valor maior embaixo (com ícone opcional), dentro de uma caixa com borda leve. Padrão mais repetido nas telas de detalhe analisadas em sistemas legados (Visão 360, Credenciamento, Internações).",
   code: `<DataField label="Nome completo" value="Amélia Aparecida dos Santos" />
 <DataField label="Contato celular" value="(27) 9 0000-0000" icon="user" />`,
+  previewAsCards: true,
   Demo: DataFieldDemo,
 };
 

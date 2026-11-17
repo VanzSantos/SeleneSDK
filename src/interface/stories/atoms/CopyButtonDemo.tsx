@@ -1,11 +1,11 @@
 import { CopyButton } from "../../../components/CopyButton/CopyButton";
 import styles from "../Demo.module.css";
+import { DemoCard } from "../DemoCard";
 
 export function CopyButtonDemo() {
   return (
-    <div className={styles.column}>
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Ao lado de uma API key</span>
+    <div className={styles.cards}>
+      <DemoCard title="Ao lado de uma API key">
         <div className={styles.row} style={{ alignItems: "center" }}>
           <code
             style={{
@@ -19,12 +19,11 @@ export function CopyButtonDemo() {
           </code>
           <CopyButton value="sk_live_51H8x9F2aB3f" accessibleLabel="Copiar chave de API" />
         </div>
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Desabilitado</span>
+      <DemoCard title="Desabilitado">
         <CopyButton value="não copiável" state="disabled" />
-      </div>
+      </DemoCard>
     </div>
   );
 }

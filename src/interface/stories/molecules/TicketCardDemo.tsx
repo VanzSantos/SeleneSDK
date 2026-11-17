@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { TicketCard } from "../../../components/TicketCard/TicketCard";
 import styles from "../Demo.module.css";
+import { DemoCard } from "../DemoCard";
 
 export function TicketCardDemo() {
   const [enabled, setEnabled] = useState(true);
@@ -11,9 +12,8 @@ export function TicketCardDemo() {
   }
 
   return (
-    <div className={styles.column}>
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Todas as prioridades, com prazo, metadado, responsável e menu de ações (···)</span>
+    <div className={styles.cards}>
+      <DemoCard title="Todas as prioridades, com prazo, metadado, responsável e menu de ações" description="···.">
         <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
           <div style={{ width: 260 }}>
             <TicketCard
@@ -62,14 +62,13 @@ export function TicketCardDemo() {
             Últimas ações: {log.join(", ")}
           </div>
         )}
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Mínimo — só título e prioridade (sem menu, nenhum callback fornecido)</span>
+      <DemoCard title="Mínimo" description="Só título e prioridade (sem menu, nenhum callback fornecido).">
         <div style={{ width: 260 }}>
           <TicketCard title="Protocolo #33561430" priority="no-prazo" />
         </div>
-      </div>
+      </DemoCard>
     </div>
   );
 }

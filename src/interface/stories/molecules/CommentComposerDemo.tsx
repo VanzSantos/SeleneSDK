@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { CommentComposer } from "../../../components/CommentComposer/CommentComposer";
 import styles from "../Demo.module.css";
+import { DemoCard } from "../DemoCard";
 
 interface Note {
   id: number;
@@ -23,9 +24,8 @@ export function CommentComposerDemo() {
   }
 
   return (
-    <div className={styles.column} style={{ maxWidth: 480 }}>
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Completo — com utilitários (anexar imagem, marcar importante)</span>
+    <div className={styles.cards}>
+      <DemoCard title="Completo" description="Com utilitários (anexar imagem, marcar importante).">
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
           {notas.map((nota) => (
             <div key={nota.id} style={{ padding: 8, background: "var(--fundo-secundario)", borderRadius: 8, fontSize: 14 }}>
@@ -40,22 +40,17 @@ export function CommentComposerDemo() {
           onAttachImage={() => {}}
           onMarkImportant={() => {}}
         />
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Sem utilitários (só texto + publicar)</span>
+      <DemoCard title="Sem utilitários" description="Só texto + publicar.">
         <CommentComposer value="" onChange={() => {}} onSubmit={() => {}} placeholder="Escreva um comentário..." submitLabel="Comentar" />
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>Desabilitado (ex.: enviando)</span>
+      <DemoCard title="Desabilitado" description="Ex.: enviando.">
         <CommentComposer value="Salvando esta nota..." onChange={() => {}} onSubmit={() => {}} disabled />
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>
-          Limite bloqueando a digitação (limitMode="block", maxLength=40) — impossível digitar além do limite
-        </span>
+      <DemoCard title="Limite bloqueando a digitação" description={"limitMode=\"block\", maxLength=40. impossível digitar além do limite."}>
         <CommentComposer
           value={textoBloqueado}
           onChange={setTextoBloqueado}
@@ -64,12 +59,9 @@ export function CommentComposerDemo() {
           showCharacterCount
           limitMode="block"
         />
-      </div>
+      </DemoCard>
 
-      <div className={styles.section}>
-        <span className={styles.sectionLabel}>
-          Limite avisando e bloqueando o botão (limitMode="warn", maxLength=40) — digitação livre, alerta + Publicar desabilitado ao ultrapassar
-        </span>
+      <DemoCard title="Limite avisando e bloqueando o botão" description={"limitMode=\"warn\", maxLength=40. digitação livre, alerta + Publicar desabilitado ao ultrapassar."}>
         <CommentComposer
           value={textoAlerta}
           onChange={setTextoAlerta}
@@ -78,7 +70,7 @@ export function CommentComposerDemo() {
           showCharacterCount
           limitMode="warn"
         />
-      </div>
+      </DemoCard>
     </div>
   );
 }

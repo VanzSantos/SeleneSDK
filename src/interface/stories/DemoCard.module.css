@@ -1,0 +1,51 @@
+.description {
+  margin: 0;
+  font-family: var(--texto-p-family);
+  font-size: var(--texto-p-size);
+  line-height: var(--texto-p-line-height);
+  color: var(--texto-secundario);
+}
+
+/* Quadro com a demonstração, ocupando toda a largura do cartão. */
+.stage {
+  box-sizing: border-box;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--espaco-m);
+  padding: var(--espaco-g);
+  border: var(--borda-espessura) solid var(--borda-base);
+  border-radius: var(--raio-p);
+  background: var(--fundo-superficie);
+}
+
+.stage > * {
+  max-width: 100%;
+}
+
+.codeBlock {
+  position: relative;
+  min-width: 0;
+  margin-top: var(--espaco-pp);
+}
+
+.code {
+  margin: 0;
+  padding: var(--espaco-m);
+  padding-right: calc(var(--espaco-m) + var(--botao-altura));
+  background: var(--fundo-secundario);
+  border-radius: var(--raio-pp);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-family: "SF Mono", Menlo, Consolas, monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--texto-primario);
+}
+
+.copy {
+  position: absolute;
+  top: var(--espaco-pp);
+  right: var(--espaco-pp);
+}

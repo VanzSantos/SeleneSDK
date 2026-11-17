@@ -14,6 +14,7 @@ const story: StoryMeta = {
   description: "Barra segmentada + rótulo textual de força de senha, pareado com TextField type='password' — heurística simples e visual, não é cálculo de entropia criptográfica.",
   code: `<TextField label="Nova senha" type="password" value={senha} onChange={setSenha} />
 <PasswordStrengthMeter value={senha} />`,
+  previewAsCards: true,
   Demo: PasswordStrengthMeterDemo,
 };
 
