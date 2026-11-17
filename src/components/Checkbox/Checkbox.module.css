@@ -17,6 +17,13 @@
   cursor: not-allowed;
 }
 
+/* hideLabel: sem texto visível ao lado, a linha encolhia para a largura da caixa (20px). Fica
+   quadrada em 44x44, como o contrato pede, com a caixa centralizada. */
+.bare {
+  min-width: 44px;
+  justify-content: center;
+}
+
 /* visualmente escondido, mas focável e lido por leitor de tela — a caixa
    visível (.box) é decorativa (aria-hidden), o estado real vive aqui */
 .input {

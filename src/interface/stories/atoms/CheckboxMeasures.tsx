@@ -40,6 +40,7 @@ const ROWS: TableRow[] = [
   { measure: "Raio dos cantos", tokens: ["raio-xp"], value: (t) => t("raio-xp"), usage: "Caixa desmarcada e marcada." },
   { measure: "Espaço entre caixa e rótulo", tokens: ["espaco-pp"], value: (t) => t("espaco-pp"), usage: "Também é o recuo do texto de apoio, somado à largura da caixa." },
   { measure: "Altura da linha (alvo de toque)", tokens: [], value: () => "44px", usage: "Valor fixo no CSS; a linha inteira, caixa e rótulo, é clicável." },
+  { measure: "Largura mínima sem rótulo visível", tokens: [], value: () => "44px", usage: "Valor fixo no CSS (hideLabel); caixa centralizada." },
   { measure: "Ícone de marcado e indeterminado", tokens: ["icone-pequeno"], value: (t) => `${t("icone-pequeno")} × ${t("icone-pequeno")}`, usage: "Check ou traço dentro da caixa." },
   { measure: "Anel de foco: espessura", tokens: ["foco-espessura"], value: (t) => t("foco-espessura"), usage: "Halo ao redor da caixa, cor borda-foco." },
   { measure: "Rótulo: tipografia", tokens: ["texto-m"], value: (t) => typeValue(t, "texto-m"), usage: "Fonte, tamanho / entrelinha / peso." },
@@ -59,6 +60,7 @@ export function CheckboxMeasures() {
       <Block id="checkbox-medidas-toque" title="Área de toque" lead="A área tracejada é a região clicável: a linha inteira, caixa e rótulo, com 44 px de altura.">
         <Row>
           <Specimen caption="Com rótulo" rule="Altura de 44 px; a largura segue o texto." measure={target}><Checkbox label="Lembrar-me" checked={false} /></Specimen>
+          <Specimen caption="Rótulo oculto (hideLabel)" rule="Quadrado de 44 × 44 px; o texto continua no DOM para o leitor de tela." measure={target}><Checkbox label="Selecionar linha 1002" hideLabel checked={false} /></Specimen>
           <Specimen caption="Rótulo longo" rule="A área cresce junto com o texto." measure={target}><Checkbox label="Li e aceito os termos de uso e a política de privacidade" checked={false} /></Specimen>
         </Row>
       </Block>

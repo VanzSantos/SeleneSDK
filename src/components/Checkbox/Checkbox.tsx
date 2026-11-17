@@ -47,7 +47,7 @@ export function Checkbox({
   return (
     <div className={styles.field}>
       <label
-        className={`${styles.row} ${disabled ? styles.disabled : ""}`}
+        className={`${styles.row} ${hideLabel ? styles.bare : ""} ${disabled ? styles.disabled : ""}`}
         htmlFor={id}
       >
         <input
