@@ -1,5 +1,6 @@
 import type { StoryMeta } from "../types";
 import { TextFieldDemo } from "../molecules/TextFieldDemo";
+import { TextFieldMeasures } from "../molecules/TextFieldMeasures";
 
 const story: StoryMeta = {
   id: "text-field",
@@ -18,6 +19,7 @@ const story: StoryMeta = {
 <TextField label="Ícone nos dois lados" leftIcon="info" rightIcon="arrow-right" value={v} onChange={setV} />
 <TextField label="Senha" type="password" value={senha} onChange={setSenha} />`,
   previewAsCards: true,
+  Measures: TextFieldMeasures,
   Demo: TextFieldDemo,
 };
 

@@ -127,8 +127,8 @@ export function Block({ id, title, lead, children }: { id: string; title: string
   );
 }
 
-export function Row({ children }: { children: ReactNode }) {
-  return <div className={styles.row}>{children}</div>;
+export function Row({ children, wide = false }: { children: ReactNode; wide?: boolean }) {
+  return <div className={wide ? `${styles.row} ${styles.rowWide}` : styles.row}>{children}</div>;
 }
 
 export function Measures({ children }: { children: ReactNode }) {

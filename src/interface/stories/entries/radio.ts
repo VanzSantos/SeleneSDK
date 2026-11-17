@@ -1,5 +1,6 @@
 import type { StoryMeta } from "../types";
 import { RadioDemo } from "../atoms/RadioDemo";
+import { RadioMeasures } from "../atoms/RadioMeasures";
 
 const story: StoryMeta = {
   id: "radio",
@@ -15,6 +16,7 @@ const story: StoryMeta = {
   code: `<Radio label="Mensal" name="plano" value="mensal" checked={plano === "mensal"} onChange={setPlano} />
 <Radio label="Anual" name="plano" value="anual" checked={plano === "anual"} onChange={setPlano} />`,
   previewAsCards: true,
+  Measures: RadioMeasures,
   Demo: RadioDemo,
 };
 

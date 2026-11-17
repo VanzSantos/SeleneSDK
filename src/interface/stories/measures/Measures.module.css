@@ -211,3 +211,8 @@
   white-space: nowrap;
   border: 0;
 }
+
+/* Componentes largos (campos de texto) pedem colunas maiores. */
+.rowWide {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+}

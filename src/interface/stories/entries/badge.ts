@@ -1,5 +1,6 @@
 import type { StoryMeta } from "../types";
 import { BadgeDemo } from "../atoms/BadgeDemo";
+import { BadgeMeasures } from "../atoms/BadgeMeasures";
 
 const story: StoryMeta = {
   id: "badge",
@@ -18,6 +19,7 @@ const story: StoryMeta = {
 <Badge variant="error" count={5} />
 <Badge variant="dark" count={140} max={99} />`,
   previewAsCards: true,
+  Measures: BadgeMeasures,
   Demo: BadgeDemo,
 };
 
