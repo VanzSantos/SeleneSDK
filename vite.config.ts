@@ -22,6 +22,8 @@ function prototableManifestPlugin(): Plugin {
 }
 
 export default defineConfig({
+  // Publicado em https://vanzsantos.github.io/SeleneSDK/ (GitHub Pages serve numa subpasta).
+  base: "/SeleneSDK/",
   plugins: [react(), prototableManifestPlugin()],
   define: { __SDK_VERSION__: JSON.stringify(version) },
 });
